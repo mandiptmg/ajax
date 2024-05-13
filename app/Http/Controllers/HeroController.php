@@ -60,6 +60,7 @@ class HeroController extends Controller
             // $hero->image = $request->image;
 
             if ($request->hasFile('logo')) {
+
                 $imageName = time() . '.' . $request->file('logo')->getClientOriginalExtension();
                 $request->file('logo')->move(public_path('uploads/logo'), $imageName);
 
