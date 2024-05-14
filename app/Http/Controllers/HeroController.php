@@ -13,9 +13,8 @@ class HeroController extends Controller
      */
     public function index()
     {
-
-
-        return view('admin.hero.index');
+        $heroes = Hero::latest()->first();
+        return view('admin.hero.index', compact('heroes'));
     }
 
     /**
@@ -36,15 +35,25 @@ class HeroController extends Controller
      */
     public function store(Request $request)
     {
-
-        $validator = validator($request->all(), [
+        $rules = [
             'title' => 'required',
             'description' => 'required',
-            'logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Ensure uploaded file is an image
-        ], [
+        ];
+
+        // Check if a hero exists
+        if (!$request->hero_id) {
+            // If hero does not exist, make logo required with image validation rules
+            $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif|max:2048';
+        } else {
+            // If hero exists, make logo nullable
+            $rules['logo'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048';
+        }
+
+        // Perform validation
+        $validator = validator($request->all(), $rules, [
             'title.required' => 'Title is required',
             'description.required' => 'Description is required',
-            'logo.image' => 'Uploaded file must be an image',
+            'logo.required' => 'Uploaded file must be an image',
         ]);
 
 
@@ -54,11 +63,12 @@ class HeroController extends Controller
                 'errors' => $validator->errors()
             ]);
         } else {
-            $hero = new hero();
+
+            $hero = $request->hero_id ? Hero::findOrFail($request->hero_id) : new Hero();
+
             $hero->title = $request->title;
             $hero->description = $request->description;
             // $hero->image = $request->image;
-
             if ($request->hasFile('logo')) {
 
                 $imageName = time() . '.' . $request->file('logo')->getClientOriginalExtension();
@@ -66,63 +76,67 @@ class HeroController extends Controller
 
                 $hero->image = $imageName; // Assign the image name to the 'image' attribute
             }
+
+
             $hero->save();
 
             return response()->json(['status' => 200, 'message' => 'Data stored successfully!']);
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        return response()->json(['hero' => $id]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        // $hero = $id;
-        // $data = ['status' => 200, 'message' => 'data update sent', 'user' => $hero];
-        // return response()->json($data, 200);
-
-        // return response()->json(['hero' => $hero]);
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        $hero = hero::find($id);
-        $hero->title = $request->title;
-        $hero->description = $request->description;
-        // $hero->image = $request->image;
-
-        if ($request->hasFile('logo')) {
-            $imageName = time() . '.' . $request->file('logo')->getClientOriginalExtension();
-            $request->file('logo')->move(public_path('uploads/logo'), $imageName);
-
-            $hero->image = $imageName; // Assign the image name to the 'image' attribute
-        }
-        $hero->save();
-
-
-        return response()->json(['status' => 200, 'message' => 'Data stored successfully!']);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $hero = Hero::find($id);
-        $hero->delete();
-        $data = ['status' => 200, 'message' => 'Hero deleted successfully'];
-        return response()->json($data, 200);
-    }
 }
+
+    // public function edit($id)
+    // {
+    //     $heroes = Hero::findOrFail($id);
+    //     return view('admin.hero.edit', compact('heroes'));
+    // }
+
+    // public function update(Request $request, $id)
+    // {
+
+    //     $validator = validator($request->all(), [
+    //         'title' => 'required',
+    //         'description' => 'required',
+    //         'logo' => 'nullable|mimes:jpeg,png,jpg,gif|max:2048', // Ensure uploaded file is an image
+    //     ], [
+    //         'title.required' => 'Title is required',
+    //         'description.required' => 'Description is required',
+    //         'logo.required' => 'Uploaded file must be an image',
+    //     ]);
+
+
+    //     if ($validator->fails()) {
+    //         return response()->json([
+    //             'status' => 400,
+    //             'errors' => $validator->errors()
+    //         ]);
+    //     } else {
+    //         $hero = Hero::findOrFail($id);
+    //         $hero->title = $request->title;
+    //         $hero->description = $request->description;
+    //         // $hero->image = $request->image;
+    //         if (isset($request->image)) {
+    //             if ($request->hasFile('logo')) {
+
+    //                 $imageName = time() . '.' . $request->file('logo')->getClientOriginalExtension();
+    //                 $request->file('logo')->move(public_path('uploads/logo'), $imageName);
+
+    //                 $hero->image = $imageName; // Assign the image name to the 'image' attribute
+    //             }
+    //         }
+
+    //         $hero->save();
+
+    //         return response()->json(['status' => 200, 'message' => 'Data stored successfully!']);
+    //     }
+    // }
+
+
+//     public function destroy(string $id)
+//     {
+//         $hero = Hero::find($id);
+//         $hero->delete();
+//         $data = ['status' => 200, 'message' => 'Hero deleted successfully'];
+//         return response()->json($data, 200);
+//     }
+// }

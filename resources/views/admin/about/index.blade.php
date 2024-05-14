@@ -8,7 +8,7 @@
             <li>
                 <a href="index.html">Home</a>
             </li>
-            <li>Hero section</li>
+            <li>About section</li>
         </ul>
     </div>
     <!-- Breadcubs Area End Here -->
@@ -17,7 +17,7 @@
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>Hero Section</h3>
+                    <h3>About Section</h3>
                 </div>
                 <div id="result"></div>
             </div>
@@ -40,7 +40,7 @@
                         <label class="text-dark-medium">Upload Student Photo (150px X 150px)</label>
                         <input type="file" class="form-control-file" value="{{old('logo', $heroes->image ?? '')}}" id="logo" name="logo">
 
-                        <div id="logoError"></div>          
+                        <div id="logoError"></div>
 
 
                     </div>

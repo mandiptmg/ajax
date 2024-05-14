@@ -440,7 +440,8 @@
     <script src="{{asset('js/datepicker.min.js')}}"></script>
     <!-- Custom Js -->
     <script src="{{asset('js/main.js')}}"></script>
-
+    <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    @yield('tinymce') -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     @yield('scripts')

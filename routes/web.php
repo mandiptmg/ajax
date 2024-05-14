@@ -15,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/admin/hero', [HeroController::class, 'index'])->name('hero.index');
 Route::post('/admin/store', [HeroController::class, 'store'])->name('hero.store');
-
-
-
+// Route::get('/admin/hero/{id}', [HeroController::class, 'edit'])->name('hero.edit');
+// Route::put('/admin/hero/{id}', [HeroController::class, 'update'])->name('hero.update');
 Route::get('/', function () {
     return view('welcome');
 });
