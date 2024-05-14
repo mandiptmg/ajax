@@ -14,7 +14,7 @@ class HeroController extends Controller
     public function index()
     {
         $hero = hero::all();
-        $data         = ['status' => 200, 'hero' => $hero];
+        $data = ['status' => 200, 'hero' => $hero];
         return response()->json($data, 200);
     }
 }

@@ -23,22 +23,22 @@
             </div>
             <form class="new-added-form" id="myForm" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" id="hero_id" name="hero_id" value="{{ $heroes->id ?? '' }}">
+                <input type="hidden" id="about_id" name="about_id" value="{{ $abouts->id ?? '' }}">
 
                 <div class="row">
                     <div class="col-lg-6 col-12 form-group">
                         <label>Title</label>
-                        <input type="text" placeholder="" id="title" value="{{old('title',$heroes->title ?? '')}}" class="form-control" name="title">
+                        <input type="text" placeholder="" id="title" value="{{old('title',$abouts->title ?? '')}}" class="form-control" name="title">
                         <div id="titleError"></div>
                     </div>
                     <div class="col-lg-6 col-12 form-group">
                         <label>Description *</label>
-                        <textarea rows="9" cols="10" type="text" placeholder="" id='description' class="form-control" name="description">{{old('description', $heroes->description ?? '' )}}</textarea>
+                        <textarea rows="9" cols="10" type="text" placeholder="" id='description' class="form-control" name="description">{{old('description', $abouts->description ?? '' )}}</textarea>
                         <div id="descriptionError"></div>
                     </div>
                     <div class="col-lg-6 col-12 form-group mg-t-30">
                         <label class="text-dark-medium">Upload Student Photo (150px X 150px)</label>
-                        <input type="file" class="form-control-file" value="{{old('logo', $heroes->image ?? '')}}" id="logo" name="logo">
+                        <input type="file" class="form-control-file" value="{{old('logo', $abouts->image ?? '')}}" id="logo" name="logo">
 
                         <div id="logoError"></div>
 
@@ -58,17 +58,17 @@
 
 
         <div class="d-flex flex-row  align-items-center m-5 w-full rounded gap-4 p-5 bg-white">
-            @if($heroes)
+            @if($abouts)
 
             <div>
                 <div class="">
-                    {{$heroes->title}}
+                    {{$abouts->title}}
                 </div>
                 <div>
-                    {{$heroes->description}}
+                    {{$abouts->description}}
                 </div>
             </div>
-            <img src="{{asset('uploads/logo/'.$heroes->image)}}" alt="" width="350px" height="350px">
+            <img src="{{asset('uploads/logo/'.$abouts->image)}}" alt="" width="350px" height="350px">
 
 
             @endif
@@ -90,7 +90,7 @@
             e.preventDefault();
             var formData = new FormData(this); // Create FormData object
             $.ajax({
-                url: "{{ route('hero.store') }}",
+                url: "{{ route('about.store') }}",
                 type: 'POST',
                 data: formData,
                 dataType: 'json',
@@ -110,8 +110,8 @@
                         $('#result').text(response.message);
                         $('#result').addClass('btn btn-success')
                         $('form')[0].reset();
-                        // Reload the page if $heroes exists
-                    @if($heroes)
+                        // Reload the page if $abouts exists
+                    @if($abouts)
                         location.reload();
                     @endif
                     }

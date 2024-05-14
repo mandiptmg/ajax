@@ -269,19 +269,19 @@
                                     <a href="hero" class="nav-link"><i class="fas fa-angle-right"></i>Hero Section</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="admit-form.html" class="nav-link"><i class="fas fa-angle-right"></i>About section</a>
+                                    <a href="about" class="nav-link"><i class="fas fa-angle-right"></i>About section</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="student-promotion.html" class="nav-link"><i class="fas fa-angle-right"></i>services section</a>
+                                    <a href="services" class="nav-link"><i class="fas fa-angle-right"></i>services section</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="all-student.html" class="nav-link"><i class="fas fa-angle-right"></i>portfolio section</a>
+                                    <a href="portfolio" class="nav-link"><i class="fas fa-angle-right"></i>portfolio section</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="all-student.html" class="nav-link"><i class="fas fa-angle-right"></i>testimonial section</a>
+                                    <a href="testimonial" class="nav-link"><i class="fas fa-angle-right"></i>testimonial section</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="all-student.html" class="nav-link"><i class="fas fa-angle-right"></i>product section</a>
+                                    <a href="product" class="nav-link"><i class="fas fa-angle-right"></i>product section</a>
                                 </li>
                             </ul>
                         </li>
@@ -295,7 +295,7 @@
                                     <a href="teacher-details.html" class="nav-link"><i class="fas fa-angle-right"></i>Teacher Details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="add-teacher.html" class="nav-link menu-active"><i class="fas fa-angle-right"></i>Add Teacher</a>
+                                    <a href="add-teacher.html" class="nav-link"><i class="fas fa-angle-right"></i>Add Teacher</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="teacher-payment.html" class="nav-link"><i class="fas fa-angle-right"></i>Payment</a>
