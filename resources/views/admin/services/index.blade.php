@@ -31,65 +31,112 @@
 
                 <div>
                     <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <h3>Services</h3>
-                    </div>
-                    <!-- Button trigger modal -->
-                    <div>
-                        <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
-                        Add Service
-                        </button>
+                        <div>
+                            <h3>Services</h3>
+                        </div>
+                        <!-- Button trigger modal -->
+                        <div>
+                            <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
+                                Add Service
+                            </button>
+
+                        </div>
+
 
                     </div>
 
 
-                    </div>
-                    
-                    
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title fs-5" id="exampleModalLabel">Add Service</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                        <form class="new-added-form" id="myForm" enctype="multipart/form-data">
-                            @csrf
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title fs-5" id="exampleModalLabel">Add Service</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="new-added-form" id="myForm" enctype="multipart/form-data">
+                                        @csrf
 
-                            <div class="row">
-                                <div class="col-lg-6 col-12 form-group">
-                                    <label>Title</label>
-                                    <input type="text" placeholder="" id="title" value="{{old('title')}}" class="form-control" name="title">
-                                    <div id="titleError"></div>
-                                </div>
-                                <div class="col-lg-6 col-12 form-group">
-                                    <label>Description *</label>
-                                    <textarea rows="9" cols="10" type="text" placeholder="" id='description' class="form-control" name="description">{{old('description')}}</textarea>
-                                    <div id="descriptionError"></div>
-                                </div>
-                                <div class="col-lg-6 col-12 form-group">
-                                    <label>Icon *</label>
-                                    <input type="text" placeholder="" id='icon' class="form-control" name="icon" value="{{old('icon')}}">
-                                    <div id="iconError"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-12 form-group">
+                                                <label>Title</label>
+                                                <input type="text" placeholder="" id="" value="{{old('title')}}" class="form-control" name="title">
+                                                <div id="titleError"></div>
+                                            </div>
+                                            <div class="col-lg-6 col-12 form-group">
+                                                <label>Description *</label>
+                                                <textarea rows="9" cols="10" type="text" placeholder="" id='' class="form-control" name="description">{{old('description')}}</textarea>
+                                                <div id="descriptionError"></div>
+                                            </div>
+                                            <div class="col-lg-6 col-12 form-group">
+                                                <label>Icon *</label>
+                                                <input type="text" placeholder="" id='' class="form-control" name="icon" value="{{old('icon')}}">
+                                                <div id="iconError"></div>
+                                            </div>
+
+                                            <div class="col-12 form-group mg-t-8">
+                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
+                                                <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
                                 </div>
 
-                                <div class="col-12 form-group mg-t-8">
-                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                    <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
-                                </div>
                             </div>
+                        </div>
+                    </div>
 
-                        </form>
-                        </div>
-                       
+
+
+                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title fs-5" id="exampleModalLabel">Edit Service</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="new-added-form" id="myForm" enctype="multipart/form-data">
+                                        @csrf
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-12 form-group">
+                                                <label>Title</label>
+                                                <input type="text" placeholder="" id="title" value="{{old('title')}}" class="form-control" name="title">
+                                                <div id="titleError"></div>
+                                            </div>
+                                            <div class="col-lg-6 col-12 form-group">
+                                                <label>Description *</label>
+                                                <textarea rows="9" cols="10" type="text" placeholder="" id='description' class="form-control" name="description">{{old('description')}}</textarea>
+                                                <div id="descriptionError"></div>
+                                            </div>
+                                            <div class="col-lg-6 col-12 form-group">
+                                                <label>Icon *</label>
+                                                <input type="text" placeholder="" id='icon' class="form-control" name="icon" value="{{old('icon')}}">
+                                                <div id="iconError"></div>
+                                            </div>
+
+                                            <div class="col-12 form-group mg-t-8">
+                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
+                                                <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                    </div>
+
+
                 </div>
                 <form class="mg-b-20">
                     <div class="row gutters-8">
@@ -121,7 +168,7 @@
                                 <th>Description</th>
                                 <th>Icon</th>
                                 <th>Action</th>
-                                
+
                             </tr>
 
 
@@ -131,16 +178,23 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $service->title }}</td>
-                                <td >{{ $service->ShortDescription }}</td>
+                                <td>{{ $service->ShortDescription }}</td>
                                 <td>{{ $service->icon }}</td>
 
                                 <td>
                                     <div class="d-flex flex-row gap-4 font-semibold">
                                         <div class="px-1">
-                                            <button  class="btn btn-primary btn-lg">Edit</button>
+                                            <!-- <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ $service->id }}', '{{ $service->title }}', '{{ $service->description }}','{{ $service->icon }}' )" data-toggle="modal" data-target="#editModal">
+                                                Edit
+                                            </button> -->
+
+                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($service->id) }}', '{{ addslashes($service->title) }}', '{{ addslashes($service->description) }}','{{ addslashes($service->icon) }}' )" data-toggle="modal" data-target="#editModal">
+                                                Edit
+                                            </button>
+
                                         </div>
                                         <div>
-                                            <button  class="btn btn-danger btn-lg">Delete</button>
+                                            <button class="btn btn-danger btn-lg">Delete</button>
                                         </div>
                                     </div>
 
@@ -169,6 +223,13 @@
 @section('scripts')
 
 <script>
+    function edit(id, title, description, icon) {
+        $('#title').val(title);
+        $('#description').val(description);
+        $('#icon').val(icon);
+        $('#service_id').val(id);
+    }
+
     $(document).ready(function() {
         $('#myForm').submit(function(e) {
             e.preventDefault();

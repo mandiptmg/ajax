@@ -53,4 +53,9 @@ class ServiceController extends Controller
             return response()->json(['status' => 200, 'message' => 'Data stored successfully!']);
         }
     }
+
+    public function edit($id){
+        $service = Service::findOrFail($id);
+        return response()->json($service);
+    }
 }
