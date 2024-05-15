@@ -174,7 +174,7 @@
 
 
                 </div>
-                <form class="mg-b-20">
+                <!-- <form class="mg-b-20">
                     <div class="row gutters-8">
                         <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
                             <input type="text" placeholder="Search by ID ..." class="form-control">
@@ -189,7 +189,7 @@
                             <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
                         </div>
                     </div>
-                </form>
+                </form> -->
 
                 <!-- data tabel  -->
                 <div class="table-responsive">

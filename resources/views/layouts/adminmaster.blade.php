@@ -7,12 +7,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>AKKHOR | Add Teacher</title>
+    <title>Creation Soft Nepal</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/public//logo.png">
     <!-- Normalize CSS -->
     <link rel="stylesheet" href="{{asset('css/normalize.css')}}">
     <!-- Main CSS -->
@@ -45,7 +45,7 @@
             <div class="nav-bar-header-one">
                 <div class="header-logo">
                     <a href="index.html">
-                        <img src="img/logo.png" alt="logo">
+                        <img src="https://www.creationsoftnepal.com/assets/img/logo_cs.png" width="120px" alt="creation-soft-logo">
                     </a>
                 </div>
                 <div class="toggle-button sidebar-toggle">
