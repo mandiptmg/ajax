@@ -54,8 +54,50 @@ class ServiceController extends Controller
         }
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
+        $services = Service::findOrFail($id);
+        return view('admin.hero.edit', compact('services'));
+    }
+    
+    public function update(Request $request, String $id)
+    {
+
+        $rules = [
+            'title' => 'required',
+            'description' => 'required',
+            'icon' => 'required',
+        ];
+
+
+        // Perform validation
+        $validator = validator($request->all(), $rules, [
+            'title.required' => 'Title is required',
+            'description.required' => 'Description is required',
+            'icon.required' => 'icon is required',
+        ]);
+
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validator->errors()
+            ]);
+        } else {
+
+            $service =  Service::findOrFail($id); 
+            $service->title = $request->title;
+            $service->description = $request->description;
+            $service->icon = $request->icon;
+            $service->save();
+
+            return response()->json(['status' => 200, 'message' => 'Data updated successfully!']);
+        }
+    } 
+    public function destroy($id){
         $service = Service::findOrFail($id);
-        return response()->json($service);
+        $service->delete();
+        return redirect()->back()->with('success', 'Service Deleted Successfully');
+        // return response()->json(['status' => 200, 'message' => 'Data deleted successfully!']);
     }
 }

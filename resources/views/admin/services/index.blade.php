@@ -15,19 +15,22 @@
     <div class="dashboard-content-one">
         <div class="card height-auto">
             <div class="card-body">
-                <!-- <div class="heading-layout1">
-                  
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">...</a>
-
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                            <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                        </div>
-                    </div>
-                </div> -->
-
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible">
+                    {{ $message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @elseif($message = Session::get('failure'))
+                <div class="alert alert-success alert-danger">
+                    {{ $message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
+                <div id="result"></div>
 
                 <div>
                     <div class="d-flex justify-content-between align-items-center">
@@ -39,10 +42,7 @@
                             <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
                                 Add Service
                             </button>
-
                         </div>
-
-
                     </div>
 
 
@@ -92,6 +92,7 @@
                     </div>
 
 
+                    <!--Edit Modal -->
 
                     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -103,12 +104,14 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="new-added-form" id="myForm" enctype="multipart/form-data">
+                                    <form class="new-added-form" id="editform" enctype="multipart/form-data">
                                         @csrf
+                                        @method('PUT')
 
                                         <div class="row">
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label>Title</label>
+                                                <input type="hidden" id="service_id" name="service_id">
                                                 <input type="text" placeholder="" id="title" value="{{old('title')}}" class="form-control" name="title">
                                                 <div id="titleError"></div>
                                             </div>
@@ -137,6 +140,39 @@
                     </div>
 
 
+                    <!--Destroy Modal -->
+
+                    <div class="modal fade" id="destroyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title fs-5" id="exampleModalLabel">Delete Service</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="new-added-form" method="POST" id="deleteform" enctype="multipart/form-data">
+                                        {{csrf_field()}}
+                                        {{method_field('DELETE')}}
+                                        <div class=" form-group">
+
+                                            <input type="hidden" id="service_id" name="service_id">
+                                            <div class="">
+                                                Are you Sure ? You want to delete this Service.
+                                            </div>
+                                            <div class=" form-group mg-t-8">
+                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Delete</button>
+                                                <button type="submit" data-dismiss="modal" aria-label="Close" class="btn bg-danger btn-fill-lg ">Cancel</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
                 <form class="mg-b-20">
                     <div class="row gutters-8">
@@ -154,6 +190,8 @@
                         </div>
                     </div>
                 </form>
+
+                <!-- data tabel  -->
                 <div class="table-responsive">
                     <table class="table display data-table text-nowrap">
                         <thead>
@@ -194,7 +232,7 @@
 
                                         </div>
                                         <div>
-                                            <button class="btn btn-danger btn-lg">Delete</button>
+                                            <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($service->id) }}')" class="btn btn-danger btn-lg">Delete</button>
                                         </div>
                                     </div>
 
@@ -223,13 +261,58 @@
 @section('scripts')
 
 <script>
+    function destroy(id) {
+        console.log(id);
+        var form = $('#deleteform');
+        var address = "{{url('admin/services/')}}" + '/' + id;
+        form.prop('action', address);
+    }
+
     function edit(id, title, description, icon) {
         $('#title').val(title);
         $('#description').val(description);
         $('#icon').val(icon);
         $('#service_id').val(id);
-    }
 
+    }
+    $(document).ready(function() {
+        $('#editform').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this); // Create FormData object
+            var serviceId = formData.get('service_id');
+            console.log(serviceId);
+
+            $.ajax({
+                url: "{{ url('admin/services/') }}" + '/' + serviceId,
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false, // Set content type to false for file uploads
+                processData: false, // Prevent jQuery from automatically processing the data
+                success: function(response) {
+
+                    if (response.status == 400) {
+                        $('#titleError').html('');
+                        $('#descriptionError').html('');
+                        $('#iconError').html('');
+
+                        $.each(response.errors, function(key, err_value) {
+                            $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
+                        });
+                    } else {
+                        $('#result').text(response.message);
+                        $('#result').addClass('btn btn-success')
+                        $('form')[0].reset();
+                        // Reload the page if $services exists
+                        @if($services)
+                        location.reload();
+                        @endif
+                    }
+                }
+
+            });
+        });
+    });
     $(document).ready(function() {
         $('#myForm').submit(function(e) {
             e.preventDefault();

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HeroController;
+use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,12 @@ Route::get('/admin/about', [AboutController::class, 'index'])->name('about.index
 Route::post('/admin/about', [AboutController::class, 'store'])->name('about.store');
 Route::get('/admin/services', [ServiceController::class, 'index'])->name('service.index');
 Route::post('/admin/services', [ServiceController::class, 'store'])->name('service.store');
-
+Route::put('/admin/services/{id}', [ServiceController::class, 'update'])->name('service.update');
+Route::delete('/admin/services/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+Route::get('/admin/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
+Route::post('/admin/portfolios', [PortfolioController::class, 'store'])->name('portfolio.store');
+Route::put('/admin/portfolios/{id}', [PortfolioController::class, 'update'])->name('portfolio.update');
+Route::delete('/admin/portfolios/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
 
 
 Route::get('/', function () {
