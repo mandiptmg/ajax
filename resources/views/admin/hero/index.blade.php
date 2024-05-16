@@ -40,13 +40,12 @@
                         <label class="text-dark-medium">Upload Student Photo (150px X 150px)</label>
                         <input type="file" class="form-control-file" value="{{old('logo', $heroes->image ?? '')}}" id="logo" name="logo">
 
-                        <div id="logoError"></div>          
+                        <div id="logoError"></div>
 
 
                     </div>
                     <div class="col-12 form-group mg-t-8">
                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                        <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
 
 
 
@@ -56,23 +55,24 @@
             </form>
         </div>
 
+        <article>
+            <div id="heroId" class="d-flex flex-row  align-items-center m-5 w-full rounded gap-4 p-5 bg-white">
+                @if($heroes)
 
-        <div class="d-flex flex-row  align-items-center m-5 w-full rounded gap-4 p-5 bg-white">
-            @if($heroes)
-
-            <div>
-                <div class="">
-                    {{$heroes->title}}
-                </div>
                 <div>
-                    {{$heroes->description}}
+                    <div class="">
+                        {{$heroes->title}}
+                    </div>
+                    <div>
+                        {{$heroes->description}}
+                    </div>
                 </div>
+                <img src="{{asset('uploads/logo/'.$heroes->image)}}" alt="" width="350px" height="350px">
+
+
+                @endif
             </div>
-            <img src="{{asset('uploads/logo/'.$heroes->image)}}" alt="" width="350px" height="350px">
-
-
-            @endif
-        </div>
+        </article>
 
     </div>
     <!-- Add New Teacher Area End Here -->
@@ -111,9 +111,10 @@
                         $('#result').addClass('btn btn-success')
                         $('form')[0].reset();
                         // Reload the page if $heroes exists
-                    @if($heroes)
-                        location.reload();
-                    @endif
+                        $.get(window.location.href, function(data) {
+                            var newDev = $(data).find('article #heroId').html();
+                            $('article #heroId').html(newDev);
+                        });
                     }
                 }
 

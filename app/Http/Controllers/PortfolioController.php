@@ -75,7 +75,7 @@ class PortfolioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request)
     {
 
         $rules = [
@@ -84,7 +84,7 @@ class PortfolioController extends Controller
 
 
         // Check if a hero exists
-        if (!$request->$id) {
+        if (!$request->portfolio_id) {
             // If hero does not exist, make logo required with image validation rules
             $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif|max:2048';
         } else {
@@ -106,7 +106,7 @@ class PortfolioController extends Controller
                 'errors' => $validator->errors()
             ]);
         } else {
-            $portfolio =Portfolio::findOrFail($id);
+            $portfolio =Portfolio::findOrFail($request->portfolio_id);
             $portfolio->url = $request->url;
             if ($request->hasFile('logo')) {
 

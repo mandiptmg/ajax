@@ -46,7 +46,6 @@
                     </div>
                     <div class="col-12 form-group mg-t-8">
                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                        <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
 
 
 
@@ -56,23 +55,24 @@
             </form>
         </div>
 
+        <article>
+            <div id="aboutId" class="d-flex flex-row  align-items-center m-5 w-full rounded gap-4 p-5 bg-white">
+                @if($abouts)
 
-        <div class="d-flex flex-row  align-items-center m-5 w-full rounded gap-4 p-5 bg-white">
-            @if($abouts)
-
-            <div>
-                <div class="">
-                    {{$abouts->title}}
-                </div>
                 <div>
-                    {{$abouts->description}}
+                    <div class="">
+                        {{$abouts->title}}
+                    </div>
+                    <div>
+                        {{$abouts->description}}
+                    </div>
                 </div>
+                <img src="{{asset('uploads/logo/'.$abouts->image)}}" alt="" width="350px" height="350px">
+
+
+                @endif
             </div>
-            <img src="{{asset('uploads/logo/'.$abouts->image)}}" alt="" width="350px" height="350px">
-
-
-            @endif
-        </div>
+        </article>
 
     </div>
     <!-- Add New Teacher Area End Here -->
@@ -110,10 +110,10 @@
                         $('#result').text(response.message);
                         $('#result').addClass('btn btn-success')
                         $('form')[0].reset();
-                        // Reload the page if $abouts exists
-                    @if($abouts)
-                        location.reload();
-                    @endif
+                        $.get(window.location.href, function(data) {
+                            var newDev = $(data).find('article #aboutId').html();
+                            $('article #aboutId').html(newDev);
+                        });
                     }
                 }
 

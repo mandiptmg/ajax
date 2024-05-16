@@ -49,7 +49,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title fs-5" id="exampleModalLabel">Edit Service</h3>
+                            <h3 class="modal-title fs-5" id="exampleModalLabel">Add Portfolio</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -57,7 +57,6 @@
                         <div class="modal-body">
                             <form class="new-added-form" id="myForm" enctype="multipart/form-data">
                                 @csrf
-
 
                                 <div class="row">
 
@@ -75,7 +74,7 @@
                                     </div>
                                     <div class="col-12 form-group mg-t-8">
                                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                        <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
+                                      
 
 
 
@@ -112,7 +111,7 @@
 
                                     <div class="d-flex w-full form-group mg-t-30">
                                         <div class="w-full"> <label class="text-dark-medium">Upload Portfolio Photo</label>
-                                            <input type="file" class="form-control-file" value="{{old('logo')}}" id="logo" name="logo">
+                                            <input type="file" class="form-control-file" value="{{old('logo')}}" id="image1" name="logo">
                                             <div id="logoError"></div>
                                         </div>
 
@@ -124,10 +123,7 @@
                                     </div>
                                     <div class="col-12 form-group mg-t-8">
                                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Update</button>
-                                        <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
-
-
-
+                                       
                                     </div>
                                 </div>
 
@@ -193,7 +189,7 @@
 
 
                     </thead>
-                    <tbody>
+                    <tbody id="portfolioId">
                         @foreach ($portfolios as $key=>$portfolio)
                         <tr>
                             <td>{{ ++$key }}</td>
@@ -205,7 +201,7 @@
                                     <div class="px-1">
 
 
-                                        <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($portfolio->id) }}', '{{ addslashes($portfolio->url) }}', '{{ addslashes($portfolio->image) }}')" data-toggle="modal" data-target="#editModal">
+                                        <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($portfolio->id) }}', '{{ addslashes($portfolio->url) }}')" data-toggle="modal" data-target="#editModal">
                                             Edit
                                         </button>
 
@@ -238,13 +234,13 @@
         function destroy(id) {
             console.log(id);
             var form = $('#deleteform');
-            var address = "{{url('admin/portfolios/')}}" + '/' + id;
+            var address = "{{url('admin/portfolios/delete')}}" + '/' + id;
             form.prop('action', address);
         }
 
-        function edit(id, url, image) {
-            $('#url1').val(url);
+        function edit(id, url,image) {
             $('#portfolio').val(id);
+            $('#url1').val(url);
 
         }
         $(document).ready(function() {
@@ -255,7 +251,7 @@
                 console.log(portfolioId);
 
                 $.ajax({
-                    url: "{{ url('admin/portfolios/') }}" + '/' + portfolioId,
+                    url: "{{ url('admin/portfolios') }}" + '/' + portfolioId,
                     type: 'POST',
                     data: formData,
                     dataType: 'json',
@@ -266,18 +262,19 @@
                         if (response.status == 400) {
                             $('#urlError').html('');
                             $('#logoError').html('');
-
                             $.each(response.errors, function(key, err_value) {
                                 $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
                             });
                         } else {
+                            $('form')[1].reset();
                             $('#result').text(response.message);
-                            $('#result').addClass('btn btn-success')
-                            $('form')[0].reset();
-                            // Reload the page if $services exists
-                            @if($portfolios)
-                            location.reload();
-                            @endif
+                            $('#result').addClass('btn btn-success');
+                            $.get(window.location.href, function(data) {
+                                var newTbody = $(data).find('.table-responsive #portfolioId').html();
+                                $('.table-responsive #portfolioId').html(newTbody);
+                            });
+                            $('#editModal').modal('hide');
+
                         }
                     }
 
@@ -306,12 +303,14 @@
                             });
                         } else {
                             $('#result').text(response.message);
-                            $('#result').addClass('btn btn-success')
+                            $('#result').addClass('btn btn-success');
                             $('form')[0].reset();
-                            // Reload the page if $portfolios exists
-                            @if($portfolios)
-                            location.reload();
-                            @endif
+                            $.get(window.location.href, function(data) {
+                                var newTbody = $(data).find('.table-responsive #portfolioId').html();
+                                $('.table-responsive #portfolioId').html(newTbody);
+                            });
+                            $('#exampleModal').modal('hide');
+
                         }
                     }
 

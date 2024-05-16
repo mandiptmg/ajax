@@ -26,17 +26,17 @@ Route::post('/admin/about', [AboutController::class, 'store'])->name('about.stor
 Route::get('/admin/services', [ServiceController::class, 'index'])->name('service.index');
 Route::post('/admin/services', [ServiceController::class, 'store'])->name('service.store');
 Route::put('/admin/services/{id}', [ServiceController::class, 'update'])->name('service.update');
-Route::delete('/admin/services/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+Route::delete('/admin/services/delete/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
 Route::get('/admin/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
 Route::post('/admin/portfolios', [PortfolioController::class, 'store'])->name('portfolio.store');
 Route::put('/admin/portfolios/{id}', [PortfolioController::class, 'update'])->name('portfolio.update');
-Route::delete('/admin/portfolios/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
+Route::delete('/admin/portfolios/delete/{id}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
 
 Route::get('/admin/testimonial', [TestimonialController::class, 'index'])->name('testimonial.index');
 Route::post('/admin/testimonial', [TestimonialController::class, 'store'])->name('testimonial.store');
 Route::put('/admin/testimonials/{id}', [TestimonialController::class, 'update'])->name('testimonial.update');
-Route::delete('/admin/testimonials/{id}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
+Route::delete('/admin/testimonials/delete/{id}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
 
 
 Route::get('/', function () {

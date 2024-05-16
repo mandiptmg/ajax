@@ -69,7 +69,6 @@
 
                                     <div class="col-12 form-group mg-t-8">
                                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                        <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
                                     </div>
                                 </div>
 
@@ -122,7 +121,6 @@
 
                                     <div class="col-12 form-group mg-t-8">
                                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Update</button>
-                                        <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
                                     </div>
                                 </div>
 
@@ -184,9 +182,8 @@
 
                         </tr>
 
-
                     </thead>
-                    <tbody>
+                    <tbody id="testimonialId">
                         @foreach ($testimonials as $key=>$testimonial)
                         <tr>
                             <td>{{ ++$key }}</td>
@@ -233,17 +230,18 @@
     function destroy(id) {
         console.log(id);
         var form = $('#deleteform');
-        var address = "{{url('admin/testimonials/')}}" + '/' + id;
+        var address = "{{url('admin/testimonials/delete')}}" + '/' + id;
         form.prop('action', address);
     }
-    function edit(id, name,occupation,description,image) {
-            $('#name1').val(name);
-            $('#occupation1').val(occupation);
-            $('#description1').val(description);
-            $('#testimonial').val(id);
 
-        }
-        $(document).ready(function() {
+    function edit(id, name, occupation, description, image) {
+        $('#name1').val(name);
+        $('#occupation1').val(occupation);
+        $('#description1').val(description);
+        $('#testimonial').val(id);
+
+    }
+    $(document).ready(function() {
         $('#editform').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this); // Create FormData object
@@ -270,13 +268,14 @@
                             $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
                         });
                     } else {
-                        $('#result').text(response.message);
-                        $('#result').addClass('btn btn-success')
-                        $('form')[0].reset();
-                        // Reload the page if $testimonials exists
-                        @if($testimonials)
-                        location.reload();
-                        @endif
+                        $('form')[1].reset();
+                            $('#result').text(response.message);
+                            $('#result').addClass('btn btn-success');
+                            $.get(window.location.href, function(data) {
+                                var newTbody = $(data).find('.table-responsive #testimonialId').html();
+                                $('.table-responsive #testimonialId').html(newTbody);
+                            });
+                            $('#editModal').modal('hide');
                     }
                 }
 
@@ -311,10 +310,11 @@
                         $('#result').text(response.message);
                         $('#result').addClass('btn btn-success')
                         $('form')[0].reset();
-                        // Reload the page if $testimonials exists
-                        @if($testimonials)
-                        location.reload();
-                        @endif
+                        $.get(window.location.href, function(data) {
+                            var newTbody = $(data).find('.table-responsive #testimonialId').html();
+                            $('.table-responsive #testimonialId').html(newTbody);
+                        });
+                        $('#exampleModal').modal('hide');
                     }
                 }
 

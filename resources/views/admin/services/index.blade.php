@@ -80,7 +80,6 @@
 
                                             <div class="col-12 form-group mg-t-8">
                                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                                <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
                                             </div>
                                         </div>
 
@@ -127,8 +126,7 @@
                                             </div>
 
                                             <div class="col-12 form-group mg-t-8">
-                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                                <button type="rest" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button>
+                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Upload</button>
                                             </div>
                                         </div>
 
@@ -172,7 +170,6 @@
                     </div>
 
 
-
                 </div>
                 <!-- <form class="mg-b-20">
                     <div class="row gutters-8">
@@ -211,7 +208,7 @@
 
 
                         </thead>
-                        <tbody>
+                        <tbody id="serviceId">
                             @foreach ($services as $key=>$service)
                             <tr>
                                 <td>{{ ++$key }}</td>
@@ -264,7 +261,7 @@
     function destroy(id) {
         console.log(id);
         var form = $('#deleteform');
-        var address = "{{url('admin/services/')}}" + '/' + id;
+        var address = "{{url('admin/services/delete/')}}" + '/' + id;
         form.prop('action', address);
     }
 
@@ -274,14 +271,13 @@
         $('#icon').val(icon);
         $('#service_id').val(id);
 
+
     }
     $(document).ready(function() {
         $('#editform').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this); // Create FormData object
             var serviceId = formData.get('service_id');
-            console.log(serviceId);
-
             $.ajax({
                 url: "{{ url('admin/services/') }}" + '/' + serviceId,
                 type: 'POST',
@@ -301,12 +297,13 @@
                         });
                     } else {
                         $('#result').text(response.message);
-                        $('#result').addClass('btn btn-success')
-                        $('form')[0].reset();
-                        // Reload the page if $services exists
-                        @if($services)
-                        location.reload();
-                        @endif
+                        $('#result').addClass('btn btn-success');
+                        $.get(window.location.href, function(data) {
+                            var newTbody = $(data).find('.table-responsive #serviceId').html();
+                            $('.table-responsive #serviceId').html(newTbody);
+                        });
+                        $('#editModal').modal('hide');
+
                     }
                 }
 
@@ -335,13 +332,17 @@
                             $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
                         });
                     } else {
+
                         $('#result').text(response.message);
                         $('#result').addClass('btn btn-success')
                         $('form')[0].reset();
                         // Reload the page if $services exists
-                        @if($services)
-                        location.reload();
-                        @endif
+                        $.get(window.location.href, function(data) {
+                            var newTbody = $(data).find('.table-responsive #serviceId').html();
+                            $('.table-responsive #serviceId').html(newTbody);
+                        });
+                        $('#exampleModal').modal('hide');
+
                     }
                 }
 
