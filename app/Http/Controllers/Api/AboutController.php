@@ -14,7 +14,19 @@ class AboutController extends Controller
     public function index()
     {
         $about = About::all();
-        $data         = ['status' => 200, 'about' => $about];
+
+        // Map through the about and append the full image URL
+        $about = $about->map(function($about) {
+            $about->image_url = url('uploads/logo/' . $about->image);
+            return $about->makeHidden(['image']);
+            
+        });
+
+        $data = [
+            'status' => 200,
+            'about' => $about
+        ];
+
         return response()->json($data, 200);
     }
 }

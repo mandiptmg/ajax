@@ -80,7 +80,7 @@ class FeatureController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request, $systemId, $featureId)
     {
         $rules = [
             'feature_title' => 'required',
@@ -112,8 +112,7 @@ class FeatureController extends Controller
                 'errors' => $validator->errors()
             ]);
         } else {
-
-            $feature = Feature::findOrFail($id);
+            $feature = Feature::where('product_id', $systemId)->findOrFail($featureId);
             $feature->feature_title = $request->feature_title;
             $feature->feature_description = $request->feature_description;
 
@@ -133,8 +132,8 @@ class FeatureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id){
-        $feature = Feature::findOrFail($id);
+    public function destroy($systemId, $featureId){
+        $feature = Feature::where('product_id', $systemId)->findOrFail($featureId);
         $feature->delete();
         return redirect()->back()->with('success', 'feature Deleted Successfully');
     }

@@ -15,7 +15,19 @@ class PortfolioController extends Controller
 
     {
         $portfolio = Portfolio::all();
-        $data = ['status' => 200, 'services' => $portfolio];
+
+        // Map through the portfolio and append the full image URL
+        $portfolio = $portfolio->map(function($portfolio) {
+            $portfolio->image_url = url('uploads/logo/' . $portfolio->image);
+            return $portfolio->makeHidden(['image']);
+            
+        });
+
+        $data = [
+            'status' => 200,
+            'portfolio' => $portfolio
+        ];
+
         return response()->json($data, 200);
     }
 

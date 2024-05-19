@@ -39,21 +39,26 @@ Route::post('/admin/products', [ProductController::class, 'store'])->name('produ
 Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('product.update');
 Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
-Route::prefix('admin/products/{id}')->group(function () {
-    Route::get('/features', [ProductController::class, 'index'])->name('features.index');
+Route::prefix('admin/products/')->group(function () {
+    Route::get('features', [ProductController::class, 'index'])->name('features.index');
     Route::post('features', [FeatureController::class, 'store'])->name('features.store');
-    Route::put('features/{id}', [FeatureController::class, 'update'])->name('features.update');
-    Route::delete('features/{id}', [FeatureController::class, 'destroy'])->name('features.destroy');
+    Route::put('features/{featureId}', [FeatureController::class, 'update'])->name('features.update');
+    Route::delete('features/{featureId}', [FeatureController::class, 'destroy'])->name('features.destroy');
 
     Route::get('/question_answers', [ProductController::class, 'index'])->name('question_answers.index');
     Route::post('question_answers', [QuestionAnswerController::class, 'store'])->name('question_answers.store');
-    Route::put('question_answers/{id}', [QuestionAnswerController::class, 'update'])->name('question_answers.update');
-    Route::delete('question_answers/{id}', [QuestionAnswerController::class, 'destroy'])->name('question_answers.destroy');
+    Route::put('question_answers/{qaId}', [QuestionAnswerController::class, 'update'])->name('question_answers.update');
+    Route::delete('question_answers/{qaId}', [QuestionAnswerController::class, 'destroy'])->name('question_answers.destroy');
 
-    Route::get('/benefits', [ProductController::class, 'index'])->name('question_answers.index');
+    Route::get('/benefits', [ProductController::class, 'index'])->name('benefits.index');
     Route::post('benefits', [BenefitController::class, 'store'])->name('benefits.store');
-    Route::put('benefits/{id}', [BenefitController::class, 'update'])->name('benefits.update');
-    Route::delete('benefits/{id}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
+    Route::put('benefits/{benefitId}', [BenefitController::class, 'update'])->name('benefits.update');
+    Route::delete('benefits/{benefitId}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
+
+    Route::get('/images', [ProductController::class, 'index'])->name('question_answers.index');
+    Route::post('images', [BenefitController::class, 'store'])->name('images.store');
+    Route::put('images/{imageId}', [BenefitController::class, 'update'])->name('images.update');
+    Route::delete('images/{imageId}', [BenefitController::class, 'destroy'])->name('images.destroy');
 });
 
 

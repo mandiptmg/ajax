@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+
 class Product extends Model
 {
-    use HasFactory;
+  
 
     protected $fillable = ['title', 'short_desc', 'description', 'bg_image1', 'bg_image2'];
+
 
     protected static function boot()
     {

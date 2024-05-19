@@ -50,7 +50,7 @@ class QuestionAnswerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request,  $systemId, $qaId)
     {
 
         $rules = $request->validate([
@@ -69,23 +69,22 @@ class QuestionAnswerController extends Controller
             ]);
         } else {
 
-        $questionAnswer = QuestionAnswer::findOrFail($id);
-
+            $questionAnswer = QuestionAnswer::where('product_id', $systemId)->findOrFail($qaId);
             $questionAnswer->question = $request->question;
             $questionAnswer->answer = $request->answer;
             $questionAnswer->save();
 
             return redirect()->back()->with('success', 'Question Answer added Successfully');
         }
-
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id){
-        $feature = QuestionAnswer::findOrFail($id);
-        $feature->delete();
+    public function  destroy($systemId, $qaId)
+    {
+        $questionAnswer = QuestionAnswer::where('product_id', $systemId)->findOrFail($qaId);
+        $questionAnswer->delete();
         return redirect()->back()->with('success', 'Question Answer Deleted Successfully');
     }
 }

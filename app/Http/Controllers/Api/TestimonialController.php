@@ -12,7 +12,19 @@ class TestimonialController extends Controller
 
     {
         $testimonial = Testimonial::all();
-        $data = ['status' => 200, 'services' => $testimonial];
+
+        // Map through the testimonial and append the full image URL
+        $testimonial = $testimonial->map(function($testimonial) {
+            $testimonial->image_url = url('uploads/logo/' . $testimonial->image);
+            return $testimonial->makeHidden(['image']);
+            
+        });
+
+        $data = [
+            'status' => 200,
+            'testimonial' => $testimonial
+        ];
+
         return response()->json($data, 200);
     }
 

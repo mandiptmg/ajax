@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('benefits', function (Blueprint $table) {
             $table->id();
             $table->text('description');
+            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+
             $table->timestamps();
         });
     }

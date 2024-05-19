@@ -13,8 +13,20 @@ class HeroController extends Controller
      */
     public function index()
     {
-        $hero = hero::all();
-        $data = ['status' => 200, 'hero' => $hero];
+        $hero = Hero::all();
+
+        // Map through the hero and append the full image URL
+        $hero = $hero->map(function($hero) {
+            $hero->image_url = url('uploads/logo/' . $hero->image);
+            return $hero->makeHidden(['image']);
+            
+        });
+
+        $data = [
+            'status' => 200,
+            'hero' => $hero
+        ];
+
         return response()->json($data, 200);
     }
 }

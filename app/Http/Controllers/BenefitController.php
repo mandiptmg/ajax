@@ -22,11 +22,11 @@ class BenefitController extends Controller
     public function store(Request $request,)
     {
         $rules = [
-            'description' => 'required',
+            'benefit_description' => 'required',
         ];
         // Perform validation
         $validator = validator($request->all(), $rules, [
-            'description.required' => 'Description must be required',
+            'benefit_description.required' => 'Description must be required',
         ]);
 
 
@@ -38,7 +38,7 @@ class BenefitController extends Controller
         } else {
 
             $benefit =  new Benefit;
-            $benefit->description = $request->description;
+            $benefit->benefit_description = $request->benefit_description;
             $benefit->save();
 
             return redirect()->back()->with('success', 'benefit added Successfully');
@@ -48,14 +48,14 @@ class BenefitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $systemId, $benefitId)
     {
         $rules = [
-            'description' => 'required',
+            'benefit_description' => 'required',
         ];
         // Perform validation
         $validator = validator($request->all(), $rules, [
-            'description.required' => 'Description must be required',
+            'benefit_description.required' => 'Description must be required',
         ]);
 
 
@@ -66,8 +66,8 @@ class BenefitController extends Controller
             ]);
         } else {
 
-            $benefit =   Benefit::findOrFail($id);
-            $benefit->description = $request->description;
+            $benefit = Benefit::where('product_id', $systemId)->findOrFail($benefitId);
+            $benefit->benefit_description = $request->benefit_description;
             $benefit->save();
 
             return redirect()->back()->with('success', 'benefit updated Successfully');
@@ -77,9 +77,10 @@ class BenefitController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id){
-        $feature = Benefit::findOrFail($id);
-        $feature->delete();
+    public function destroy($systemId, $benefitId)
+    {
+        $benefit = Benefit::where('product_id', $systemId)->findOrFail($benefitId);
+        $benefit->delete();
         return redirect()->back()->with('success', 'Benefit Deleted Successfully');
     }
 }

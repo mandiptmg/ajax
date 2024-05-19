@@ -14,9 +14,24 @@ class ProductController extends Controller
         public function index()
 
         {
-            $product = Product::all();
-            $data = ['status' => 200, 'products' => $product];
+            $products = Product::all();
+
+            // Map through the products and append the full image URL
+            $products = $products->map(function($product) {
+                $product->image_url1 = url('uploads/bg_images/' . $product->bg_image1);
+                $product->image_url2 = url('uploads/bg_images2/' . $product->bg_image2);
+                return $product->makeHidden(['bg_image1', 'bg_image2']);
+            });
+
+            $data = [
+                'status' => 200,
+                'products' => $products
+            ];
+
             return response()->json($data, 200);
+            // $product = Product::all();
+            // $data = ['status' => 200, 'products' => $product];
+            // return response()->json($data, 200);
         }
     
     }

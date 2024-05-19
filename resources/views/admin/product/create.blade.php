@@ -56,7 +56,7 @@
                             <label>Feature</label>
                             <!-- Button trigger modal -->
                             <div>
-                                <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
+                                <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#featureModal">
                                     Add feature
                                 </button>
                             </div>
@@ -70,22 +70,22 @@
             </div>
 
 
-<!-- 
-            add feature
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <!-- 
+            add feature -->
+            <div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title fs-5" id="exampleModalLabel">Add Feature</h3>
+                            <h3 class="modal-title fs-5" id="featureModalLabel">Add Feature</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form class="new-added-form" id="myForm" enctype="multipart/form-data">
+                            <form class="new-added-form" id="featuremyForm" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-
+                                    <input type="hidden" name="feature_id">
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Upload Photo</label>
                                         <input type="file" class="form-control-file" value="{{old('logo')}}" id="logo" name="logo">
@@ -96,14 +96,14 @@
                                     </div>
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Title</label>
-                                        <input type="text" placeholder="Title" id="title" value="{{old('title')}}" class="form-control" name="title">
-                                        <div id="titleError"></div>
+                                        <input type="text" placeholder="Title" id="feature_title" value="{{old('feature_title')}}" class="form-control" name="feature_title">
+                                        <div id="featuretitleError"></div>
                                     </div>
 
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description' class="form-control" name="description">{{old('description')}}</textarea>
-                                        <div id="descriptionError"></div>
+                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='feature_description' class="form-control" name="feature_description">{{old('feature_description')}}</textarea>
+                                        <div id="featuredescriptionError"></div>
                                     </div>
 
                                     <div class="col-12 form-group mg-t-8">
@@ -118,18 +118,18 @@
                 </div>
             </div>
 
-            edit feature
-            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <!-- edit feature -->
+            <div class="modal fade" id="featureeditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title fs-5" id="exampleModalLabel">Edit Testimonail</h3>
+                            <h3 class="modal-title fs-5" id="exampleModalLabel">Edit Features</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form class="new-added-form" id="editform" enctype="multipart/form-data">
+                            <form class="new-added-form" id="featureeditform" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -144,13 +144,13 @@
                                     </div>
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Title</label>
-                                        <input type="text" placeholder="Title" id="title1" value="{{old('title')}}" class="form-control" name="title">
-                                        <div id="titleError"></div>
+                                        <input type="text" placeholder="Title" id="feature_title" value="{{old('feature_title')}}" class="form-control" name="feature_title">
+                                        <div id="featuretitleError"></div>
                                     </div>
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description1' class="form-control" name="description">{{old('description')}}</textarea>
-                                        <div id="descriptionError"></div>
+                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='feature_description' class="form-control" name="feature_description">{{old('feature_description')}}</textarea>
+                                        <div id="featuredescriptionError"></div>
                                     </div>
 
                                     <div class="col-12 form-group mg-t-8">
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            Destroy Modal
+            <!-- Destroy Modal -->
 
             <div class="modal fade" id="destroyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -194,10 +194,10 @@
 
                     </div>
                 </div>
-            </div> -->
+            </div>
 
 
-        <!--Product table data  -->
+            <!--Product table data  -->
 
             <div class="table-responsive mt-4">
                 <table class="table display data-table text-nowrap">
@@ -269,13 +269,13 @@
                     <tr>
                         <td>{{ ++$key }}</td>
                         <td><img src="{{ asset('uploads/logo/'.$feature->image) }}" alt="" width="50x"></td>
-                        <td>{{ $feature->title }}</td>
+                        <td>{{ $feature->feature_title}}</td>
                         <td>{{ $feature->ShortDescription }}</td>
                         <td>
                             <div class="d-flex flex-row gap-4 font-semibold">
                                 <div class="px-1">
 
-                                    <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($feature->id) }}', '{{ addslashes($feature->title) }}', '{{ addslashes($feature->description) }}', '{{ addslashes($feature->image) }}')" data-toggle="modal" data-target="#editModal">
+                                    <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($feature->id) }}', '{{ addslashes($feature->feature_title) }}', '{{ addslashes($feature->feature_description) }}', '{{ addslashes($feature->image) }}')" data-toggle="modal" data-target="#featureeditModal">
                                         Edit
                                     </button>
 
@@ -310,92 +310,93 @@
     function destroy(id) {
         console.log(id);
         var form = $('#deleteform');
-        var address = "{{url('admin/product/delete')}}" + '/' + id;
+        var address = "{{ route('features.destroy', ':id') }}";
+        address = address.replace(':id', id);
         form.prop('action', address);
     }
+    // feature edit 
+    function edit(id, title, description) {
+        $('#feature_title').val(title);
+        $('#feature_description').val(description);
+        $('#feature').val(id);
 
-    // function edit(id, title, description, image) {
-    //     $('#title1').val(title);
-    //     $('#description1').val(description);
-    //     $('#feature').val(id);
+    }
 
-    // }
-    // $(document).ready(function() {
-    //     $('#editform').submit(function(e) {
-    //         e.preventDefault();
-    //         var formData = new FormData(this); // Create FormData object
-    //         var featureId = formData.get('feature_id');
-    //         console.log(featureId);
+    // feature update 
+    $(document).ready(function() {
+        $('#featureeditform').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this); // Create FormData object
+            var featureId = formData.get('feature_id');
+            var routeUrl = "{{ route('features.update', ['id' => ':id']) }}";
+            routeUrl = routeUrl.replace(':id', featureId);
+            $.ajax({
+                url: routeUrl,
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false, // Set content type to false for file uploads
+                processData: false, // Prevent jQuery from automatically processing the data
+                success: function(response) {
+                    console.log(response)
 
-    //         $.ajax({
-    //             url: "{{ url('admin/products/') }}" + '/' + featureId,
-    //             type: 'POST',
-    //             data: formData,
-    //             dataType: 'json',
-    //             contentType: false, // Set content type to false for file uploads
-    //             processData: false, // Prevent jQuery from automatically processing the data
-    //             success: function(response) {
-    //                 console.log(response)
+                    if (response.status == 400) {
+                        $('#featuretitleError').html('');
+                        $('#featuredescriptionError').html('');
+                        $('#logoError').html('');
 
-    //                 if (response.status == 400) {
-    //                     $('#titleError').html('');
-    //                     $('#descriptionError').html('');
-    //                     $('#logoError').html('');
+                        $.each(response.errors, function(key, err_value) {
+                            $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
+                        });
+                    } else {
+                        $('form')[1].reset();
+                        $.get(window.location.href, function(data) {
+                            var newTbody = $(data).find('.table-responsive #featureId').html();
+                            $('.table-responsive #featureId').html(newTbody);
+                        });
+                        $('#featureeditModal').modal('hide');
+                    }
+                }
 
-    //                     $.each(response.errors, function(key, err_value) {
-    //                         $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
-    //                     });
-    //                 } else {
-    //                     $('form')[1].reset();
-    //                     $('#result').text(response.message);
-    //                     $('#result').addClass('btn btn-success');
-    //                     $.get(window.location.href, function(data) {
-    //                         var newTbody = $(data).find('.table-responsive #featureId').html();
-    //                         $('.table-responsive #featureId').html(newTbody);
-    //                     });
-    //                     $('#editModal').modal('hide');
-    //                 }
-    //             }
+            });
+        });
+    });
 
-    //         });
-    //     });
-    // });
-    // $(document).ready(function() {
-    //     $('#myForm').submit(function(e) {
-    //         e.preventDefault();
-    //         var formData = new FormData(this); // Create FormData object
-    //         $.ajax({
-    //             url: "{{ route('product.store') }}",
-    //             type: 'POST',
-    //             data: formData,
-    //             dataType: 'json',
-    //             contentType: false, // Set content type to false for file uploads
-    //             processData: false, // Prevent jQuery from automatically processing the data
-    //             success: function(response) {
-    //                 console.log(response)
+    //feature add
+    $(document).ready(function() {
+        $('#featuremyForm').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this); // Create FormData object
+            $.ajax({
+                url: "{{ route('features.store') }}",
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false, // Set content type to false for file uploads
+                processData: false, // Prevent jQuery from automatically processing the data
+                success: function(response) {
+                    console.log(response)
 
-    //                 if (response.status == 400) {
-    //                     $('#titleError').html('');
-    //                     $('#descriptionError').html('');
-    //                     $('#logoError').html('');
+                    if (response.status == 400) {
+                        $('#featuretitleError').html('');
+                        $('#featuredescriptionError').html('');
+                        $('#logoError').html('');
 
-    //                     $.each(response.errors, function(key, err_value) {
-    //                         $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
-    //                     });
-    //                 } else {
-    //                     $('#result').text(response.message);
-    //                     $('#result').addClass('btn btn-success')
-    //                     $('form')[0].reset();
-    //                     $.get(window.location.href, function(data) {
-    //                         var newTbody = $(data).find('.table-responsive #featureId').html();
-    //                         $('.table-responsive #featureId').html(newTbody);
-    //                     });
-    //                     $('#exampleModal').modal('hide');
-    //                 }
-    //             }
+                        $.each(response.errors, function(key, err_value) {
+                            $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
+                        });
+                    } else {
+                        $('form')[0].reset();
+                        $.get(window.location.href, function(data) {
+                            var newTbody = $(data).find('.table-responsive #featureId').html();
+                            $('.table-responsive #featureId').html(newTbody);
+                        });
+                        $('#featureModal').modal('hide');
+                    }
+                }
 
-    //         });
-    //     });
-    // });
+            });
+        });
+    });
 </script>
 @endsection

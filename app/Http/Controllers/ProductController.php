@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Str;
 class ProductController extends Controller
 {
     /**
@@ -27,6 +27,7 @@ class ProductController extends Controller
             'short_description' => 'required',
 
         ];
+
 
 
         // Check if a hero exists
@@ -61,6 +62,7 @@ class ProductController extends Controller
 
             $product = new Product();
             $product->title = $request->title;
+
             $product->short_description = $request->short_description;
             $product->description = $request->description;
 
@@ -72,11 +74,16 @@ class ProductController extends Controller
 
             if ($request->hasFile('bg_image2')) {
                 $bgImage2Name = time() . 'bg2.' . $request->file('bg_image2')->getClientOriginalExtension();
-                $request->file('bg_image2')->move(public_path('uploads/bg_images'), $bgImage2Name);
+                $request->file('bg_image2')->move(public_path('uploads/bg_images2'), $bgImage2Name);
                 $product->bg_image2 = $bgImage2Name;
             }
 
+            
+
+
             $product->save();
+
+            
 
             return redirect()->back()->with('success', 'Product added Successfully');
         }
@@ -146,7 +153,7 @@ class ProductController extends Controller
 
             if ($request->hasFile('bg_image2')) {
                 $bgImage2Name = time() . 'bg2.' . $request->file('bg_image2')->getClientOriginalExtension();
-                $request->file('bg_image2')->move(public_path('uploads/bg_images'), $bgImage2Name);
+                $request->file('bg_image2')->move(public_path('uploads/bg_images2'), $bgImage2Name);
                 $product->bg_image2 = $bgImage2Name;
             }
 
