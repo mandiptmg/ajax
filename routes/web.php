@@ -1,22 +1,17 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BenefitController;
+use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\QuestionAnswerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 Route::get('/admin/hero', [HeroController::class, 'index'])->name('hero.index');
 Route::post('/admin/hero', [HeroController::class, 'store'])->name('hero.store');
 
@@ -37,6 +32,31 @@ Route::get('/admin/testimonial', [TestimonialController::class, 'index'])->name(
 Route::post('/admin/testimonial', [TestimonialController::class, 'store'])->name('testimonial.store');
 Route::put('/admin/testimonials/{id}', [TestimonialController::class, 'update'])->name('testimonial.update');
 Route::delete('/admin/testimonials/delete/{id}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
+
+
+Route::get('/admin/products', [ProductController::class, 'index'])->name('product.index');
+Route::post('/admin/products', [ProductController::class, 'store'])->name('product.store');
+Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('product.update');
+Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+Route::prefix('admin/products/{id}')->group(function () {
+    Route::get('/features', [ProductController::class, 'index'])->name('features.index');
+    Route::post('features', [FeatureController::class, 'store'])->name('features.store');
+    Route::put('features/{id}', [FeatureController::class, 'update'])->name('features.update');
+    Route::delete('features/{id}', [FeatureController::class, 'destroy'])->name('features.destroy');
+
+    Route::get('/question_answers', [ProductController::class, 'index'])->name('question_answers.index');
+    Route::post('question_answers', [QuestionAnswerController::class, 'store'])->name('question_answers.store');
+    Route::put('question_answers/{id}', [QuestionAnswerController::class, 'update'])->name('question_answers.update');
+    Route::delete('question_answers/{id}', [QuestionAnswerController::class, 'destroy'])->name('question_answers.destroy');
+
+    Route::get('/benefits', [ProductController::class, 'index'])->name('question_answers.index');
+    Route::post('benefits', [BenefitController::class, 'store'])->name('benefits.store');
+    Route::put('benefits/{id}', [BenefitController::class, 'update'])->name('benefits.update');
+    Route::delete('benefits/{id}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
+});
+
+
 
 
 Route::get('/', function () {

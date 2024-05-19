@@ -280,29 +280,21 @@
                                 <li class="nav-item">
                                     <a href="testimonial" class="nav-link"><i class="fas fa-angle-right"></i>testimonial section</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="product" class="nav-link"><i class="fas fa-angle-right"></i>product section</a>
-                                </li>
+                               
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Teachers</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Product</span></a>
                             <ul class="nav sub-group-menu sub-group-active">
-                                <li class="nav-item">
-                                    <a href="all-teacher.html" class="nav-link"><i class="fas fa-angle-right"></i>All Teachers</a>
+                            <li class="nav-item">
+                                    <a href="product" class="nav-link"><i class="fas fa-angle-right"></i>All Product</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="teacher-details.html" class="nav-link"><i class="fas fa-angle-right"></i>Teacher Details</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="add-teacher.html" class="nav-link"><i class="fas fa-angle-right"></i>Add Teacher</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="teacher-payment.html" class="nav-link"><i class="fas fa-angle-right"></i>Payment</a>
+                                    <a href="product" class="nav-link"><i class="fas fa-angle-right"></i>Add Product</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item sidebar-nav-item">
+                        <!-- <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Parents</span></a>
                             <ul class="nav sub-group-menu">
                                 <li class="nav-item">
@@ -415,7 +407,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="account-settings.html" class="nav-link"><i class="flaticon-settings"></i><span>Account</span></a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
