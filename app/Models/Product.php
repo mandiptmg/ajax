@@ -34,18 +34,18 @@ class Product extends Model
     {
         return $this->hasMany(Feature::class);
     }
-
-    public function questionAnswers()
+    public function images()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Image::class);
     }
+   
     public function benefits()
     {
         return $this->hasMany(Benefit::class);
     }
 
-    public function images()
+    public function questionAnswers()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Question::class);
     }
 }

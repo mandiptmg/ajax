@@ -11,8 +11,8 @@
             <li>Product section</li>
         </ul>
     </div>
-    <!-- Breadcubs Area End Here -->
-    <!-- Add New Teacher Area Start Here -->
+   
+    <!-- Add New product Area Start Here -->
     <div class="card height-auto">
         <div class="card-body">
             <div>
@@ -40,7 +40,7 @@
                         <div class="col-lg-6 col-12 form-group">
                             <label>Short Description</label>
                             <textarea rows="9" cols="10" type="text" placeholder="Short Description..." id='short_description' class="form-control" name="short_description">{{old('short_description')}}</textarea>
-                            <div id="shortdescriptionError"></div>
+                            <div id="short_descriptionError"></div>
                         </div>
                         <div class="col-lg-6 col-12 form-group">
                             <label>Description</label>
@@ -309,7 +309,7 @@
 
 
     </div>
-    <!-- Add New Teacher Area End Here -->
+    <!-- Add New product Area End Here -->
     <footer class="footer-wrap-layout1">
         <div class="copyright">© Copyrights <a href="#">Creation Soft Nepal</a> 2019. All rights reserved. Designed by <a href="#">PsdBosS</a></div>
     </footer>
@@ -345,6 +345,7 @@
                     if (response.status == 400) {
                         $('#titleError').html('');
                         $('#descriptionError').html('');
+                        $('#shortdescriptionError').html('');
                         $('#bg_image1Error').html('');
                         $('#bg_image2Error').html('');
 
