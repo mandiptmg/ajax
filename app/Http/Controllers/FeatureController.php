@@ -57,7 +57,7 @@ class FeatureController extends Controller
             $feature = new Feature();
             $feature->product_id = $request->product_id;
             $feature->title = $request->title;
-            $feature->description = $request->description;
+            $feature->description = $request->description;  
 
             if ($request->hasFile('logo')) {
 
@@ -67,7 +67,7 @@ class FeatureController extends Controller
                 $feature->logo = $imageName; // Assign the image name to the 'image' attribute
             }
             $product->features()->save($feature);
-            return redirect()->back()->with('success', 'feature added Successfully');
+            return response()->json(['status' => 200, 'message' => 'Feature stored successfully!']);
         }
     }
 
@@ -135,7 +135,7 @@ class FeatureController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy( $featureId)
+    public function destroy($featureId)
     {
         Feature::findOrFail($featureId)->delete();
         return redirect()->back()->with('success', 'feature Deleted Successfully');

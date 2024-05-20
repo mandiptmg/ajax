@@ -75,7 +75,7 @@ class BenefitController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage.fea
      */
     public function destroy($systemId, $benefitId)
     {

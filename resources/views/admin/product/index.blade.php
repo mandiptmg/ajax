@@ -395,6 +395,8 @@
                         $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
                     });
                 } else {
+                    $('#result').text(response.message);
+                        $('#result').addClass('btn btn-success')
                     $('#featuremyForm')[0].reset();
                     $('#featureModal').modal('hide');
                     // Optionally, you can update the page content after successful submission
