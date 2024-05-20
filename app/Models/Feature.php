@@ -11,15 +11,15 @@ class Feature extends Model
     use HasFactory;
 
     protected $fillable = [
+        'product_id',
         'title',
-        'image',
         'description',
-        'product_id'
+        'logo'
     ];
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo('App\Models\Product', 'product_id');
     }
 
 

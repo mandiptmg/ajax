@@ -10,9 +10,15 @@ use Illuminate\Support\Str;
 
 class Product extends Model
 {
-  
 
-    protected $fillable = ['title', 'short_desc', 'description', 'bg_image1', 'bg_image2'];
+
+    protected $fillable = [
+        'title',
+        'short_description',
+        'description',
+        'bg_image1',
+        'bg_image2'
+    ];
 
 
     protected static function boot()
@@ -31,7 +37,7 @@ class Product extends Model
 
     public function questionAnswers()
     {
-        return $this->hasMany(QuestionAnswer::class);
+        return $this->hasMany(Question::class);
     }
     public function benefits()
     {

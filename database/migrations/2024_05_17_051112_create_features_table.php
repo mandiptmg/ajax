@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('features', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->string('image');
-            $table->string('feature_title');
-            $table->text('feature_description');
+            $table->string('title');
+            $table->text('description');
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

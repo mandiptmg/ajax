@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('question_answers', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('question')->nullable();
-            $table->text('answer')->nullable();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->string('question');
+            $table->text('answer');
             $table->timestamps();
         });
     }
 
-    
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('question_answers');
+        Schema::dropIfExists('questions');
     }
 };

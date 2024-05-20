@@ -102,8 +102,7 @@
             </div>
 
 
-            <!-- 
-            add feature -->
+            <!-- add feature -->
             <div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -116,8 +115,8 @@
                         <div class="modal-body">
                             <form class="new-added-form" id="featuremyForm" enctype="multipart/form-data">
                                 @csrf
+                                <input type="hidden" id="product_id" name="product_id">
                                 <div class="row">
-                                    <input type="hidden" name="feature_id">
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Upload Photo</label>
                                         <input type="file" class="form-control-file" value="{{old('logo')}}" id="logo" name="logo">
@@ -128,13 +127,13 @@
                                     </div>
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Title</label>
-                                        <input type="text" placeholder="Title" id="feature_title" value="{{old('feature_title')}}" class="form-control" name="feature_title">
+                                        <input type="text" placeholder="Title" id="feature_title" value="{{old('title')}}" class="form-control" name="title">
                                         <div id="featuretitleError"></div>
                                     </div>
 
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='feature_description' class="form-control" name="feature_description">{{old('feature_description')}}</textarea>
+                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='feature_description' class="form-control" name="description">{{old('description')}}</textarea>
                                         <div id="featuredescriptionError"></div>
                                     </div>
 
@@ -149,9 +148,9 @@
                     </div>
                 </div>
             </div>
-
-            <!-- 
-            add benefit -->
+            <!--           
+       
+            add benefit
             <div class="modal fade" id="benefitModal" tabindex="-1" aria-labelledby="benefitModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -168,7 +167,7 @@
                                     <input type="hidden" name="benefit_id">
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='benefit_description' class="form-control" name="benefit_description">{{old('benefit_description')}}</textarea>
+                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='benefit_description' class="form-control" name="description">{{old('description')}}</textarea>
                                         <div id="benefitdescriptionError"></div>
                                     </div>
 
@@ -184,54 +183,8 @@
                 </div>
             </div>
 
-            <!-- add feature -->
-            <div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title fs-5" id="featureModalLabel">Add Feature</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="new-added-form" id="featuremyForm" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <input type="hidden" name="feature_id">
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Upload Photo</label>
-                                        <input type="file" class="form-control-file" value="{{old('logo')}}" id="logo" name="logo">
 
-                                        <div id="logoError"></div>
-
-
-                                    </div>
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Title</label>
-                                        <input type="text" placeholder="Title" id="feature_title" value="{{old('feature_title')}}" class="form-control" name="feature_title">
-                                        <div id="featuretitleError"></div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='feature_description' class="form-control" name="feature_description">{{old('feature_description')}}</textarea>
-                                        <div id="featuredescriptionError"></div>
-                                    </div>
-
-                                    <div class="col-12 form-group mg-t-8">
-                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- add image -->
+            add image
             <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -265,7 +218,7 @@
                 </div>
             </div>
 
-            <!-- add question -->
+            add question
             <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -302,7 +255,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
             <!--Product table data  -->
@@ -334,9 +287,12 @@
                                 <div class="d-flex flex-row gap-4 font-semibold">
                                     <div class="px-1">
 
-                                        <a href="" class="btn btn-primary btn-lg">
-                                            Show
-                                        </a>
+                                        <div>
+                                            <button type="button" class="fw-btn-fill btn-gradient-yellow add-feature-btn" data-toggle="modal" data-target="#featureModal" onclick="addfeature('{{$product->id}}')">
+                                                Add feature
+                                            </button>
+
+                                        </div>
 
                                     </div>
                                 </div>
@@ -365,12 +321,17 @@
 
 
 <script>
+    function addfeature(id) {  
+        console.log(id);
+        $('#product_id').val(id);
+    }
+
     // add product
     $(document).ready(function() {
         $('#myProductForm').submit(function(e) {
             e.preventDefault();
             var formData = new FormData(this);
-             // Create FormData object
+            // Create FormData object
             $.ajax({
                 url: "{{ route('product.store') }}",
                 type: 'POST',
@@ -403,78 +364,51 @@
         });
     });
 
+
     // add feature 
     $(document).ready(function() {
-        $('#featuremyForm').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this); // Create FormData object
-            $.ajax({
-                url: "{{ route('features.store') }}",
-                type: 'POST',
-                data: formData,
-                dataType: 'json',
-                contentType: false, // Set content type to false for file uploads
-                processData: false, // Prevent jQuery from automatically processing the data
-                success: function(response) {
-                    console.log(response)
+    $('#featuremyForm').submit(function(e) {
+        e.preventDefault();
 
-                    if (response.status == 400) {
-                        $('#featuretitleError').html('');
-                        $('#featuredescriptionError').html('');
-                        $('#logoError').html('');
+        var formData = new FormData(this);
+        var productId = formData.get('product_id');
+        
 
-                        $.each(response.errors, function(key, err_value) {
-                            $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
-                        });
-                    } else {
-                        $('form')[0].reset();
-                        // $.get(window.location.href, function(data) {
-                        //     var newTbody = $(data).find('.table-responsive #featureId').html();
-                        //     $('.table-responsive #featureId').html(newTbody);
-                        // });
-                        $('#featureModal').modal('hide');
-                    }
+        $.ajax({
+            url: '/admin/products/' + productId + '/features',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                console.log(response);
+
+                if (response.status == 400) {
+                    // Clear previous error messages
+                    $('#featuretitleError').empty();
+                    $('#featuredescriptionError').empty();
+                    $('#logoError').empty();
+
+                    // Display new error messages
+                    $.each(response.errors, function(key, err_value) {
+                        $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
+                    });
+                } else {
+                    $('#featuremyForm')[0].reset();
+                    $('#featureModal').modal('hide');
+                    // Optionally, you can update the page content after successful submission
+                    // Uncomment the following lines if you want to update the page content dynamically
+                    // $.get(window.location.href, function(data) {
+                    //     var newTbody = $(data).find('.table-responsive #featureId').html();
+                    //     $('.table-responsive #featureId').html(newTbody);
+                    // });
                 }
-
-            });
+            }
         });
     });
+});
 
-    // add image
-    $(document).ready(function() {
-        $('#imagemyForm').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this); // Create FormData object
-            $.ajax({
-                url: "{{ route('images.store') }}",
-                type: 'POST',
-                data: formData,
-                dataType: 'json',
-                contentType: false, // Set content type to false for file uploads
-                processData: false, // Prevent jQuery from automatically processing the data
-                success: function(response) {
-                    console.log(response)
-
-                    if (response.status == 400) {
-                        $('#featuretitleError').html('');
-                        
-
-                        $.each(response.errors, function(key, err_value) {
-                            $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
-                        });
-                    } else {
-                        $('form')[0].reset();
-                        // $.get(window.location.href, function(data) {
-                        //     var newTbody = $(data).find('.table-responsive #featureId').html();
-                        //     $('.table-responsive #featureId').html(newTbody);
-                        // });
-                        $('#imageModal').modal('hide');
-                    }
-                }
-
-            });
-        });
-    });
 </script>
 
 @endsection

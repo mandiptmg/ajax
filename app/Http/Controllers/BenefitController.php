@@ -22,11 +22,11 @@ class BenefitController extends Controller
     public function store(Request $request,)
     {
         $rules = [
-            'benefit_description' => 'required',
+            'description' => 'required',
         ];
         // Perform validation
         $validator = validator($request->all(), $rules, [
-            'benefit_description.required' => 'Description must be required',
+            'description.required' => 'Description must be required',
         ]);
 
 
@@ -38,7 +38,7 @@ class BenefitController extends Controller
         } else {
 
             $benefit =  new Benefit;
-            $benefit->benefit_description = $request->benefit_description;
+            $benefit->description = $request->description;
             $benefit->save();
 
             return redirect()->back()->with('success', 'benefit added Successfully');
@@ -51,11 +51,11 @@ class BenefitController extends Controller
     public function update(Request $request, $systemId, $benefitId)
     {
         $rules = [
-            'benefit_description' => 'required',
+            'description' => 'required',
         ];
         // Perform validation
         $validator = validator($request->all(), $rules, [
-            'benefit_description.required' => 'Description must be required',
+            'description.required' => 'Description must be required',
         ]);
 
 
@@ -67,7 +67,7 @@ class BenefitController extends Controller
         } else {
 
             $benefit = Benefit::where('product_id', $systemId)->findOrFail($benefitId);
-            $benefit->benefit_description = $request->benefit_description;
+            $benefit->description = $request->description;
             $benefit->save();
 
             return redirect()->back()->with('success', 'benefit updated Successfully');

@@ -10,8 +10,8 @@ class Benefit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'description',
-        'product_id'
+        'product_id',
+        'description'
     ];
 
     public function product()

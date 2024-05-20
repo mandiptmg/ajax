@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QuestionAnswer;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
-class QuestionAnswerController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $questionAnswers = QuestionAnswer::get();
+        $questionAnswers = Question::get();
         return view('admin.product.index', compact('questionAnswers'));
     }
 
@@ -37,7 +37,7 @@ class QuestionAnswerController extends Controller
             ]);
         } else {
 
-            $questionAnswer = new QuestionAnswer();
+            $questionAnswer = new Question();
             $questionAnswer->question = $request->question;
             $questionAnswer->answer = $request->answer;
             $questionAnswer->save();
@@ -69,7 +69,7 @@ class QuestionAnswerController extends Controller
             ]);
         } else {
 
-            $questionAnswer = QuestionAnswer::where('product_id', $systemId)->findOrFail($qaId);
+            $questionAnswer = Question::where('product_id', $systemId)->findOrFail($qaId);
             $questionAnswer->question = $request->question;
             $questionAnswer->answer = $request->answer;
             $questionAnswer->save();
@@ -83,8 +83,8 @@ class QuestionAnswerController extends Controller
      */
     public function  destroy($systemId, $qaId)
     {
-        $questionAnswer = QuestionAnswer::where('product_id', $systemId)->findOrFail($qaId);
-        $questionAnswer->delete();
+        $question = Question::where('product_id', $systemId)->findOrFail($qaId);
+        $question->delete();
         return redirect()->back()->with('success', 'Question Answer Deleted Successfully');
     }
 }

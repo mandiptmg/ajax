@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class QuestionAnswer extends Model
+class Question extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'product_id',
         'question',
-        'answer',
-        'product_id'
+        'answer'
     ];
 
     public function product()

@@ -12,7 +12,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['features', 'questionAnswers', 'benefits', 'images'])->get();
+        $products = Product::get();
         return view('admin.product.index', compact('products'));
     }
 
@@ -83,18 +83,19 @@ class ProductController extends Controller
 
             $product->save();
 
-            
+            return response()->json(['status' => 200, 'message' => 'Product stored successfully!']);
 
-            return redirect()->back()->with('success', 'Product added Successfully');
+
+            // return redirect()->back()->with('success', 'Product added Successfully');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show( $id)
     {
-        //
+        return response()->json($id->load('features'), 200);
     }
 
     /**
