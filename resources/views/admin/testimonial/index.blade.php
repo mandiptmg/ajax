@@ -42,7 +42,14 @@
                             <form class="new-added-form" id="myForm" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
+                                    <div class="col-lg-6 col-12 form-group">
+                                        <label>Product Name</label>
+                                        <input type="text" class="form-control-file" value="{{old('product_name')}}" id="product_name" name="product_name">
 
+                                        <div id="product_nameError"></div>
+
+
+                                    </div>
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Upload Photo</label>
                                         <input type="file" class="form-control-file" value="{{old('logo')}}" id="logo" name="logo">
@@ -95,6 +102,15 @@
                                 @method('PUT')
                                 <div class="row">
                                     <input type="hidden" name="testimonial_id" id="testimonial">
+
+                                    <div class="col-lg-6 col-12 form-group">
+                                        <label>Upload Photo</label>
+                                        <input type="text" class="form-control-file" value="{{old('product_name')}}" id="product_name1" name="product_name">
+
+                                        <div id="product_nameError"></div>
+
+
+                                    </div>
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Upload Photo</label>
                                         <input type="file" class="form-control-file" value="{{old('logo')}}" id="logo1" name="logo">
@@ -175,6 +191,7 @@
                                 </div>
                             </th>
                             <th>image</th>
+                            <th>product name</th>
                             <th>name</th>
                             <th>occupation</th>
                             <th>description</th>
@@ -187,7 +204,8 @@
                         @foreach ($testimonials as $key=>$testimonial)
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td><img src="{{ asset('uploads/logo/'.$testimonial->image) }}" alt="" width="50x"></td>
+                            <td><img src="{{ asset('uploads/logo/'.$testimonial->image) }}" alt="" height="20px" width="40px" class="rounded-circle "></td>
+                            <td>{{ $testimonial->product_name }}</td>
                             <td>{{ $testimonial->name }}</td>
                             <td>{{ $testimonial->occupation }}</td>
                             <td>{{ $testimonial->ShortDescription }}</td>
@@ -195,7 +213,7 @@
                                 <div class="d-flex flex-row gap-4 font-semibold">
                                     <div class="px-1">
 
-                                        <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($testimonial->id) }}', '{{ addslashes($testimonial->name) }}', '{{ addslashes($testimonial->occupation) }}', '{{ addslashes($testimonial->description) }}', '{{ addslashes($testimonial->image) }}')" data-toggle="modal" data-target="#editModal">
+                                        <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($testimonial->id) }}','{{ addslashes($testimonial->product_name) }}', '{{ addslashes($testimonial->name) }}', '{{ addslashes($testimonial->occupation) }}', '{{ addslashes($testimonial->description) }}', '{{ addslashes($testimonial->image) }}')" data-toggle="modal" data-target="#editModal">
                                             Edit
                                         </button>
 
@@ -234,7 +252,8 @@
         form.prop('action', address);
     }
 
-    function edit(id, name, occupation, description, image) {
+    function edit(id, product_name, name, occupation, description, image) {
+        $('#product_name1').val(product_name);
         $('#name1').val(name);
         $('#occupation1').val(occupation);
         $('#description1').val(description);
@@ -259,6 +278,7 @@
                     console.log(response)
 
                     if (response.status == 400) {
+                        $('#product_nameError').html('');
                         $('#nameError').html('');
                         $('#descriptionError').html('');
                         $('#logoError').html('');
@@ -269,13 +289,13 @@
                         });
                     } else {
                         $('form')[1].reset();
-                            $('#result').text(response.message);
-                            $('#result').addClass('btn btn-success');
-                            $.get(window.location.href, function(data) {
-                                var newTbody = $(data).find('.table-responsive #testimonialId').html();
-                                $('.table-responsive #testimonialId').html(newTbody);
-                            });
-                            $('#editModal').modal('hide');
+                        $('#result').text(response.message);
+                        $('#result').addClass('btn btn-success');
+                        $.get(window.location.href, function(data) {
+                            var newTbody = $(data).find('.table-responsive #testimonialId').html();
+                            $('.table-responsive #testimonialId').html(newTbody);
+                        });
+                        $('#editModal').modal('hide');
                     }
                 }
 
@@ -297,6 +317,7 @@
                     console.log(response)
 
                     if (response.status == 400) {
+                        $('#product_nameError').html('');
                         $('#nameError').html('');
                         $('#descriptionError').html('');
                         $('#logoError').html('');

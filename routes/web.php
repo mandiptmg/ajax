@@ -54,11 +54,6 @@ Route::prefix('admin/products/{productId}')->group(function () {
     // Route::post('benefits', [BenefitController::class, 'store'])->name('benefits.store');
     // Route::put('benefits/{benefitId}', [BenefitController::class, 'update'])->name('benefits.update');
     // Route::delete('benefits/{benefitId}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
-
-    // Route::get('/images', [ProductController::class, 'index'])->name('question_answers.index');
-    // Route::post('images', [BenefitController::class, 'store'])->name('images.store');
-    // Route::put('images/{imageId}', [BenefitController::class, 'update'])->name('images.update');
-    // Route::delete('images/{imageId}', [BenefitController::class, 'destroy'])->name('images.destroy');
 });
 
 

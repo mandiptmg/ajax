@@ -14,6 +14,7 @@ class Product extends Model
 
     protected $fillable = [
         'title',
+        'image',
         'short_description',
         'description',
         'bg_image1',
@@ -34,11 +35,6 @@ class Product extends Model
     {
         return $this->hasMany(Feature::class);
     }
-    public function images()
-    {
-        return $this->hasMany(Image::class);
-    }
-   
     public function benefits()
     {
         return $this->hasMany(Benefit::class);

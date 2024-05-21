@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Str;
+
 class ProductController extends Controller
 {
     /**
@@ -33,12 +34,14 @@ class ProductController extends Controller
         // Check if a hero exists
         if (!$request->product_id) {
             // If hero does not exist, make logo required with image validation rules
-            $rules['bg_image1'] = 'required|mimes:jpeg,png,jpg,gif|max:2048';
-            $rules['bg_image2'] = 'required|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['bg_image1'] = 'required|mimes:jpeg,png,jpg,gif';
+            $rules['bg_image2'] = 'required|mimes:jpeg,png,jpg,gif';
+            $rules['image'] = 'required|mimes:jpeg,png,jpg,gif';
         } else {
             // If hero exists, make logo nullable
-            $rules['bg_image1'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048';
-            $rules['bg_image2'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['bg_image1'] = 'nullable|mimes:jpeg,png,jpg,gif';
+            $rules['bg_image2'] = 'nullable|mimes:jpeg,png,jpg,gif';
+            $rules['image'] = 'nullable|mimes:jpeg,png,jpg,gif';
         }
 
 
@@ -50,6 +53,7 @@ class ProductController extends Controller
             'short_description.required' => 'Short description must be required',
             'bg_image1' => ' Background Image must be required',
             'bg_image2' => 'Background Image must be required',
+            'image' => 'Image must be required',
         ]);
 
 
@@ -60,11 +64,24 @@ class ProductController extends Controller
             ]);
         } else {
 
+            $uploadedImages = [];
+            if ($request->hasFile('image')) {
+                foreach ($request->file('image') as $file) {
+                    $image_name = md5(rand(1000, 10000));
+                    $ext = strtolower($file->getClientOriginalExtension());
+                    $image_full_name = $image_name . '.' . $ext;
+                    $upload_path = public_path('product_images/');
+                    $file->move($upload_path, $image_full_name);
+                    $uploadedImages[] = 'product_images/' . $image_full_name;
+                }
+            }
             $product = new Product();
+            $product->images = implode('|', $uploadedImages);
             $product->title = $request->title;
 
             $product->short_description = $request->short_description;
             $product->description = $request->description;
+
 
             if ($request->hasFile('bg_image1')) {
                 $bgImage1Name = time() . 'bg1.' . $request->file('bg_image1')->getClientOriginalExtension();
@@ -78,7 +95,6 @@ class ProductController extends Controller
                 $product->bg_image2 = $bgImage2Name;
             }
 
-            
 
 
             $product->save();
@@ -93,7 +109,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show( $id)
+    public function show($id)
     {
         return response()->json($id->load('features'), 200);
     }
@@ -116,10 +132,12 @@ class ProductController extends Controller
             // If hero does not exist, make logo required with image validation rules
             $rules['bg_image1'] = 'required|mimes:jpeg,png,jpg,gif|max:2048';
             $rules['bg_image2'] = 'required|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['image'] = 'required|mimes:jpeg,png,jpg,gif|max:2048';
         } else {
             // If hero exists, make logo nullable
             $rules['bg_image1'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048';
             $rules['bg_image2'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['image'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048';
         }
 
 
@@ -131,6 +149,8 @@ class ProductController extends Controller
             'short_description.required' => 'Short description must be required',
             'bg_image1' => ' Background Image must be required',
             'bg_image2' => 'Background Image must be required',
+            'image' => 'Image must be required',
+
         ]);
 
 
@@ -140,8 +160,19 @@ class ProductController extends Controller
                 'errors' => $validator->errors()
             ]);
         } else {
-
+            $uploadedImages = [];
+            if ($request->hasFile('image')) {
+                foreach ($request->file('image') as $file) {
+                    $image_name = md5(rand(1000, 10000));
+                    $ext = strtolower($file->getClientOriginalExtension());
+                    $image_full_name = $image_name . '.' . $ext;
+                    $upload_path = public_path('product_images/');
+                    $file->move($upload_path, $image_full_name);
+                    $uploadedImages[] = 'product_images/' . $image_full_name;
+                }
+            }
             $product = Product::findOrFail($id);
+            $product->images = implode('|', $uploadedImages);
             $product->title = $request->title;
             $product->short_description = $request->short_description;
             $product->description = $request->description;
@@ -161,7 +192,6 @@ class ProductController extends Controller
             $product->save();
 
             return response()->json(['status' => 200, 'message' => 'Product update successfully!']);
-
         }
     }
 

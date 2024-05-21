@@ -39,7 +39,7 @@
     <!-- Preloader Start Here -->
     <div id="preloader"></div>
     <!-- Preloader End Here -->
-    <div id="wrapper" class="wrapper bg-ash">
+    <div id="wrapper" class="wrapper bg-ash ">
         <!-- Header Menu Area Start Here -->
         <div class="navbar navbar-expand-md header-menu-one bg-light">
             <div class="nav-bar-header-one">
@@ -238,7 +238,7 @@
         <!-- Page Area Start Here -->
         <div class="dashboard-page-one">
             <!-- Sidebar Area Start Here -->
-            <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color">
+            <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color " style="height: 89vh;">
                 <div class="mobile-sidebar-header d-md-none">
                     <div class="header-logo">
                         <a href="index.html"><img src="img/logo1.png" alt="logo"></a>
@@ -280,13 +280,13 @@
                                 <li class="nav-item">
                                     <a href="testimonial" class="nav-link"><i class="fas fa-angle-right"></i>testimonial section</a>
                                 </li>
-                               
+
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Product</span></a>
                             <ul class="nav sub-group-menu sub-group-active">
-                            <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="product" class="nav-link"><i class="fas fa-angle-right"></i>All Product</a>
                                 </li>
                                 <li class="nav-item">

@@ -22,6 +22,7 @@ class TestimonialController extends Controller
     public function store(Request $request)
     {
         $rules = [
+            'product_name'=>'required',
             'name' => 'required',
             'occupation' => 'required',
             'description' => 'required',
@@ -40,6 +41,7 @@ class TestimonialController extends Controller
 
         // Perform validation
         $validator = validator($request->all(), $rules, [
+            'product_name' => 'Product Name must be required',
             'name.required' => 'Name must be required',
             'occupation.required' => 'Occupation must be required',
             'description.required' => 'Description must be required',
@@ -55,6 +57,7 @@ class TestimonialController extends Controller
         } else {
 
             $testimonial = new Testimonial();
+            $testimonial->product_name = $request->product_name;
             $testimonial->name = $request->name;
             $testimonial->occupation = $request->occupation;
             $testimonial->description = $request->description;
@@ -86,6 +89,7 @@ class TestimonialController extends Controller
     public function update(Request $request, String $id)
     {
         $rules = [
+            'product_name'=>'required',
             'name' => 'required',
             'occupation' => 'required',
             'description' => 'required',
@@ -104,6 +108,7 @@ class TestimonialController extends Controller
 
         // Perform validation
         $validator = validator($request->all(), $rules, [
+            'product_name' => 'Product Name must be required',
             'name.required' => 'Name must be required',
             'occupation.required' => 'Occupation must be required',
             'description.required' => 'Description must be required',
@@ -119,6 +124,7 @@ class TestimonialController extends Controller
         } else {
 
             $testimonial = Testimonial::findOrFail($id);
+            $testimonial->product_name = $request->product_name;
             $testimonial->name = $request->name;
             $testimonial->occupation = $request->occupation;
             $testimonial->description = $request->description;

@@ -11,7 +11,7 @@
             <li>Product section</li>
         </ul>
     </div>
-   
+
     <!-- Add New product Area Start Here -->
     <div class="card height-auto">
         <div class="card-body">
@@ -48,10 +48,16 @@
                             <div id="descriptionError"></div>
                         </div>
                         <div class="col-lg-6 col-12 form-group">
+                            <label>product Image</label>
+                            <input type="file" class="form-control-file" value="{{old('image')}}" id="image" multiple name="image[]">
+                            <div id="imageError"></div>
+                        </div>
+                        <div class="col-lg-6 col-12 form-group">
                             <label>Middle background Photo</label>
                             <input type="file" class="form-control-file" value="{{old('bg_image2')}}" id="logo" name="bg_image2">
                             <div id="bg_image2Error"></div>
                         </div>
+
                         <div class="col-lg-6 col-12 form-group">
                             <label>Feature</label>
                             <!-- Button trigger modal -->
@@ -101,8 +107,8 @@
                 </form>
             </div>
 
-
-            <!-- add feature -->
+<!--           
+            add feature
             <div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -148,7 +154,7 @@
                     </div>
                 </div>
             </div>
-            <!--           
+            
        
             add benefit
             <div class="modal fade" id="benefitModal" tabindex="-1" aria-labelledby="benefitModalLabel" aria-hidden="true">
@@ -321,7 +327,7 @@
 
 
 <script>
-    function addfeature(id) {  
+    function addfeature(id) {
         console.log(id);
         $('#product_id').val(id);
     }
@@ -344,6 +350,7 @@
 
                     if (response.status == 400) {
                         $('#titleError').html('');
+                        $('#imageError').html();
                         $('#descriptionError').html('');
                         $('#shortdescriptionError').html('');
                         $('#bg_image1Error').html('');
@@ -368,50 +375,49 @@
 
     // add feature 
     $(document).ready(function() {
-    $('#featuremyForm').submit(function(e) {
-        e.preventDefault();
+        $('#featuremyForm').submit(function(e) {
+            e.preventDefault();
 
-        var formData = new FormData(this);
-        var productId = formData.get('product_id');
-        
+            var formData = new FormData(this);
+            var productId = formData.get('product_id');
 
-        $.ajax({
-            url: '/admin/products/' + productId + '/features',
-            type: 'POST',
-            data: formData,
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                console.log(response);
 
-                if (response.status == 400) {
-                    // Clear previous error messages
-                    $('#featuretitleError').empty();
-                    $('#featuredescriptionError').empty();
-                    $('#logoError').empty();
+            $.ajax({
+                url: '/admin/products/' + productId + '/features',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
 
-                    // Display new error messages
-                    $.each(response.errors, function(key, err_value) {
-                        $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
-                    });
-                } else {
-                    $('#result').text(response.message);
+                    if (response.status == 400) {
+                        // Clear previous error messages
+                        $('#featuretitleError').html();
+                        $('#featuredescriptionError').html();
+                        $('#logoError').html();
+
+                        // Display new error messages
+                        $.each(response.errors, function(key, err_value) {
+                            $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
+                        });
+                    } else {
+                        $('#result').text(response.message);
                         $('#result').addClass('btn btn-success')
-                    $('#featuremyForm')[0].reset();
-                    $('#featureModal').modal('hide');
-                    // Optionally, you can update the page content after successful submission
-                    // Uncomment the following lines if you want to update the page content dynamically
-                    // $.get(window.location.href, function(data) {
-                    //     var newTbody = $(data).find('.table-responsive #featureId').html();
-                    //     $('.table-responsive #featureId').html(newTbody);
-                    // });
+                        $('#featuremyForm')[0].reset();
+                        $('#featureModal').modal('hide');
+                        // Optionally, you can update the page content after successful submission
+                        // Uncomment the following lines if you want to update the page content dynamically
+                        // $.get(window.location.href, function(data) {
+                        //     var newTbody = $(data).find('.table-responsive #featureId').html();
+                        //     $('.table-responsive #featureId').html(newTbody);
+                        // });
+                    }
                 }
-            }
+            });
         });
     });
-});
-
 </script>
 
 @endsection
