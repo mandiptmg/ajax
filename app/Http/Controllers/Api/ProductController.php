@@ -14,9 +14,17 @@ class ProductController extends Controller
     public function index()
 
     {
-        $products = Product::with(['features',  'images', 'benefits', 'questionAnswers'])->get();
+        $products = Product::with(['features', 'benefits', 'questionAnswers'])->get();
         // Map through the products and append the full image URL
         $products = $products->map(function ($product) {
+
+            if ($product->image) {
+                $product->image_urls = collect(explode('|', $product->image))
+                    ->map(function ($image) {
+                        return url('product_images/' . $image);
+                    });
+            }
+    
             $product->image_url1 = url('uploads/bg_images/' . $product->bg_image1);
             $product->image_url2 = url('uploads/bg_images2/' . $product->bg_image2);
             // $product->feature_img1 =  url('uploads/logo'. $product->features->logo);
@@ -24,7 +32,7 @@ class ProductController extends Controller
                 $feature->logo_url = url('uploads/logo/' . $feature->logo);
                 return $feature->makeHidden('logo');
             });
-            return $product->makeHidden(['bg_image1', 'bg_image2']);
+            return $product->makeHidden(['bg_image1', 'bg_image2', ]);
         });
 
 

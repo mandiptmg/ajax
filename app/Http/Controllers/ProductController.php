@@ -36,12 +36,12 @@ class ProductController extends Controller
             // If hero does not exist, make logo required with image validation rules
             $rules['bg_image1'] = 'required|mimes:jpeg,png,jpg,gif';
             $rules['bg_image2'] = 'required|mimes:jpeg,png,jpg,gif';
-            $rules['image'] = 'required|mimes:jpeg,png,jpg,gif';
+            $rules['image'] = 'required|array';
         } else {
             // If hero exists, make logo nullable
             $rules['bg_image1'] = 'nullable|mimes:jpeg,png,jpg,gif';
             $rules['bg_image2'] = 'nullable|mimes:jpeg,png,jpg,gif';
-            $rules['image'] = 'nullable|mimes:jpeg,png,jpg,gif';
+            $rules['image'] = 'nullable|array';
         }
 
 
@@ -72,11 +72,11 @@ class ProductController extends Controller
                     $image_full_name = $image_name . '.' . $ext;
                     $upload_path = public_path('product_images/');
                     $file->move($upload_path, $image_full_name);
-                    $uploadedImages[] = 'product_images/' . $image_full_name;
+                    $uploadedImages[] = $image_full_name;
                 }
             }
             $product = new Product();
-            $product->images = implode('|', $uploadedImages);
+            $product->image = implode('|', $uploadedImages);
             $product->title = $request->title;
 
             $product->short_description = $request->short_description;
@@ -172,7 +172,7 @@ class ProductController extends Controller
                 }
             }
             $product = Product::findOrFail($id);
-            $product->images = implode('|', $uploadedImages);
+            $product->image = implode('|', $uploadedImages);
             $product->title = $request->title;
             $product->short_description = $request->short_description;
             $product->description = $request->description;
