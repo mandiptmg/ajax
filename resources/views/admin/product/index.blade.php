@@ -57,28 +57,28 @@
                             <input type="file" class="form-control-file" value="{{old('bg_image2')}}" id="logo" name="bg_image2">
                             <div id="bg_image2Error"></div>
                         </div>
-
-                        <div class="col-lg-6 col-12 form-group">
+                        <!-- <div class="col-lg-6 col-12 form-group">
                             <label>Feature</label>
-                            <!-- Button trigger modal -->
+                            Button trigger modal
                             <div>
                                 <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#featureModal">
                                     Add feature
                                 </button>
                             </div>
 
-                        </div>
+                        </div> -->
+                        <div class="col-12 form-group">
+                            <label>Add features</label>
+                            <div class="w-100 border">
 
-                        <div class="col-lg-6 col-12 form-group">
-                            <label>Image</label>
-                            <!-- Button trigger modal -->
-                            <div>
-                                <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#imageModal">
-                                    Add Image
-                                </button>
+                                <button type="button" id="add-feature" class="w-100">Add Feature</button>
+                            </div>
+                            <div id="features-container">
+                                <!-- Dynamic fields will be added here -->
                             </div>
 
                         </div>
+
                         <div class="col-lg-6 col-12 form-group">
                             <label>Benefit</label>
                             <!-- Button trigger modal -->
@@ -107,9 +107,9 @@
                 </form>
             </div>
 
-<!--           
-            add feature
-            <div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
+            <!-- add feature -->
+
+            <!-- <div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -153,10 +153,13 @@
 
                     </div>
                 </div>
-            </div>
-            
-       
-            add benefit
+            </div> -->
+
+
+
+
+
+            <!-- add benefit  -->
             <div class="modal fade" id="benefitModal" tabindex="-1" aria-labelledby="benefitModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -190,7 +193,7 @@
             </div>
 
 
-            add image
+            <!-- add image -->
             <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -224,7 +227,7 @@
                 </div>
             </div>
 
-            add question
+            <!-- add question -->
             <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -261,7 +264,7 @@
 
                     </div>
                 </div>
-            </div> -->
+            </div>
 
 
             <!--Product table data  -->
@@ -327,6 +330,46 @@
 
 
 <script>
+    // Add feature
+    $('#add-feature').click(function() {
+        const featureTemplate = `
+                <div class="feature row pt-3">
+                    <div class="col-lg-3 col-12">
+                        <input type="file" name="logo[]" accept="image/*" class='form-control' required>
+                    </div>
+                    <div class="col-lg-3 col-12">
+                        <input type="text" name="title[]" class='form-control' placeholder="Title" required>
+                    </div>
+                    <div class="col-lg-4 col-12">
+                        <textarea name="description[]" class='form-control' placeholder="Description" rows="1" required></textarea>
+                    </div>
+                    <div class="col-lg-2 col-12">
+                        <button type="button" class="btn btn-danger remove-feature">Remove</button>
+                    </div>
+                </div>`;
+        $('#features-container').append(featureTemplate);
+    });
+
+    // Remove feature
+    $('#features-container').on('click', '.remove-feature', function() {
+        $(this).closest('.feature').remove();
+    });
+
+
+    // Edit feature
+    $('#features-container').on('click', '.edit-feature', function() {
+        const featureRow = $(this).closest('.feature');
+        const title = featureRow.find("input[name='title[]']").val();
+        const description = featureRow.find("textarea[name='description[]']").val();
+        const logo = featureRow.find("input[name='logo[]']").val();
+
+        // Implement your edit logic here
+        // You may want to use a modal to edit the details
+    });
+
+
+
+
     function addfeature(id) {
         console.log(id);
         $('#product_id').val(id);
@@ -360,11 +403,16 @@
                             $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
                         });
                     } else {
-                        $('form')[0].reset();
-                        // $.get(window.location.href, function(data) {
-                        //     var newTbody = $(data).find('.table-responsive #featureId').html();
-                        //     $('.table-responsive #featureId').html(newTbody);
-                        // });
+                        $('#productId').append(`<tr><td>${response.product.id}</td><td>${response.product.title}</td><td>
+                        <div class="d-flex flex-row gap-4 font-semibold">
+                            <div class="px-1">
+                                <button type="button" class="fw-btn-fill btn-gradient-yellow add-feature-btn" data-toggle="modal" data-target="#featureModal" onclick="addFeature(${response.product.id})">
+                                    Add Feature
+                                </button>
+                            </div>
+                        </div>
+                    </td></tr>`);
+                        $('#myProductForm')[0].reset();
                     }
                 }
 
@@ -373,49 +421,23 @@
     });
 
 
-    // add feature 
-    $(document).ready(function() {
-        $('#featuremyForm').submit(function(e) {
-            e.preventDefault();
 
-            var formData = new FormData(this);
-            var productId = formData.get('product_id');
+    $(`#featureForm${productId}`).submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            type: "POST",
+            url: '/admin/products/' + productId + '/features',
 
-
-            $.ajax({
-                url: '/admin/products/' + productId + '/features',
-                type: 'POST',
-                data: formData,
-                dataType: 'json',
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    console.log(response);
-
-                    if (response.status == 400) {
-                        // Clear previous error messages
-                        $('#featuretitleError').html();
-                        $('#featuredescriptionError').html();
-                        $('#logoError').html();
-
-                        // Display new error messages
-                        $.each(response.errors, function(key, err_value) {
-                            $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
-                        });
-                    } else {
-                        $('#result').text(response.message);
-                        $('#result').addClass('btn btn-success')
-                        $('#featuremyForm')[0].reset();
-                        $('#featureModal').modal('hide');
-                        // Optionally, you can update the page content after successful submission
-                        // Uncomment the following lines if you want to update the page content dynamically
-                        // $.get(window.location.href, function(data) {
-                        //     var newTbody = $(data).find('.table-responsive #featureId').html();
-                        //     $('.table-responsive #featureId').html(newTbody);
-                        // });
-                    }
-                }
-            });
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
         });
     });
 </script>

@@ -23,18 +23,18 @@ class FeatureController extends Controller
     public function store(Request $request, $productId)
     {
         $rules = [
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|array',
+            'description' => 'required|array',
         ];
 
 
         // Check if a feature exists
         if (!$request->feature_id) {
             // If hero does not exist, make logo required with image validation rules
-            $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif|max:2048|array';
         } else {
             // If hero exists, make logo nullable
-            $rules['logo'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['logo'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048|array';
         }
 
 
@@ -52,25 +52,35 @@ class FeatureController extends Controller
                 'errors' => $validator->errors()
             ]);
         } else {
-
             $product = Product::findOrFail($productId);
-            $feature = new Feature();
-            $feature->product_id = $request->product_id;
-            $feature->title = $request->title;
-            $feature->description = $request->description;  
-
-            if ($request->hasFile('logo')) {
-
-                $imageName = time() . '.' . $request->file('logo')->getClientOriginalExtension();
-                $request->file('logo')->move(public_path('uploads/logo'), $imageName);
-
-                $feature->logo = $imageName; // Assign the image name to the 'image' attribute
+            $features = [];
+        
+            foreach ($request->title as $key => $title) {
+                // Initialize the feature array
+                $featureData = [
+                    'product_id' => $product->id,
+                    'title' => $title,
+                    'description' => $request->description[$key]
+                ];
+        
+                // Check if a logo file exists for this key
+                if ($request->hasFile("logo.$key")) {
+                    $logoFile = $request->file("logo.$key");
+                    $imageName = time() . '_' . $logoFile->getClientOriginalName();
+                    $logoFile->move(public_path('uploads/logo'), $imageName);
+                    $featureData['logo'] = $imageName;
+                }
+        
+                // Create the feature with the prepared data
+                $features[] = Feature::create($featureData);
             }
-            $product->features()->save($feature);
-            return response()->json(['status' => 200, 'message' => 'Feature stored successfully!']);
+        
+            // Optionally save the features to the product if there's a relationship method
+            $product->features()->saveMany($features);
+        
+            return response()->json(['status' => 200, 'message' => 'Features stored successfully!']);
         }
     }
-
     /**
      * Display the specified resource.
      */
