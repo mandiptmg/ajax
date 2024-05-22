@@ -135,15 +135,17 @@
                             <td class="d-flex flex-row">
 
                                 <div class="mx-2">
-                                    <button type="button" class="fw-btn-fill btn-primary add-feature-btn" data-toggle="modal" data-target="#featureModal" onclick="addfeature('{{$product->id}}')">
+                                    <a href="{{ url('/admin/products' , $product->id)}}" class="fw-btn-fill btn-gradient-yellow ">
                                         view
-                                    </button>
+                                    </a>
 
                                 </div>
                                 <div class="mx-2">
-                                    <button type="button" class="fw-btn-fill btn-gradient-yellow " data-toggle="modal" data-target="#featureModal" onclick="addfeature('{{$product->id}}')">
+
+                                    <a href="{{ url('/admin/products/edit' , $product->id)}}" class="fw-btn-fill btn-gradient-yellow ">
                                         update
-                                    </button>
+                                    </a>
+
 
                                 </div>
 
@@ -227,10 +229,10 @@
                 // Handle success response
                 console.log(response);
                 $.get(window.location.href, function(data) {
-                        var newTbody = $(data).find('.table-responsive #productId').html();
-                        $('.table-responsive #productId').html(newTbody);
-                    });
-                    $('#destroyModal').modal('hide');
+                    var newTbody = $(data).find('.table-responsive #productId').html();
+                    $('.table-responsive #productId').html(newTbody);
+                });
+                $('#destroyModal').modal('hide');
                 // You can perform actions like hiding modal, refreshing the product list, etc.
             },
             error: function(xhr, status, error) {

@@ -29,7 +29,7 @@ class ProductController extends Controller
             $product->bg_image_url2 = url('uploads/bg_images2/' . $product->bg_image2);
             // $product->feature_img1 =  url('uploads/logo'. $product->features->logo);
             $product->features = $product->features->map(function ($feature) {
-                $feature->logo_url = url('uploads/logo/' . $feature->logo);
+                $feature->logo_url = url('uploads/features/' . $feature->logo);
                 return $feature->makeHidden('logo');
             });
             return $product->makeHidden(['bg_image1', 'bg_image2', 'image' ]);
