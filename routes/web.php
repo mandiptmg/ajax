@@ -37,7 +37,7 @@ Route::delete('/admin/testimonials/delete/{id}', [TestimonialController::class, 
 Route::get('/admin/products', [ProductController::class, 'index'])->name('product.index');
 Route::post('/admin/products', [ProductController::class, 'store'])->name('product.store');
 // Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('product.update');
-// Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+Route::delete('/admin/products/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 
 

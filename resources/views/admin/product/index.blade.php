@@ -86,7 +86,6 @@
                             </div>
 
                         </div>
-                        
                         <!-- add Question and answer  -->
                         <div class="col-12 form-group">
                             <label>Add Question and Answer</label>
@@ -101,6 +100,38 @@
                         </div>
 
 
+
+                        <!-- delete   -->
+                        <div class="modal fade" id="destroyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title fs-5" id="exampleModalLabel">Delete Product</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="new-added-form" method="POST" id="deleteform" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('DELETE')
+                                            <div class=" form-group">
+
+                                                <input type="hidden" id="product_id" name="product_id">
+                                                <div class="">
+                                                    Are you Sure ? You want to delete this Product.
+                                                </div>
+                                                <div class=" form-group mg-t-8">
+                                                    <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Delete</button>
+                                                    <button type="submit" data-dismiss="modal" aria-label="Close" class="btn bg-danger btn-fill-lg ">Cancel</button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-12 form-group mg-t-8">
                             <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
                         </div>
@@ -110,7 +141,7 @@
             </div>
             <!--Product table data  -->
 
-            <div class="table-responsive mt-4">
+            <div class="table-responsive mt-5">
                 <table class="table display data-table text-nowrap">
                     <thead>
                         <tr>
@@ -128,24 +159,31 @@
                         </tr>
 
                     </thead>
-                    <tbody id="productId">
+                    <tbody id="productId" class="">
                         @foreach ($products as $key=>$product)
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $product->title }}</td>
-                            <td>
-                                <div class="d-flex flex-row gap-4 font-semibold">
-                                    <div class="px-1">
+                            <td class="d-flex flex-row">
 
-                                        <div>
-                                            <button type="button" class="fw-btn-fill btn-gradient-yellow add-feature-btn" data-toggle="modal" data-target="#featureModal" onclick="addfeature('{{$product->id}}')">
-                                                Add feature
-                                            </button>
+                                <div class="mx-2">
+                                    <button type="button" class="fw-btn-fill btn-primary add-feature-btn" data-toggle="modal" data-target="#featureModal" onclick="addfeature('{{$product->id}}')">
+                                        view
+                                    </button>
 
-                                        </div>
-
-                                    </div>
                                 </div>
+                                <div class="mx-2">
+                                    <button type="button" class="fw-btn-fill btn-gradient-yellow " data-toggle="modal" data-target="#featureModal" onclick="addfeature('{{$product->id}}')">
+                                        update
+                                    </button>
+
+                                </div>
+
+                                <div class="mx-2">
+
+                                    <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ $product->id}}')" class="btn fw-btn-fill btn-danger">Delete</button>
+                                </div>
+
 
                             </td>
 
@@ -171,6 +209,16 @@
 
 
 <script>
+    //product delete
+    function destroy(id) {
+        console.log(id);
+        var form = $('#deleteform');
+        var address = "{{url('admin/products/delete')}}" + '/' + id;
+        console.log(address);
+        form.prop('action', address);
+    }
+
+
     // Add feature
     $('#add-feature').click(function() {
         const featureTemplate = `
@@ -220,7 +268,7 @@
                     <div class="col-lg-10 col-12">
                         <input type="text" name="question[]" class='form-control' placeholder="Question" required>
                     </div>
-                    <div class="col-lg-10 col-12">
+                    <div class="col-lg-10 mt-2 col-12">
                         <input type="text" name="answer[]" class='form-control' placeholder="Answer..." required>
                     </div>
                     <div class="col-lg-1 w-100 col-12">
@@ -300,6 +348,10 @@
                     $('#alert-container').html('<div class="alert alert-success">' + response.success + '</div>');
                     $('#myProductForm')[0].reset();
                     $('#features-container').empty();
+                    $.get(window.location.href, function(data) {
+                        var newTbody = $(data).find('.table-responsive #productId').html();
+                        $('.table-responsive #productId').html(newTbody);
+                    });
                 }
             }
 

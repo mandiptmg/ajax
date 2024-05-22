@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Feature;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Str;
 use App\Models\Benefit;
 use App\Models\Question;
 
