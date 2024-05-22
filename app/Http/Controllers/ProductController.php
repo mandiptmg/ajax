@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Feature;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Str;
+use App\Models\Benefit;
+use App\Models\Question;
 
 class ProductController extends Controller
 {
@@ -26,6 +29,15 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'short_description' => 'required',
+            'logo' => 'nullable|array',
+            'logo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title_feature' => 'nullable|array',
+            'title_feature.*' => 'nullable|string|max:255',
+            'description_feature' => 'nullable|array',
+            'description_feature.*' => 'nullable|string',
+            'description_benefit' => 'nullable|array',
+            'description_benefit.*' => 'nullable|string',
+
 
         ];
 
@@ -95,14 +107,60 @@ class ProductController extends Controller
                 $product->bg_image2 = $bgImage2Name;
             }
 
-
-
             $product->save();
 
+            //feature
+            if ($request->has('title_feature') && $request->has('description_feature') && $request->hasFile('logo')) {
+                $titles = $request->input('title_feature');
+                $descriptions = $request->input('description_feature');
+                $logos = $request->file('logo');
+
+                foreach ($titles as $key => $title) {
+                    // Ensure the corresponding logo and description exist
+                    if (isset($logos[$key]) && isset($descriptions[$key])) {
+                        $feature = new Feature();
+                        $feature->product_id = $product->id;
+                        $feature->logo = $logos[$key]->store('logos', 'public');
+                        $feature->title = $title;
+                        $feature->description = $descriptions[$key];
+                        $feature->save();
+                    }
+                }
+            }
+
+            //benefit
+            if ($request->has('description_benefit')) {
+                $descriptions = $request->input('description_benefit');
+
+                foreach ($descriptions as $key => $description) {
+                    // Ensure the corresponding logo and description exist
+                    if (isset($descriptions[$key])) {
+                        $benefit = new Benefit();
+                        $benefit->product_id = $product->id;
+                        $benefit->description = $descriptions[$key];
+                        $benefit->save();
+                    }
+                }
+            }
+
+            //Question and answer
+            if ($request->has('question') && $request->has('answer')) {
+                $questions = $request->input('question');
+                $answers = $request->input('answer');
+                foreach ($questions as $key => $question) {
+                    // Ensure the corresponding logo and description exist
+                    if (isset($descriptions[$key])) {
+                        $qa = new Question();
+                        $qa->product_id = $product->id;
+                        $qa->question = $questions[$key];
+                        $qa->answer = $answers[$key];
+                        $qa->save();
+                    }
+                }
+            }
+
+
             return response()->json(['status' => 200, 'message' => 'Product stored successfully!']);
-
-
-            // return redirect()->back()->with('success', 'Product added Successfully');
         }
     }
 

@@ -21,6 +21,11 @@
                 </div>
 
             </div>
+            @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+            @endif
 
             <div>
                 <form class="new-added-form" id="myProductForm" enctype="multipart/form-data">
@@ -29,7 +34,7 @@
 
                         <div class="col-lg-6 col-12 form-group">
                             <label>Top background Photo</label>
-                            <input type="file" class="form-control-file" value="{{old('bg_image1')}}" id="bg_image1" name="bg_image1">
+                            <input type="file" class="form-control-file" id="bg_image1" name="bg_image1">
                             <div id="bg_image1Error"></div>
                         </div>
                         <div class="col-lg-6 col-12 form-group">
@@ -57,16 +62,7 @@
                             <input type="file" class="form-control-file" value="{{old('bg_image2')}}" id="logo" name="bg_image2">
                             <div id="bg_image2Error"></div>
                         </div>
-                        <!-- <div class="col-lg-6 col-12 form-group">
-                            <label>Feature</label>
-                            Button trigger modal
-                            <div>
-                                <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#featureModal">
-                                    Add feature
-                                </button>
-                            </div>
-
-                        </div> -->
+                        <!-- add feature -->
                         <div class="col-12 form-group">
                             <label>Add features</label>
                             <div class="w-100 border">
@@ -78,27 +74,33 @@
                             </div>
 
                         </div>
+                        <!-- add benefit  -->
+                        <div class="col-12 form-group">
+                            <label>Add Benefits</label>
+                            <div class="w-100 border">
 
-                        <div class="col-lg-6 col-12 form-group">
-                            <label>Benefit</label>
-                            <!-- Button trigger modal -->
-                            <div>
-                                <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#benefitModal">
-                                    Add Benefit
-                                </button>
+                                <button type="button" id="add-benefit" class="w-100">Add Benefit</button>
+                            </div>
+                            <div id="benefits-container">
+                                <!-- Dynamic fields will be added here -->
                             </div>
 
                         </div>
-                        <div class="col-lg-6 col-12 form-group">
-                            <label>Question</label>
-                            <!-- Button trigger modal -->
-                            <div>
-                                <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#questionModal">
-                                    Add Question
-                                </button>
+                        
+                        <!-- add Question and answer  -->
+                        <div class="col-12 form-group">
+                            <label>Add Question and Answer</label>
+                            <div class="w-100 border">
+
+                                <button type="button" id="add-question" class="w-100">Add Question and Answer</button>
+                            </div>
+                            <div id="questions-container">
+                                <!-- Dynamic fields will be added here -->
                             </div>
 
                         </div>
+
+
                         <div class="col-12 form-group mg-t-8">
                             <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
                         </div>
@@ -106,167 +108,6 @@
 
                 </form>
             </div>
-
-            <!-- add feature -->
-
-            <!-- <div class="modal fade" id="featureModal" tabindex="-1" aria-labelledby="featureModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title fs-5" id="featureModalLabel">Add Feature</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="new-added-form" id="featuremyForm" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" id="product_id" name="product_id">
-                                <div class="row">
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Upload Photo</label>
-                                        <input type="file" class="form-control-file" value="{{old('logo')}}" id="logo" name="logo">
-
-                                        <div id="logoError"></div>
-
-
-                                    </div>
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Title</label>
-                                        <input type="text" placeholder="Title" id="feature_title" value="{{old('title')}}" class="form-control" name="title">
-                                        <div id="featuretitleError"></div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='feature_description' class="form-control" name="description">{{old('description')}}</textarea>
-                                        <div id="featuredescriptionError"></div>
-                                    </div>
-
-                                    <div class="col-12 form-group mg-t-8">
-                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div> -->
-
-
-
-
-
-            <!-- add benefit  -->
-            <div class="modal fade" id="benefitModal" tabindex="-1" aria-labelledby="benefitModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title fs-5" id="benefitModalLabel">Add Benefit</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="new-added-form" id="benefitmyForm" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <input type="hidden" name="benefit_id">
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='benefit_description' class="form-control" name="description">{{old('description')}}</textarea>
-                                        <div id="benefitdescriptionError"></div>
-                                    </div>
-
-                                    <div class="col-12 form-group mg-t-8">
-                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- add image -->
-            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title fs-5" id="imageModalLabel">Add Feature</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="new-added-form" id="imagemyForm" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <input type="hidden" name="image_id">
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Upload Photo</label>
-                                        <input type="file" class="form-control-file" value="{{old('image')}}" id="image" name="image">
-
-                                        <div id="imageError"></div>
-                                    </div>
-
-                                    <div class="col-12 form-group mg-t-8">
-                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- add question -->
-            <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title fs-5" id="questionModalLabel">Add Feature</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form class="new-added-form" id="questionmyForm" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <input type="hidden" name="question_id">
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Question</label>
-                                        <input type="text" placeholder="Question" id="question" value="{{old('question')}}" class="form-control" name="question">
-                                        <div id="questionError"></div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-12 form-group">
-                                        <label>Answer</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Answer..." id='answer' class="form-control" name="answer">{{old('answer')}}</textarea>
-                                        <div id="answerError"></div>
-                                    </div>
-
-                                    <div class="col-12 form-group mg-t-8">
-                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
             <!--Product table data  -->
 
             <div class="table-responsive mt-4">
@@ -338,16 +179,68 @@
                         <input type="file" name="logo[]" accept="image/*" class='form-control' required>
                     </div>
                     <div class="col-lg-3 col-12">
-                        <input type="text" name="title[]" class='form-control' placeholder="Title" required>
+                        <input type="text" name="title_feature[]" class='form-control' placeholder="Title" required>
                     </div>
                     <div class="col-lg-4 col-12">
-                        <textarea name="description[]" class='form-control' placeholder="Description" rows="1" required></textarea>
+                        <textarea name="description_feature[]" class='form-control' placeholder="Description" rows="1" required></textarea>
                     </div>
-                    <div class="col-lg-2 col-12">
-                        <button type="button" class="btn btn-danger remove-feature">Remove</button>
+                    <div class="col-lg-1 w-100 col-12">
+                        <button type="button" class="btn btn-primary btn-lg edit-feature ">edit</button>
+                    </div>
+                    <div class="col-lg-1 w-100 col-12">
+                        <button type="button" class="btn btn-danger btn-lg remove-feature">Remove</button>
                     </div>
                 </div>`;
         $('#features-container').append(featureTemplate);
+    });
+
+    //Add Benefit
+    $('#add-benefit').click(function() {
+        const benefitTemplate = `
+                <div class="benefit row pt-3">
+                   
+                    <div class="col-lg-10 col-12">
+                        <textarea name="description_benefit[]" class='form-control' placeholder="Description" rows="1" required></textarea>
+                    </div>
+                    <div class="col-lg-1 w-100 col-12">
+                        <button type="button" class="btn btn-primary btn-lg edit-benefit ">edit</button>
+                    </div>
+                    <div class="col-lg-1 w-100 col-12">
+                        <button type="button" class="btn btn-danger btn-lg remove-benefit">Remove</button>
+                    </div>
+                </div>`;
+        $('#benefits-container').append(benefitTemplate);
+
+    });
+
+    //Add Question and Answer
+    $('#add-question').click(function() {
+        const questionTemplate = `
+                <div class="question row pt-3">
+                    <div class="col-lg-10 col-12">
+                        <input type="text" name="question[]" class='form-control' placeholder="Question" required>
+                    </div>
+                    <div class="col-lg-10 col-12">
+                        <input type="text" name="answer[]" class='form-control' placeholder="Answer..." required>
+                    </div>
+                    <div class="col-lg-1 w-100 col-12">
+                        <button type="button" class="btn btn-primary btn-lg edit-question ">edit</button>
+                    </div>
+                    <div class="col-lg-1 w-100 col-12">
+                        <button type="button" class="btn btn-danger btn-lg remove-question">Remove</button>
+                    </div>
+                </div>`;
+        $('#questions-container').append(questionTemplate);
+    });
+
+    //Remove Quuestion and Answer
+    $('#questions-container').on('click', '.remove-question', function() {
+        $(this).closest('.question').remove();
+    });
+
+    // Remove benefit
+    $('#benefits-container').on('click', '.remove-benefit', function() {
+        $(this).closest('.benefit').remove();
     });
 
     // Remove feature
@@ -368,76 +261,48 @@
     });
 
 
-
-
-    function addfeature(id) {
-        console.log(id);
-        $('#product_id').val(id);
-    }
-
-    // add product
-    $(document).ready(function() {
-        $('#myProductForm').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            // Create FormData object
-            $.ajax({
-                url: "{{ route('product.store') }}",
-                type: 'POST',
-                data: formData,
-                dataType: 'json',
-                contentType: false, // Set content type to false for file uploads
-                processData: false, // Prevent jQuery from automatically processing the data
-                success: function(response) {
-                    console.log(response)
-
-                    if (response.status == 400) {
-                        $('#titleError').html('');
-                        $('#imageError').html();
-                        $('#descriptionError').html('');
-                        $('#shortdescriptionError').html('');
-                        $('#bg_image1Error').html('');
-                        $('#bg_image2Error').html('');
-
-                        $.each(response.errors, function(key, err_value) {
-                            $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
-                        });
-                    } else {
-                        $('#productId').append(`<tr><td>${response.product.id}</td><td>${response.product.title}</td><td>
-                        <div class="d-flex flex-row gap-4 font-semibold">
-                            <div class="px-1">
-                                <button type="button" class="fw-btn-fill btn-gradient-yellow add-feature-btn" data-toggle="modal" data-target="#featureModal" onclick="addFeature(${response.product.id})">
-                                    Add Feature
-                                </button>
-                            </div>
-                        </div>
-                    </td></tr>`);
-                        $('#myProductForm')[0].reset();
-                    }
-                }
-
-            });
-        });
+    // Edit benefit
+    $('#benefits-container').on('click', '.edit-benefit', function() {
+        const benefitRow = $(this).closest('.benefit');
+        const description = benefitRow.find("textarea[name='description[]']").val();
+        // Implement your edit logic here
+        // You may want to use a modal to edit the details
     });
 
-
-
-    $(`#featureForm${productId}`).submit(function(e) {
+    // add product
+    $('#myProductForm').submit(function(e) {
         e.preventDefault();
-        var formData = new FormData(this);
-        $.ajax({
-            type: "POST",
-            url: '/admin/products/' + productId + '/features',
 
+        let formData = new FormData(this);
+        // Create FormData object
+        $.ajax({
+            url: "{{ route('product.store') }}",
+            type: 'POST',
             data: formData,
-            processData: false,
+            dataType: 'json',
             contentType: false,
+            processData: false,
             success: function(response) {
-                console.log(response);
-            },
-            error: function(error) {
-                console.log(error);
+                console.log(response)
+
+                if (response.status == 400) {
+                    $('#titleError').html('');
+                    $('#imageError').html();
+                    $('#descriptionError').html('');
+                    $('#shortdescriptionError').html('');
+                    $('#bg_image1Error').html('');
+                    $('#bg_image2Error').html('');
+
+                    $.each(response.errors, function(key, err_value) {
+                        $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
+                    });
+                } else {
+                    $('#alert-container').html('<div class="alert alert-success">' + response.success + '</div>');
+                    $('#myProductForm')[0].reset();
+                    $('#features-container').empty();
+                }
             }
+
         });
     });
 </script>

@@ -36,25 +36,8 @@ Route::delete('/admin/testimonials/delete/{id}', [TestimonialController::class, 
 
 Route::get('/admin/products', [ProductController::class, 'index'])->name('product.index');
 Route::post('/admin/products', [ProductController::class, 'store'])->name('product.store');
-Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('product.update');
-Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
-
-Route::prefix('admin/products/{productId}')->group(function () {
-    Route::get('features', [ProductController::class, 'index'])->name('features.index');
-    Route::post('features', [FeatureController::class, 'store'])->name('features.store');
-    Route::put('features/{featureId}', [FeatureController::class, 'update'])->name('features.update');
-    Route::delete('features/{featureId}', [FeatureController::class, 'destroy'])->name('features.destroy');
-
-    // Route::get('/question_answers', [ProductController::class, 'index'])->name('question_answers.index');
-    // Route::post('question_answers', [QuestionController::class, 'store'])->name('question_answers.store');
-    // Route::put('question_answers/{qaId}', [QuestionController::class, 'update'])->name('question_answers.update');
-    // Route::delete('question_answers/{qaId}', [QuestionController::class, 'destroy'])->name('question_answers.destroy');
-
-    // Route::get('/benefits', [ProductController::class, 'index'])->name('benefits.index');
-    // Route::post('benefits', [BenefitController::class, 'store'])->name('benefits.store');
-    // Route::put('benefits/{benefitId}', [BenefitController::class, 'update'])->name('benefits.update');
-    // Route::delete('benefits/{benefitId}', [BenefitController::class, 'destroy'])->name('benefits.destroy');
-});
+// Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('product.update');
+// Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 
 

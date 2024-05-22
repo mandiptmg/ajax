@@ -1246,3 +1246,113 @@ pr@extends('layouts.adminmaster')
 </script>
 
 @endsection
+
+
+
+
+  <!-- add benefit  -->
+  <div class="modal fade" id="benefitModal" tabindex="-1" aria-labelledby="benefitModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title fs-5" id="benefitModalLabel">Add Benefit</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="new-added-form" id="benefitmyForm" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <input type="hidden" name="benefit_id">
+                                    <div class="col-lg-6 col-12 form-group">
+                                        <label>Description</label>
+                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='benefit_description' class="form-control" name="description">{{old('description')}}</textarea>
+                                        <div id="benefitdescriptionError"></div>
+                                    </div>
+
+                                    <div class="col-12 form-group mg-t-8">
+                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- add image -->
+            <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title fs-5" id="imageModalLabel">Add Feature</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="new-added-form" id="imagemyForm" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <input type="hidden" name="image_id">
+                                    <div class="col-lg-6 col-12 form-group">
+                                        <label>Upload Photo</label>
+                                        <input type="file" class="form-control-file" value="{{old('image')}}" id="image" name="image">
+
+                                        <div id="imageError"></div>
+                                    </div>
+
+                                    <div class="col-12 form-group mg-t-8">
+                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- add question -->
+            <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title fs-5" id="questionModalLabel">Add Feature</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="new-added-form" id="questionmyForm" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <input type="hidden" name="question_id">
+                                    <div class="col-lg-6 col-12 form-group">
+                                        <label>Question</label>
+                                        <input type="text" placeholder="Question" id="question" value="{{old('question')}}" class="form-control" name="question">
+                                        <div id="questionError"></div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-12 form-group">
+                                        <label>Answer</label>
+                                        <textarea rows="9" cols="10" type="text" placeholder="Answer..." id='answer' class="form-control" name="answer">{{old('answer')}}</textarea>
+                                        <div id="answerError"></div>
+                                    </div>
+
+                                    <div class="col-12 form-group mg-t-8">
+                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
