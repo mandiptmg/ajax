@@ -65,9 +65,8 @@
                         <!-- add feature -->
                         <div class="col-12 form-group">
                             <label>Add features</label>
-                            <div class="w-100 border">
-
-                                <button type="button" id="add-feature" class="w-100">Add Feature</button>
+                            <div>
+                            <button type="button" id="add-feature" class="btn btn-primary">Add Feature</button>
                             </div>
                             <div id="features-container">
                                 <!-- Dynamic fields will be added here -->
@@ -77,9 +76,10 @@
                         <!-- add benefit  -->
                         <div class="col-12 form-group">
                             <label>Add Benefits</label>
-                            <div class="w-100 border">
+                            <div>
+                          
 
-                                <button type="button" id="add-benefit" class="w-100">Add Benefit</button>
+                                <button type="button" id="add-benefit" class="btn btn-primary">Add Benefit</button>
                             </div>
                             <div id="benefits-container">
                                 <!-- Dynamic fields will be added here -->
@@ -89,9 +89,9 @@
                         <!-- add Question and answer  -->
                         <div class="col-12 form-group">
                             <label>Add Question and Answer</label>
-                            <div class="w-100 border">
+                            <div>
 
-                                <button type="button" id="add-question" class="w-100">Add Question and Answer</button>
+                                <button type="button" id="add-question" class="btn btn-primary">Add Question and Answer</button>
                             </div>
                             <div id="questions-container">
                                 <!-- Dynamic fields will be added here -->
@@ -135,14 +135,14 @@
                             <td class="d-flex flex-row">
 
                                 <div class="mx-2">
-                                    <a href="{{ url('/admin/products' , $product->id)}}" class="fw-btn-fill btn-gradient-yellow ">
+                                    <a href="{{ url('/admin/products' , $product->id)}}" class="fw-btn-fill btn-info ">
                                         view
                                     </a>
 
                                 </div>
                                 <div class="mx-2">
 
-                                    <a href="{{ url('/admin/products/edit' , $product->id)}}" class="fw-btn-fill btn-gradient-yellow ">
+                                    <a href="{{ url('/admin/products/edit' , $product->id)}}" class="fw-btn-fill btn-primary ">
                                         update
                                     </a>
 

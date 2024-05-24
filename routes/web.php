@@ -38,9 +38,8 @@ Route::get('/admin/products', [ProductController::class, 'index'])->name('produc
 Route::get('/admin/products/{id}', [ProductController::class, 'show'])->name('product.show');
 Route::post('/admin/products', [ProductController::class, 'store'])->name('product.store');
 Route::get('/admin/products/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-// Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('product.update');
+Route::put('admin/products/{product}', [ProductController::class, 'update'])->name('product.update');
 Route::delete('/admin/products/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
-
 
 
 

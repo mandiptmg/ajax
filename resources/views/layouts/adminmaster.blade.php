@@ -287,10 +287,10 @@
                             <a href="#" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Product</span></a>
                             <ul class="nav sub-group-menu sub-group-active">
                                 <li class="nav-item">
-                                    <a href="product" class="nav-link"><i class="fas fa-angle-right"></i>All Product</a>
+                                    <a href="products" class="nav-link"><i class="fas fa-angle-right"></i>All Product</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="product" class="nav-link"><i class="fas fa-angle-right"></i>Add Product</a>
+                                    <a href="products" class="nav-link"><i class="fas fa-angle-right"></i>Add Product</a>
                                 </li>
                             </ul>
                         </li>

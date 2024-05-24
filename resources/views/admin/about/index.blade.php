@@ -109,7 +109,7 @@
                     } else {
                         $('#result').text(response.message);
                         $('#result').addClass('btn btn-success')
-                        $('form')[0].reset();
+                      
                         $.get(window.location.href, function(data) {
                             var newDev = $(data).find('article #aboutId').html();
                             $('article #aboutId').html(newDev);

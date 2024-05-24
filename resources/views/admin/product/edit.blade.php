@@ -29,8 +29,8 @@
 
                     <div class="col-lg-6 col-12 form-group">
                         <label>Top background Photo</label>
-                        <input type="file" class="form-control-file" id="bg_image1" name="bg_image1">
-                        <img src="{{ asset('uploads/bg_images/' . $product->bg_image1) }}" alt="Top Background Photo" class="img-fluid">
+                        <input type="file" class="form-control-file" value="{{$product->bg_image1 ?? ''}}" id="bg_image1" name="bg_image1">
+                        <img src="{{ asset('uploads/bg_images/' . $product->bg_image1 ?? '' ) }}" alt="Top Background Photo" class="img-fluid">
                         <div id="bg_image1Error"></div>
                     </div>
                     <div class="col-lg-6 col-12 form-group">
@@ -51,7 +51,7 @@
                     <div class="col-lg-6 col-12 form-group">
                         <label>Product Image</label>
                         <input type="file" class="form-control-file" id="image" multiple name="image[]">
-                       
+
                         <div id="imageError"></div>
                     </div>
                     <div class="col-lg-6 col-12 form-group">
@@ -67,7 +67,11 @@
                         <button type="button" id="add-feature" class="btn btn-primary">Add Feature</button>
                         <div id="features-container">
                             @foreach($product->features as $feature)
+
                             <div class="feature row pt-3">
+                                <div class="col-lg-1 col-12">
+                                    <input type="checkbox" class="feature-checkbox" checked>
+                                </div>
                                 <div class="col-lg-3 col-12">
                                     <input type="file" name="logo[]" accept="image/*" class='form-control'>
                                     <img src="{{ asset('uploads/features/' . $feature->logo) }}" alt="{{ $feature->title }}" class="img-fluid">
@@ -134,41 +138,25 @@
     </div>
 </div>
 
-<!-- Delete Modal -->
-<div class="modal fade" id="destroyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title fs-5" id="exampleModalLabel">Delete Product</h3>
-            </div>
-            <div class="modal-body">
-                <form method="POST" id="deleteform">
-                    @csrf
-                    @method('DELETE')
-                    <div class="form-group">
-                        <input type="hidden" id="product_id" name="product_id">
-                        <div class="">Are you sure you want to delete this product?</div>
-                        <div class="form-group mg-t-8">
-                            <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Delete</button>
-                            <button type="button" data-dismiss="modal" aria-label="Close" class="btn bg-danger btn-fill-lg">Cancel</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
 @endsection
 
 @section('scripts')
 <script>
-    // Setup the delete form action
-    function destroy(id) {
-        var form = $('#deleteform');
-        var action = "{{ url('admin/products') }}" + '/' + id;
-        form.attr('action', action);
-    }
+    // Enable/disable feature fields based on checkbox status
+    $('#features-container').on('change', '.feature-checkbox', function() {
+        const isChecked = $(this).prop('checked');
+        const featureRow = $(this).closest('.feature');
+        featureRow.find('input[type="file"], input[type="text"], textarea').prop('disabled', !isChecked);
+    });
+
+
+    // Initially disable fields for unchecked checkboxes and leave checked ones as is
+    $('#features-container .feature-checkbox').each(function() {
+        const featureRow = $(this).closest('.feature');
+        featureRow.find('input[type="file"], input[type="text"], textarea').prop('disabled', true);
+        $(this).prop('checked', false); // Uncheck the checkbox
+    });
+
 
     // Add feature template
     const featureTemplate = `
@@ -238,11 +226,9 @@
     $('#updateProductForm').submit(function(e) {
         e.preventDefault();
         let formData = new FormData(this);
-        // var id = formData.get('product_id');
 
         $.ajax({
-            // url: "{{ url('admin/products/edit') }}" + '/' + id,
-            url: "{{ route('product.store') }}",
+            url: "{{ url('admin/products/' . $product->id) }}",
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -254,7 +240,7 @@
                         $('#' + key + 'Error').html('<p class="text-danger">' + error + '</p>');
                     });
                 } else {
-                   //
+                    window.location.href = "{{ url('admin/products') }}";
                 }
             }
         });
