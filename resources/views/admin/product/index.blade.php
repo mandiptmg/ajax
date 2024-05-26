@@ -53,7 +53,7 @@
                             <div id="descriptionError"></div>
                         </div>
                         <div class="col-lg-6 col-12 form-group">
-                            <label>product Image</label>
+                            <label>Multiple product Image</label>
                             <input type="file" class="form-control-file" value="{{old('image')}}" id="image" multiple name="image[]">
                             <div id="imageError"></div>
                         </div>
@@ -142,10 +142,10 @@
                                 </div>
                                 <div class="mx-2">
 
-                                    <a href="{{ url('/admin/products/edit' , $product->id)}}" class="fw-btn-fill btn-primary ">
+                                    <a href="{{ url('admin/products/edit/' . $product->id)}}" class="fw-btn-fill btn-primary ">
                                         update
                                     </a>
-
+'
 
                                 </div>
 
@@ -212,7 +212,7 @@
     // Product delete
     function destroy(id) {
         var form = $('#deleteform');
-        var address = "{{ url('admin/products/delete') }}" + '/' + id;
+        var address = "{{ url('admin/products') }}" + '/' + id;
         form.prop('action', address);
     }
 
@@ -256,10 +256,7 @@
                     <div class="col-lg-4 col-12">
                         <textarea name="description_feature[]" class='form-control' placeholder="Description" rows="1" required></textarea>
                     </div>
-                    <div class="col-lg-1 w-100 col-12">
-                        <button type="button" class="btn btn-primary btn-lg edit-feature ">edit</button>
-                    </div>
-                    <div class="col-lg-1 w-100 col-12">
+                    <div class="col-lg-2 w-100 col-12">
                         <button type="button" class="btn btn-danger btn-lg remove-feature">Remove</button>
                     </div>
                 </div>`;
@@ -271,12 +268,10 @@
         const benefitTemplate = `
                 <div class="benefit row pt-3">
                    
-                    <div class="col-lg-10 col-12">
+                    <div class="col-lg-11 col-12">
                         <textarea name="description_benefit[]" class='form-control' placeholder="Description" rows="1" required></textarea>
                     </div>
-                    <div class="col-lg-1 w-100 col-12">
-                        <button type="button" class="btn btn-primary btn-lg edit-benefit ">edit</button>
-                    </div>
+                
                     <div class="col-lg-1 w-100 col-12">
                         <button type="button" class="btn btn-danger btn-lg remove-benefit">Remove</button>
                     </div>
@@ -289,15 +284,13 @@
     $('#add-question').click(function() {
         const questionTemplate = `
                 <div class="question row pt-3">
-                    <div class="col-lg-10 col-12">
+                    <div class="col-lg-11 col-12">
                         <input type="text" name="question[]" class='form-control' placeholder="Question" required>
                     </div>
-                    <div class="col-lg-10 mt-2 col-12">
+                    <div class="col-lg-11 mt-2 col-12">
                         <input type="text" name="answer[]" class='form-control' placeholder="Answer..." required>
                     </div>
-                    <div class="col-lg-1 w-100 col-12">
-                        <button type="button" class="btn btn-primary btn-lg edit-question ">edit</button>
-                    </div>
+                    
                     <div class="col-lg-1 w-100 col-12">
                         <button type="button" class="btn btn-danger btn-lg remove-question">Remove</button>
                     </div>
@@ -348,7 +341,7 @@
         let formData = new FormData(this);
         // Create FormData object
         $.ajax({
-            url: "{{ route('product.store') }}",
+            url: "{{ route('products.store') }}",
             type: 'POST',
             data: formData,
             dataType: 'json',

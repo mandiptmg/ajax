@@ -49,7 +49,7 @@
                         <div id="descriptionError"></div>
                     </div>
                     <div class="col-lg-6 col-12 form-group">
-                        <label>Product Image</label>
+                        <label>Multiple Product Image</label>
                         <input type="file" class="form-control-file" id="image" multiple name="image[]">
 
                         <div id="imageError"></div>
@@ -142,6 +142,13 @@
 
 @section('scripts')
 <script>
+    // CSRF Token setup for AJAX
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     // Enable/disable feature fields based on checkbox status
     $('#features-container').on('change', '.feature-checkbox', function() {
         const isChecked = $(this).prop('checked');
@@ -158,47 +165,48 @@
     });
 
 
-    // Add feature template
+    // Feature template
     const featureTemplate = `
-        <div class="feature row pt-3">
-            <div class="col-lg-3 col-12">
-                <input type="file" name="logo[]" accept="image/*" class='form-control' required>
-            </div>
-            <div class="col-lg-3 col-12">
-                <input type="text" name="title_feature[]" class='form-control' placeholder="Title" required>
-            </div>
-            <div class="col-lg-4 col-12">
-                <textarea name="description_feature[]" class='form-control' placeholder="Description" rows="1" required></textarea>
-            </div>
-            <div class="col-lg-1 col-12">
-                <button type="button" class="btn btn-danger btn-lg remove-feature">Remove</button>
-            </div>
-        </div>`;
+    <div class="feature row pt-3">
+        <div class="col-lg-3 col-12">
+            <input type="file" name="logo[]" accept="image/*" class='form-control' required>
+        </div>
+        <div class="col-lg-3 col-12">
+            <input type="text" name="title_feature[]" class='form-control' placeholder="Title" required>
+        </div>
+        <div class="col-lg-4 col-12">
+            <textarea name="description_feature[]" class='form-control' placeholder="Description" rows="1" required></textarea>
+        </div>
+        <div class="col-lg-1 col-12">
+            <button type="button" class="btn btn-danger btn-lg remove-feature">Remove</button>
+        </div>
+    </div>`;
 
-    // Add benefit template
+    // Benefit template
     const benefitTemplate = `
-        <div class="benefit row pt-3">
-            <div class="col-lg-10 col-12">
-                <textarea name="description_benefit[]" class='form-control' placeholder="Description" rows="1" required></textarea>
-            </div>
-            <div class="col-lg-1 col-12">
-                <button type="button" class="btn btn-danger btn-lg remove-benefit">Remove</button>
-            </div>
-        </div>`;
+    <div class="benefit row pt-3">
+        <div class="col-lg-10 col-12">
+            <textarea name="description_benefit[]" class='form-control' placeholder="Description" rows="1" required></textarea>
+        </div>
+        <div class="col-lg-1 col-12">
+            <button type="button" class="btn btn-danger btn-lg remove-benefit">Remove</button>
+        </div>
+    </div>`;
 
-    // Add question template
+    // Question template
     const questionTemplate = `
-        <div class="question row pt-3">
-            <div class="col-lg-10 col-12">
-                <input type="text" name="question[]" class='form-control' placeholder="Question" required>
-            </div>
-            <div class="col-lg-10 mt-2 col-12">
-                <input type="text" name="answer[]" class='form-control' placeholder="Answer" required>
-            </div>
-            <div class="col-lg-1 col-12">
-                <button type="button" class="btn btn-danger btn-lg remove-question">Remove</button>
-            </div>
-        </div>`;
+    <div class="question row pt-3">
+        <div class="col-lg-10 col-12">
+            <input type="text" name="question[]" class='form-control' placeholder="Question" required>
+        </div>
+        <div class="col-lg-10 mt-2 col-12">
+            <input type="text" name="answer[]" class='form-control' placeholder="Answer" required>
+        </div>
+        <div class="col-lg-1 col-12">
+            <button type="button" class="btn btn-danger btn-lg remove-question">Remove</button>
+        </div>
+    </div>`;
+
 
     // Add dynamic fields
     $('#add-feature').click(function() {
@@ -221,6 +229,7 @@
     $('#questions-container').on('click', '.remove-question', function() {
         $(this).closest('.question').remove();
     });
+
 
     // Handle form submission
     $('#updateProductForm').submit(function(e) {

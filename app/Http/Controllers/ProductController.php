@@ -36,8 +36,6 @@ class ProductController extends Controller
             'description_feature.*' => 'nullable|string',
             'description_benefit' => 'nullable|array',
             'description_benefit.*' => 'nullable|string',
-
-
         ];
 
 
@@ -198,6 +196,7 @@ class ProductController extends Controller
             'bg_image2' => 'nullable|mimes:jpeg,png,jpg,gif',
             'image' => 'nullable|array',
 
+
         ];
 
         // Perform validation
@@ -245,92 +244,51 @@ class ProductController extends Controller
 
             $product->save();
 
-            // Delete existing features
-            $product->features()->delete();
-            // Feature
-            if ($request->has('title_feature') && $request->has('description_feature') && $request->hasFile('logo')) {
-                $titles = $request->input('title_feature');
-                $descriptions = $request->input('description_feature');
+       
+
+
+            // Handle features
+            Feature::where('product_id', $product->id)->delete  (); // Delete existing features
+            if ($request->has('title_feature')) {
                 $logos = $request->file('logo');
-
-                foreach ($titles as $key => $title) {
-                    // Ensure the corresponding logo and description exist
-                    if (isset($logos[$key]) && isset($descriptions[$key])) {
-                        $feature = Feature::where('product_id', $product->id)->where('id', $key)->first();
-                        if ($feature) {
-                            // Update existing feature
-                            $featureimg = time() . 'feature.' . $logos[$key]->getClientOriginalExtension();
-                            $destinationPath = public_path('uploads/features');
-                            $logos[$key]->move($destinationPath, $featureimg);
-                            $feature->logo =  $featureimg;
-                            $feature->title = $title;
-                            $feature->description = $descriptions[$key];
-                            $feature->save();
-                        }
-                    } else {
-                        // Create new feature
-                        $featureimg = time() . 'feature.' . $logos[$key]->getClientOriginalExtension();
-                        $destinationPath = public_path('uploads/features');
-                        $logos[$key]->move($destinationPath, $featureimg);
-                        $feature = new Feature();
-                        $feature->product_id = $product->id;
-                        $feature->logo = $featureimg;
-                        $feature->title = $title;
-                        $feature->description = $descriptions[$key];
-                        $feature->save();
-                    }
+                foreach ($request->title_feature as $key => $title) {
+                    $feature = new Feature();
+                    $feature->product_id = $product->id;
+                    $feature->title = $title;
+                    $feature->description = $request->description_feature[$key];
+                    $featureimg = time() . 'feature.' . $logos[$key]->getClientOriginalExtension();
+                    $destinationPath = public_path('uploads/features');
+                    $logos[$key]->move($destinationPath, $featureimg);
+                    $feature->logo =  $featureimg;
+                    $feature->save();
                 }
             }
-            // Delete existing features
-            $product->benefits()->delete();
-            // Benefit
+
+
+            // Handle benefits
+            Benefit::where('product_id', $product->id)->delete(); // Delete existing benefits
             if ($request->has('description_benefit')) {
-                $descriptions = $request->input('description_benefit');
+                foreach ($request->description_benefit as $description) {
+                    $benefit = new Benefit();
+                    $benefit->product_id = $product->id;
+                    $benefit->description = $description;
+                    $benefit->save();
+                }
+            }
 
-                foreach ($descriptions as $key => $description) {
-                    // Ensure the corresponding benefit exists
-                    if (isset($descriptions[$key])) {
-                        $benefit = Benefit::where('product_id', $product->id)->where('id', $key)->first();
-                        if ($benefit) {
-                            // Update existing benefit
-                            $benefit->description = $descriptions[$key];
-                            $benefit->save();
-                        } else {
-                            // Create new benefit
-                            $benefit = new Benefit();
-                            $benefit->product_id = $product->id;
-                            $benefit->description = $descriptions[$key];
-                            $benefit->save();
-                        }
-                    }
-                }
-            }
-            // Delete existing features
-            $product->questionAnswers()->delete();
-            // Question and Answer
+            // Handle question answers
+            Question::where('product_id', $product->id)->delete(); // Delete existing question answers
             if ($request->has('question') && $request->has('answer')) {
-                $questions = $request->input('question');
-                $answers = $request->input('answer');
-                foreach ($questions as $key => $question) {
-                    // Ensure the corresponding question and answer exist
-                    if (isset($questions[$key]) && isset($answers[$key])) {
-                        $qa = Question::where('product_id', $product->id)->where('id', $key)->first();
-                        if ($qa) {
-                            // Update existing question and answer
-                            $qa->question = $questions[$key];
-                            $qa->answer = $answers[$key];
-                            $qa->save();
-                        }else{
-                            // Create new question and answer
-                            $qa = new Question();
-                            $qa->product_id = $product->id;
-                            $qa->question = $questions[$key];
-                            $qa->answer = $answers[$key];
-                            $qa->save();
-                        }
-                    }
+                foreach ($request->question as $key => $question) {
+                    $qa = new Question();
+                    $qa->product_id = $product->id;
+                    $qa->question = $question;
+                    $qa->answer = $request->answer[$key];
+                    $qa->save();
                 }
             }
+
+
             return response()->json(['status' => 200, 'message' => 'Product update successfully!']);
         }
     }

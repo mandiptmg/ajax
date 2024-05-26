@@ -34,15 +34,19 @@ Route::put('/admin/testimonials/{id}', [TestimonialController::class, 'update'])
 Route::delete('/admin/testimonials/delete/{id}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
 
 
-Route::get('/admin/products', [ProductController::class, 'index'])->name('product.index');
-Route::get('/admin/products/{id}', [ProductController::class, 'show'])->name('product.show');
-Route::post('/admin/products', [ProductController::class, 'store'])->name('product.store');
-Route::get('/admin/products/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-Route::put('admin/products/{product}', [ProductController::class, 'update'])->name('product.update');
-Route::delete('/admin/products/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 
 
-Route::get('/', function () {
-    return view('welcome');
+// Product Routes
+Route::prefix('admin')->group(function () {
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+    Route::post('products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('products/{id}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('products/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('products/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+});
+
+Route::get('/admin', function () {
+    return view('index');
 });
