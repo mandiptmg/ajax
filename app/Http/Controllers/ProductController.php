@@ -88,8 +88,8 @@ class ProductController extends Controller
             $product->image = implode('|', $uploadedImages);
             $product->title = $request->title;
 
-            $product->short_description = $request->short_description;
-            $product->description = $request->description;
+            $product->short_description = strip_tags($request->short_description);
+            $product->description = strip_tags($request->description);
 
 
             if ($request->hasFile('bg_image1')) {
@@ -227,8 +227,8 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $product->image = implode('|', $uploadedImages);
             $product->title = $request->title;
-            $product->short_description = $request->short_description;
-            $product->description = $request->description;
+            $product->short_description = strip_tags( $request->short_description);
+            $product->description = strip_tags( $request->description);
 
             if ($request->hasFile('bg_image1')) {
                 $bgImage1Name = time() . 'bg1.' . $request->file('bg_image1')->getClientOriginalExtension();
@@ -244,11 +244,11 @@ class ProductController extends Controller
 
             $product->save();
 
-       
+
 
 
             // Handle features
-            Feature::where('product_id', $product->id)->delete  (); // Delete existing features
+            Feature::where('product_id', $product->id)->delete(); // Delete existing features
             if ($request->has('title_feature')) {
                 $logos = $request->file('logo');
                 foreach ($request->title_feature as $key => $title) {

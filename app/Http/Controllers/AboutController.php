@@ -14,7 +14,6 @@ class AboutController extends Controller
     {
         $abouts = About::latest()->first();
         return view('admin.about.index', compact('abouts'));
-       
     }
 
     /**
@@ -54,7 +53,7 @@ class AboutController extends Controller
             $about = $request->about_id ? About::findOrFail($request->about_id) : new About();
 
             $about->title = $request->title;
-            $about->description = $request->description;
+            $about->description = strip_tags($request->description);
             // $about->image = $request->image;
             if ($request->hasFile('logo')) {
 

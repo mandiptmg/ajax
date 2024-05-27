@@ -67,7 +67,7 @@ class HeroController extends Controller
             $hero = $request->hero_id ? Hero::findOrFail($request->hero_id) : new Hero();
 
             $hero->title = $request->title;
-            $hero->description = $request->description;
+            $hero->description =strip_tags( $request->description);
             // $hero->image = $request->image;
             if ($request->hasFile('logo')) {
 

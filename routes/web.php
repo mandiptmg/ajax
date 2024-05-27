@@ -1,12 +1,10 @@
 <?php
 
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\BenefitController;
-use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\HeroController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestimonialController;
 use Illuminate\Support\Facades\Route;
@@ -50,3 +48,19 @@ Route::prefix('admin')->group(function () {
 Route::get('/admin', function () {
     return view('index');
 });
+
+Route::get('/login', function () {
+    return view('login.index');
+});
+
+
+Route::get('/account-settings', function () {
+    return view('account_setting.index');
+});
+
+
+// Route::resource('permission',[PermissionController::class]);
+Route::get('permission',[PermissionController::class,'index'])->name('permissions.index');
+Route::post('permission',[PermissionController::class,'store'])->name('permissions.store');
+Route::put('permission/{id}',[PermissionController::class,'update']);
+Route::delete('permission/delete/{id}',[PermissionController::class,'destroy']);

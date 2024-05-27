@@ -46,7 +46,7 @@
 
             <!-- add portfolio -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title fs-5" id="exampleModalLabel">Add Portfolio</h3>
@@ -60,15 +60,15 @@
 
                                 <div class="row">
 
-                                    <div class="d-flex w-full form-group mg-t-30">
-                                        <div class="w-full"> <label class="text-dark-medium">Upload Portfolio Photo</label>
+                                    <div class="d-flex w-100 form-group mg-t-30">
+                                        <div class="w-100"> <label class="text-dark-medium">Upload Portfolio Photo</label>
                                             <input type="file" class="form-control-file" value="{{old('logo')}}" id="logo" name="logo">
                                             <div id="logoError"></div>
                                         </div>
 
-                                        <div class="w-full form-group">
+                                        <div class="w-100 form-group">
                                             <label>Url address </label>
-                                            <input type="url" placeholder="" id="url" value="{{old('url')}}" class="form-control w-full" name="url">
+                                            <input type="url" placeholder="" id="url" value="{{old('url')}}" class="form-control" name="url">
                                             <div id="urlError"></div>
                                         </div>
                                     </div>
@@ -93,7 +93,7 @@
             <!--Edit Modal -->
 
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title fs-5" id="exampleModalLabel">Edit Service</h3>
@@ -109,15 +109,15 @@
                                 <div class="row">
                                     <input type="hidden" id="portfolio" name="portfolio_id">
 
-                                    <div class="d-flex w-full form-group mg-t-30">
-                                        <div class="w-full"> <label class="text-dark-medium">Upload Portfolio Photo</label>
+                                    <div class="d-flex w-100 form-group mg-t-30">
+                                        <div class="w-100"> <label class="text-dark-medium">Upload Portfolio Photo</label>
                                             <input type="file" class="form-control-file" value="{{old('logo')}}" id="image1" name="logo">
                                             <div id="logoError"></div>
                                         </div>
 
-                                        <div class="w-full form-group">
+                                        <div class="w-100 form-group">
                                             <label>Url address </label>
-                                            <input type="url" placeholder="" id="url1" value="{{old('url')}}" class="form-control w-full" name="url">
+                                            <input type="url" placeholder="" id="url1" value="{{old('url')}}" class="form-control w-100" name="url">
                                             <div id="urlError"></div>
                                         </div>
                                     </div>

@@ -30,7 +30,7 @@
 
             <!-- add testimonial -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title fs-5" id="exampleModalLabel">Add Testimonail</h3>
@@ -44,7 +44,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Product Name</label>
-                                        <input type="text" class="form-control-file" value="{{old('product_name')}}" id="product_name" name="product_name">
+                                        <input type="text" class="form-control" value="{{old('product_name')}}" id="product_name" name="product_name">
 
                                         <div id="product_nameError"></div>
 
@@ -68,9 +68,9 @@
                                         <input type="text" placeholder="Your occupation" id="occupation" value="{{old('occupation')}}" class="form-control" name="occupation">
                                         <div id="occupationError"></div>
                                     </div>
-                                    <div class="col-lg-6 col-12 form-group">
+                                    <div class="col-lg-12 col-12 form-group">
                                         <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description' class="form-control" name="description">{{old('description')}}</textarea>
+                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description' class="form-control tinymce" name="description">{{old('description')}}</textarea>
                                         <div id="descriptionError"></div>
                                     </div>
 
@@ -88,7 +88,7 @@
 
             <!-- edit testimonial -->
             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title fs-5" id="exampleModalLabel">Edit Testimonail</h3>
@@ -104,8 +104,8 @@
                                     <input type="hidden" name="testimonial_id" id="testimonial">
 
                                     <div class="col-lg-6 col-12 form-group">
-                                        <label>Upload Photo</label>
-                                        <input type="text" class="form-control-file" value="{{old('product_name')}}" id="product_name1" name="product_name">
+                                        <label>Product Name</label>
+                                        <input type="text" class="form-control" value="{{old('product_name')}}" id="product_name1" name="product_name">
 
                                         <div id="product_nameError"></div>
 
@@ -129,9 +129,9 @@
                                         <input type="text" placeholder="Your occupation" id="occupation1" value="{{old('occupation')}}" class="form-control" name="occupation">
                                         <div id="occupationError"></div>
                                     </div>
-                                    <div class="col-lg-6 col-12 form-group">
+                                    <div class="col-lg-12 col-12 form-group">
                                         <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description1' class="form-control" name="description">{{old('description')}}</textarea>
+                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description1' class="form-control tinymce" name="description">{{old('description')}}</textarea>
                                         <div id="descriptionError"></div>
                                     </div>
 

@@ -46,7 +46,7 @@ class ServiceController extends Controller
             $service = $request->service_id ? Service::findOrFail($request->service_id) : new Service();
 
             $service->title = $request->title;
-            $service->description = $request->description;
+            $service->description = strip_tags( $request->description);
             $service->icon = $request->icon;
             $service->save();
 
@@ -87,7 +87,7 @@ class ServiceController extends Controller
 
             $service =  Service::findOrFail($id); 
             $service->title = $request->title;
-            $service->description = $request->description;
+            $service->description = strip_tags( $request->description);
             $service->icon = $request->icon;
             $service->save();
 

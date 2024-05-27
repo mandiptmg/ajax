@@ -31,11 +31,7 @@
                         <input type="text" placeholder="" id="title" value="{{old('title',$abouts->title ?? '')}}" class="form-control" name="title">
                         <div id="titleError"></div>
                     </div>
-                    <div class="col-lg-6 col-12 form-group">
-                        <label>Description *</label>
-                        <textarea rows="9" cols="10" type="text" placeholder="" id='description' class="form-control" name="description">{{old('description', $abouts->description ?? '' )}}</textarea>
-                        <div id="descriptionError"></div>
-                    </div>
+
                     <div class="col-lg-6 col-12 form-group mg-t-30">
                         <label class="text-dark-medium">Upload Student Photo (150px X 150px)</label>
                         <input type="file" class="form-control-file" value="{{old('logo', $abouts->image ?? '')}}" id="logo" name="logo">
@@ -43,6 +39,11 @@
                         <div id="logoError"></div>
 
 
+                    </div>
+                    <div class="col-lg-12 col-12 form-group">
+                        <label>Description *</label>
+                        <textarea rows="9" cols="10" type="text" placeholder="" id='description' class="form-control tinymce" name="description">{{old('description', $abouts->description ?? '' )}}</textarea>
+                        <div id="descriptionError"></div>
                     </div>
                     <div class="col-12 form-group mg-t-8">
                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
@@ -108,8 +109,8 @@
                         });
                     } else {
                         $('#result').text(response.message);
-                        $('#result').addClass('btn btn-success')
-                      
+                        $('#result').addClass('btn btn-success');
+                        $('form')[0].reset();
                         $.get(window.location.href, function(data) {
                             var newDev = $(data).find('article #aboutId').html();
                             $('article #aboutId').html(newDev);

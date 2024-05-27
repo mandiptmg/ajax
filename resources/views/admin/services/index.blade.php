@@ -49,7 +49,7 @@
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-dialog  modal-lg modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h3 class="modal-title fs-5" id="exampleModalLabel">Add Service</h3>
@@ -64,20 +64,20 @@
                                         <div class="row">
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label>Title</label>
-                                                <input type="text" placeholder="" id="" value="{{old('title')}}" class="form-control" name="title">
+                                                <input type="text"  value="{{old('title')}}" class="form-control" name="title">
                                                 <div id="titleError"></div>
                                             </div>
-                                            <div class="col-lg-6 col-12 form-group">
-                                                <label>Description *</label>
-                                                <textarea rows="9" cols="10" type="text" placeholder="" id='' class="form-control" name="description">{{old('description')}}</textarea>
-                                                <div id="descriptionError"></div>
-                                            </div>
+
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label>Icon *</label>
                                                 <input type="text" placeholder="" id='' class="form-control" name="icon" value="{{old('icon')}}">
                                                 <div id="iconError"></div>
                                             </div>
-
+                                            <div class="col-lg-12 col-12 form-group">
+                                                <label>Description *</label>
+                                                <textarea rows="9" cols="10" type="text" placeholder="" id='' class="form-control tinymce" name="description">{{old('description')}}</textarea>
+                                                <div id="descriptionError"></div>
+                                            </div>
                                             <div class="col-12 form-group mg-t-8">
                                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
                                             </div>
@@ -94,7 +94,7 @@
                     <!--Edit Modal -->
 
                     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-dialog  modal-lg modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h3 class="modal-title fs-5" id="exampleModalLabel">Edit Service</h3>
@@ -111,22 +111,23 @@
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label>Title</label>
                                                 <input type="hidden" id="service_id" name="service_id">
-                                                <input type="text" placeholder="" id="title" value="{{old('title')}}" class="form-control" name="title">
+                                                <input type="text"  id="title" value="{{old('title')}}" class="form-control" name="title">
                                                 <div id="titleError"></div>
                                             </div>
-                                            <div class="col-lg-6 col-12 form-group">
-                                                <label>Description *</label>
-                                                <textarea rows="9" cols="10" type="text" placeholder="" id='description' class="form-control" name="description">{{old('description')}}</textarea>
-                                                <div id="descriptionError"></div>
-                                            </div>
+
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label>Icon *</label>
                                                 <input type="text" placeholder="" id='icon' class="form-control" name="icon" value="{{old('icon')}}">
                                                 <div id="iconError"></div>
                                             </div>
+                                            <div class="col-lg-12 col-12 form-group">
+                                                <label>Description *</label>
+                                                <textarea rows="9" cols="10" type="text" placeholder="" id='description' class="form-control tinymce" name="description">{{old('description')}}</textarea>
+                                                <div id="descriptionError"></div>
+                                            </div>
 
                                             <div class="col-12 form-group mg-t-8">
-                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Upload</button>
+                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Updated</button>
                                             </div>
                                         </div>
 
@@ -171,22 +172,7 @@
 
 
                 </div>
-                <!-- <form class="mg-b-20">
-                    <div class="row gutters-8">
-                        <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                            <input type="text" placeholder="Search by ID ..." class="form-control">
-                        </div>
-                        <div class="col-4-xxxl col-xl-4 col-lg-3 col-12 form-group">
-                            <input type="text" placeholder="Search by Name ..." class="form-control">
-                        </div>
-                        <div class="col-4-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                            <input type="text" placeholder="Search by Phone ..." class="form-control">
-                        </div>
-                        <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
-                            <button type="submit" class="fw-btn-fill btn-gradient-yellow">SEARCH</button>
-                        </div>
-                    </div>
-                </form> -->
+           
 
                 <!-- data tabel  -->
                 <div class="table-responsive">
@@ -223,7 +209,7 @@
                                                 Edit
                                             </button> -->
 
-                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($service->id) }}', '{{ addslashes($service->title) }}', '{{ addslashes($service->description) }}','{{ addslashes($service->icon) }}' )" data-toggle="modal" data-target="#editModal">
+                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($service->id) }}', '{{ addslashes($service->title) }}', '{{ addslashes($service->ShortDescription) }}','{{ addslashes($service->icon) }}' )" data-toggle="modal" data-target="#editModal">
                                                 Edit
                                             </button>
 
@@ -265,9 +251,9 @@
         form.prop('action', address);
     }
 
-    function edit(id, title, description, icon) {
+    function edit(id, title, ShortDescription, icon) {
         $('#title').val(title);
-        $('#description').val(description);
+        $('#description').val(ShortDescription);
         $('#icon').val(icon);
         $('#service_id').val(id);
 

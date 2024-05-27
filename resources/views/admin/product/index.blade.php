@@ -44,12 +44,12 @@
                         </div>
                         <div class="col-lg-6 col-12 form-group">
                             <label>Short Description</label>
-                            <textarea rows="9" cols="10" type="text" placeholder="Short Description..." id='short_description' class="form-control" name="short_description">{{old('short_description')}}</textarea>
+                            <textarea rows="9" cols="10" type="text" placeholder="Short Description..." id='short_description' class="form-control tinymce" name="short_description">{{old('short_description')}}</textarea>
                             <div id="short_descriptionError"></div>
                         </div>
                         <div class="col-lg-6 col-12 form-group">
                             <label>Description</label>
-                            <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description' class="form-control" name="description">{{old('description')}}</textarea>
+                            <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description' class="tinymce form-control" name="description">{{old('description')}}</textarea>
                             <div id="descriptionError"></div>
                         </div>
                         <div class="col-lg-6 col-12 form-group">
@@ -254,7 +254,7 @@
                         <input type="text" name="title_feature[]" class='form-control' placeholder="Title" required>
                     </div>
                     <div class="col-lg-4 col-12">
-                        <textarea name="description_feature[]" class='form-control' placeholder="Description" rows="1" required></textarea>
+                        <textarea name="description_feature[]" class='form-control tinymce' placeholder="Description" rows="1" required></textarea>
                     </div>
                     <div class="col-lg-2 w-100 col-12">
                         <button type="button" class="btn btn-danger btn-lg remove-feature">Remove</button>
@@ -269,7 +269,7 @@
                 <div class="benefit row pt-3">
                    
                     <div class="col-lg-11 col-12">
-                        <textarea name="description_benefit[]" class='form-control' placeholder="Description" rows="1" required></textarea>
+                        <textarea name="description_benefit[]" class='form-control tinymce' placeholder="Description" rows="1" required></textarea>
                     </div>
                 
                     <div class="col-lg-1 w-100 col-12">
