@@ -6,7 +6,7 @@
         <h3>Creation Soft Nepal</h3>
         <ul>
             <li>
-                <a href="index.html">Home</a>
+                <a href="{{url('admin/dashboard')}}">Home</a>
             </li>
             <li>Testimonial section</li>
         </ul>
@@ -258,7 +258,7 @@
         $('#occupation1').val(occupation);
         $('#description1').val(description);
         $('#testimonial').val(id);
-
+        tinymce.get('description1').setContent(description);
     }
     $(document).ready(function() {
         $('#editform').submit(function(e) {

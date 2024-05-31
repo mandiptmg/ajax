@@ -6,7 +6,8 @@
         <h3>Creation Soft Nepal</h3>
         <ul>
             <li>
-                <a href="index.html">Home</a>
+                <a href="{{url('admin/dashboard')}}">Home</a>
+
             </li>
             <li>Product section</li>
         </ul>

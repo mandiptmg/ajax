@@ -2,12 +2,29 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HeroController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PermissionCategoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+
+Route::get('/login', function () {
+    return view('login.index');
+});
+
+Auth::routes();
+
+// Protected routes go here
+Route::get('/admin/dashboard', function () {
+    return view('index');
+});
 
 
 Route::get('/admin/hero', [HeroController::class, 'index'])->name('hero.index');
@@ -45,22 +62,38 @@ Route::prefix('admin')->group(function () {
     Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
 });
 
-Route::get('/admin', function () {
-    return view('index');
+
+
+
+
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
+    Route::post('permissions', [PermissionController::class, 'store'])->name('permissions.store');
+    Route::put('permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
+    Route::delete('permissions/delete/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });
 
-Route::get('/login', function () {
-    return view('login.index');
+
+Route::prefix('admin')->group(function () {
+
+    Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('roles/{id}', [RoleController::class, 'show'])->name('roles.show');
+    Route::get('roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::patch('roles/{id}', [RoleController::class, 'update'])->name('roles.update');
+    Route::delete('roles/delete/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
 });
 
 
-Route::get('/account-settings', function () {
-    return view('account_setting.index');
+
+Route::prefix('admin')->group(function () {
+    Route::get('permission-categorys', [PermissionCategoryController::class, 'index'])->name('permission-categorys.index');
+    Route::post('permission-categorys', [PermissionCategoryController::class, 'store'])->name('permission-categorys.store');
+    Route::put('permission-categorys/{id}', [PermissionCategoryController::class, 'update']);
+    Route::delete('permission-categorys/delete/{id}', [PermissionCategoryController::class, 'destroy']);
 });
-
-
-// Route::resource('permission',[PermissionController::class]);
-Route::get('permission',[PermissionController::class,'index'])->name('permissions.index');
-Route::post('permission',[PermissionController::class,'store'])->name('permissions.store');
-Route::put('permission/{id}',[PermissionController::class,'update']);
-Route::delete('permission/delete/{id}',[PermissionController::class,'destroy']);

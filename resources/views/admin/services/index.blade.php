@@ -6,7 +6,8 @@
         <h3>Creation Soft Nepal</h3>
         <ul>
             <li>
-                <a href="index.html">Home</a>
+                <a href="{{url('admin/dashboard')}}">Home</a>
+
             </li>
             <li>Services section</li>
         </ul>
@@ -64,7 +65,7 @@
                                         <div class="row">
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label>Title</label>
-                                                <input type="text"  value="{{old('title')}}" class="form-control" name="title">
+                                                <input type="text" value="{{old('title')}}" class="form-control" name="title">
                                                 <div id="titleError"></div>
                                             </div>
 
@@ -111,7 +112,7 @@
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label>Title</label>
                                                 <input type="hidden" id="service_id" name="service_id">
-                                                <input type="text"  id="title" value="{{old('title')}}" class="form-control" name="title">
+                                                <input type="text" id="title" value="{{old('title')}}" class="form-control" name="title">
                                                 <div id="titleError"></div>
                                             </div>
 
@@ -172,7 +173,7 @@
 
 
                 </div>
-           
+
 
                 <!-- data tabel  -->
                 <div class="table-responsive">
@@ -209,7 +210,7 @@
                                                 Edit
                                             </button> -->
 
-                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($service->id) }}', '{{ addslashes($service->title) }}', '{{ addslashes($service->ShortDescription) }}','{{ addslashes($service->icon) }}' )" data-toggle="modal" data-target="#editModal">
+                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($service->id) }}', '{{ addslashes($service->title) }}', '{{ addslashes($service->description) }}','{{ addslashes($service->icon) }}' )" data-toggle="modal" data-target="#editModal">
                                                 Edit
                                             </button>
 
@@ -251,11 +252,13 @@
         form.prop('action', address);
     }
 
-    function edit(id, title, ShortDescription, icon) {
+    function edit(id, title, description, icon) {
         $('#title').val(title);
-        $('#description').val(ShortDescription);
+        $('#description').val(description);
         $('#icon').val(icon);
         $('#service_id').val(id);
+        tinymce.get('description').setContent(description);
+
 
 
     }

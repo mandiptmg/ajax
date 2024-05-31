@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PermissionCategory;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
@@ -12,78 +13,41 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = Permission::get();
-        return view('role-permission.permission.index', compact('permissions'));
+        $permissions = Permission::with('permissionCategory')->get();
+        $permissionCategories = PermissionCategory::all();
+        return view('role-permission.permission.index', compact('permissions','permissionCategories'));
     }
 
     public function store(Request $request)
     {
 
+        $validatedData = $request->validate([
+            'name' => 'required|string|unique:permissions,name',
+            'permissioncategory_id' => 'required|exists:permission_categories,id',
+        ]);
 
-        $rules = [
-            'name' => [
-                'required',
-                'string',
-                'unique:permissions,name'
-            ]
-        ];
-
-
-        // Perform validation
-        $validator = validator(
-            $request->all(),
-            $rules
-        );
-
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->errors()
-            ]);
-        } else {
-
-            $permission = new Permission();
-            $permission->name = $request->name;
-
-            $permission->save();
-            return response()->json(['status' => 200, 'message' => 'Permission Created successfully!']);
-            
-        }
+        $permission = new Permission();
+        $permission->name = $validatedData['name'];
+        $permission->permissioncategory_id = $validatedData['permissioncategory_id'];
+        $permission->guard_name = 'web'; // or whatever guard you use
+        $permission->save();
+        return response()->json(['status' => 200, 'message' => 'Permission Created successfully!']);
     }
-
 
     public function update(Request $request, String $id)
     {
-        $rules = [
-            'name' => [
-                'required',
-                'string',
-                'unique:permissions,name'
-            ]
-        ];
+        $validatedData = $request->validate([
+            'name' => 'required|string|unique:permissions,name,' . $id,
+            'permissioncategory_id' => 'required|exists:permission_categories,id',
+        ]);
 
 
-        // Perform validation
-        $validator = validator(
-            $request->all(),
-            $rules
-        );
+        $permission = Permission::findOrFail($id);
+        $permission->name = $validatedData['name'];
+        $permission->permissioncategory_id = $validatedData['permissioncategory_id'];
+        $permission->save();
 
-
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->errors()
-            ]);
-        } else {
-
-            $permission =  Permission::findOrFail($id); 
-            $permission->name = $request->name;
-            $permission->save();
-            return response()->json(['status' => 200, 'message' => 'Permission update successfully!']);
-
-        }
+        return response()->json(['status' => 200, 'message' => 'Permission Updated successfully!']);
     }
 
     public function destroy($id)

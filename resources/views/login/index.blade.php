@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <!-- Modernize js -->
     <script src="{{asset('js/modernizr-3.6.0.min.js')}}"></script>
-</head>
+</head>z
 
 <body>
     <!-- Preloader Start Here -->
@@ -43,31 +43,50 @@
                 <div class="item-logo">
                     <img src="{{asset('/logo.png')}}" alt="logo">
                 </div>
-                <form action="#" class="login-form">
+                <form method="POST" action="{{ route('login') }}" class="login-form">
+                    @csrf
                     <div class="form-group text-white">
-                        <label class="text-white">Username</label>
-                        <input type="text" placeholder="Enter username" class="form-control text-white">
+                        <label class="text-white">{{ __('Email Address') }}</label>
+                        <input type="email" placeholder="Enter username" class="form-control  @error('email') is-invalid @enderror text-white" value="{{ old('email') }}" required autocomplete="email" autofocus>
                         <i class="far fa-envelope"></i>
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="form-group text-white">
-                        <label class="text-white">Password</label>
-                        <input type="text" placeholder="Enter password" class="form-control text-white">
+                        <label class="text-white">{{ __('Password') }}</label>
+
+                        <input id="password" type="password" class="form-control text-white @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                         <i class="fas fa-lock"></i>
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="form-group text-white d-flex align-items-center justify-content-between">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="remember-me">
-                            <label for="remember-me" class="form-check-label text-white">Remember Me</label>
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                            <label class="form-check-label text-white" for="remember">
+                                {{ __('Remember Me') }}
+                            </label>
                         </div>
-                        <a href="#" class="forgot-btn text-white">Forgot Password?</a>
+                        @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
                     </div>
                     <div class="form-group text-white">
-                        <button type="submit" class="login-btn">Login</button>
+                        <button type="submit" class="login-btn">    {{ __('Login') }}</button>
                     </div>
                 </form>
-               
+
             </div>
-       
+
         </div>
     </div>
     <!-- Login Page End Here -->

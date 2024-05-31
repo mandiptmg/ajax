@@ -43,7 +43,7 @@
         <div class="navbar navbar-expand-md header-menu-one bg-light">
             <div class="nav-bar-header-one">
                 <div class="header-logo">
-                    <a href="{{url('/admin')}}">
+                    <a href="{{url('admin/dashboard')}}">
                         <img src="{{asset('logo.png')}}" width="120px" alt="creation-soft-logo">
                     </a>
                 </div>
@@ -82,7 +82,7 @@
                     <li class="navbar-item dropdown header-admin">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                             <div class="admin-title">
-                                <h5 class="item-title">Stevne Zone</h5>
+                                <h5 class="item-title">mandip tamang</h5>
                                 <span>Admin</span>
                             </div>
                             <div class="admin-img">
@@ -92,14 +92,22 @@
                         <div class="dropdown-menu dropdown-menu-right">
 
                             <div class="item-header">
-                                <h6 class="item-title">Steven Zone</h6>
+                                <h6 class="item-title"> mandip tamang</h6>
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">
                                     <li><a href="#"><i class="flaticon-user"></i>My Profile</a></li>
                                     <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
                                     <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
-                                    <li><a href="{{url('/login')}}"><i class="flaticon-turn-off"></i>Log Out</a></li>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+
+                                    <li><a href="" class="text-black" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="flaticon-turn-off"></i>Logout
+                                        </a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -121,7 +129,7 @@
                 <div class="sidebar-menu-content">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item">
-                            <a href="{{ url('/admin') }}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                            <a href="{{ url('admin/dashboard') }}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
 
                         </li>
                         <li class="nav-item sidebar-nav-item">
@@ -157,10 +165,29 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{url('/account-settings')}}" class="nav-link"><i class="flaticon-settings"></i><span>Account</span></a>
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-settings"></i><span>Settings</span></a>
+                            <ul class="nav sub-group-menu">
+
+                                <li class="nav-item">
+                                    <a href="{{url('/admin/user')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add User</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{url('/admin/roles')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Roles</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{url('/admin/permission-categorys')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Permission Group</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{url('/admin/permissions')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Permission</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{url('/admin/testimonial')}}" class="nav-link"><i class="fas fa-angle-right"></i>Site Setting</a>
+                                </li>
+
+                            </ul>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -190,20 +217,23 @@
 
     <script>
         tinymce.init({
-        selector: '.tinymce',
-        plugins:[
-            'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
-            'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media', 
-            'table', 'emoticons', 'template', 'codesample'
-        ],
-        toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' + 
-        'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
-        'forecolor backcolor emoticons',
-        menu: {
-            favs: {title: 'menu', items: 'code visualaid | searchreplace | emoticons'}
-        },
-        menubar: 'favs file edit view insert format tools',
-        content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:16px}'
+            selector: '.tinymce',
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
+                'table', 'emoticons', 'template', 'codesample'
+            ],
+            toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
+                'bullist numlist outdent indent | link image | print preview media fullscreen | ' +
+                'forecolor backcolor emoticons',
+            menu: {
+                favs: {
+                    title: 'menu',
+                    items: 'code visualaid | searchreplace | emoticons'
+                }
+            },
+            menubar: 'favs file edit view insert format tools',
+            content_style: 'body{font-family:Helvetica,Arial,sans-serif; font-size:16px}'
         });
     </script>
 

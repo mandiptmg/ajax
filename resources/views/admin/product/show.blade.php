@@ -6,7 +6,8 @@
         <h3>Product Details</h3>
         <ul>
             <li>
-                <a href="{{ url('admin') }}">Home</a>
+                <a href="{{url('admin/dashboard')}}">Home</a>
+
             </li>
             <li>Product Details</li>
         </ul>

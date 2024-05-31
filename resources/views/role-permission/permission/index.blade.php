@@ -36,7 +36,7 @@
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-top">
+                        <div class="modal-dialog modal-lg modal-dialog-top">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h3 class="modal-title fs-5" id="exampleModalLabel">Add Permission</h3>
@@ -49,13 +49,22 @@
                                         @csrf
 
                                         <div class="row">
-                                            <div class=" col-12 form-group">
+                                            <div class=" col-12 col-lg-6 form-group">
                                                 <label>Permission Name</label>
-                                                <input type="text" class="form-control" name="name">
+                                                <input type="text" class="form-control" id="name" required name="name">
                                                 <div id="permissionError"></div>
                                             </div>
+                                            <div class="col-lg-6 col-12 form-group">
+                                                <label for="permissioncategory_id">Permission Category:</label>
+                                                <select id="permissioncategory_id" class="form-control" name="permissioncategory_id" required>
+                                                <option value="">Select permission categories</option>
+                                                    @foreach ($permissionCategories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                             <div class="col-12 form-group mg-t-8">
-                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
+                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save permission</button>
                                             </div>
                                         </div>
 
@@ -83,12 +92,23 @@
                                         @csrf
                                         @method('PUT')
 
-                                        <div class="row">
+                                        <div class="row d-flex justify-content-between">
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label>Permission Name</label>
                                                 <input type="hidden" id="permission_id" name="permission_id">
-                                                <input type="text" id="permission_name" value="{{old('permission')}}" class="form-control" name="name">
+                                                <input type="text" id="permission_name" value="{{('$permission->name')}}" class="form-control" name="name" required>
                                                 <div id="permissionError"></div>
+                                            </div>  
+                                            <div class="col-lg-6 col-12 form-group">
+                                                <label >Permission Category:</label>
+                                                <select id="permissioncat_id" name="permissioncategory_id" class="form-control" required>
+                                                    <option value="">Select permission categories</option>
+                                                   
+                                                    @foreach ($permissionCategories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+
                                             </div>
 
                                             <div class="col-12 form-group mg-t-8">
@@ -135,6 +155,7 @@
                         </div>
                     </div>
 
+                    <!--Destroy Modal end-->
 
                 </div>
 
@@ -151,6 +172,7 @@
                                     </div>
                                 </th>
                                 <th>Permission Name</th>
+                                <th>Permission Category</th>
                                 <th>Action</th>
 
                             </tr>
@@ -162,12 +184,13 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $permission->name }}</td>
+                                <td ><span class="text-white font-light bg-info p-1 rounded">  {{ $permission->permissionCategory->name }}</span></td>
 
                                 <td>
                                     <div class="d-flex flex-row gap-4 font-semibold">
                                         <div class="px-1">
 
-                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($permission->id) }}', '{{ addslashes($permission->name) }}')" data-toggle="modal" data-target="#editModal">
+                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($permission->id) }}', '{{ addslashes($permission->name) }}', '{{ addslashes($permission->permissioncategory_id) }}')" data-toggle="modal" data-target="#editModal">
                                                 Edit
                                             </button>
 
@@ -185,10 +208,10 @@
 
                     </table>
                 </div>
+                <!-- data table end  -->
             </div>
         </div>
 
-        <!-- Add New Teacher Area End Here -->
         <footer class="footer-wrap-layout1">
             <div class="copyright">© Copyrights <a href="#">Creation Soft Nepal</a> 2019. All rights reserved. Designed by <a href="#">PsdBosS</a></div>
         </footer>
@@ -201,13 +224,15 @@
         function destroy(id) {
             console.log(id);
             var form = $('#deleteform');
-            var address = "{{url('permission/delete/')}}" + '/' + id;
+            var address = "{{url('admin/permissions/delete/')}}" + '/' + id;
             form.prop('action', address);
         }
 
-        function edit(id, name) {
+        function edit(id, name, permissioncategory_id) {
             $('#permission_name').val(name);
             $('#permission_id').val(id);
+            $('#permissioncat_id').val(permissioncategory_id);
+            console.log(permissioncategory_id)
 
 
         }
@@ -217,7 +242,7 @@
                 var formData = new FormData(this); // Create FormData object
                 var permissionId = formData.get('permission_id');
                 $.ajax({
-                    url: "{{ url('permission') }}" + '/' + permissionId,
+                    url: "{{ url('admin/permissions') }}" + '/' + permissionId,
                     type: 'POST',
                     data: formData,
                     dataType: 'json',

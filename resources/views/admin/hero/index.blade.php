@@ -6,7 +6,9 @@
         <h3>Creation Soft Nepal</h3>
         <ul>
             <li>
-                <a href="index.html">Home</a>
+                <a href="{{url('admin/dashboard')}}">Home</a>
+
+
             </li>
             <li>Hero section</li>
         </ul>
@@ -31,7 +33,7 @@
                         <input type="text" placeholder="" id="title" value="{{old('title',$heroes->title ?? '')}}" class="form-control" name="title">
                         <div id="titleError"></div>
                     </div>
-                   
+
                     <div class="col-lg-6 col-12 form-group mg-t-30">
                         <label class="text-dark-medium">Upload Student Photo (150px X 150px)</label>
                         <input type="file" class="form-control-file" value="{{old('logo', $heroes->image ?? '')}}" id="logo" name="logo">
