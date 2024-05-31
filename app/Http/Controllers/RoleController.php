@@ -12,11 +12,13 @@ use DB;
     
 class roleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('permission:view role', ['only' => ['index']]);
+        $this->middleware('permission:create role', ['only' => ['create','store']]);
+        $this->middleware('permission:update role', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete role', ['only' => ['destroy']]);
+    }
      
     /**
      * Display a listing of the resource.

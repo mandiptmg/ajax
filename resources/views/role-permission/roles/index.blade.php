@@ -23,7 +23,9 @@
                 <div>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h3>Roles</h3>
+                        @can('create role')
                         <a class="btn btn-primary btn-lg" href="{{ route('roles.create') }}">Add Role</a>
+                        @endcan
                     </div>
 
 
@@ -53,12 +55,18 @@
                                     <td>
                                         <div class="d-flex flex-row gap-4 font-semibold">
                                             <div class="px-1">
-
+                                            @can('view role')
                                                 <a class="btn btn-info btn-lg" href="{{ route('roles.show', $role->id) }}">Show</a>
+                                            @endcan
+                                                
+                                        @can('update role')
                                                 <a class="btn btn-primary btn-lg" href="{{ route('roles.edit', $role->id) }}">Edit</a>
+                                        @endcan
                                             </div>
                                             <div>
+                                            @can('delete role')
                                                 <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($role->id) }}')" class="btn btn-danger btn-lg">Delete</button>
+                                            @endcan
                                             </div>
                                         </div>
 

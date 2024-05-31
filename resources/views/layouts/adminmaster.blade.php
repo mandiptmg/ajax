@@ -82,8 +82,8 @@
                     <li class="navbar-item dropdown header-admin">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                             <div class="admin-title">
-                                <h5 class="item-title">mandip tamang</h5>
-                                <span>Admin</span>
+                                <h5 class="item-title">{{auth()->user()->username}}</h5>
+                                <span>{{auth()->user()->name}}</span>
                             </div>
                             <div class="admin-img">
                                 <img src="img/figure/admin.jpg" alt="Admin">
@@ -92,7 +92,7 @@
                         <div class="dropdown-menu dropdown-menu-right">
 
                             <div class="item-header">
-                                <h6 class="item-title"> mandip tamang</h6>
+                                <h6 class="item-title"> {{auth()->user()->username}}</h6>
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">

@@ -26,9 +26,11 @@
                         </div>
                         <!-- Button trigger modal -->
                         <div>
+                        @can('create permission')
                             <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
                                 Add permission
                             </button>
+                        @endcan
                         </div>
                     </div>
 
@@ -184,19 +186,22 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $permission->name }}</td>
-                                <td ><span class="text-white font-light bg-info p-1 rounded">  {{ $permission->permissionCategory->name }}</span></td>
+                              
 
                                 <td>
                                     <div class="d-flex flex-row gap-4 font-semibold">
                                         <div class="px-1">
-
+                                        @can('update permission')
                                             <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($permission->id) }}', '{{ addslashes($permission->name) }}', '{{ addslashes($permission->permissioncategory_id) }}')" data-toggle="modal" data-target="#editModal">
                                                 Edit
                                             </button>
+                                        @endcan
 
                                         </div>
                                         <div>
+                                        @can('delete permission')
                                             <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($permission->id) }}')" class="btn btn-danger btn-lg">Delete</button>
+                                        @endcan
                                         </div>
                                     </div>
 
