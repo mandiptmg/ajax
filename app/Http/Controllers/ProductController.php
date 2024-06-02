@@ -10,6 +10,14 @@ use App\Models\Question;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    
+    {
+        $this->middleware('permission:view product|create product|update product|delete product', ['only' => ['index','store']]);
+        $this->middleware('permission:create product', ['only' => ['create','store']]);
+        $this->middleware('permission:update product', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete product', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

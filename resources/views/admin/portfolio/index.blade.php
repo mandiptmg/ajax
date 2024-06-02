@@ -6,7 +6,7 @@
         <h3>Creation Soft Nepal</h3>
         <ul>
             <li>
-                
+
                 <a href="{{url('admin/dashboard')}}">Home</a>
 
             </li>
@@ -40,9 +40,12 @@
                 </div>
                 <!-- Button trigger modal -->
                 <div>
+                    @can('create portfolio')
+
                     <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
                         Add Portfolio
                     </button>
+                    @endcan
                 </div>
             </div>
 
@@ -76,7 +79,7 @@
                                     </div>
                                     <div class="col-12 form-group mg-t-8">
                                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-                                      
+
 
 
 
@@ -125,7 +128,7 @@
                                     </div>
                                     <div class="col-12 form-group mg-t-8">
                                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Update</button>
-                                       
+
                                     </div>
                                 </div>
 
@@ -202,14 +205,21 @@
                                 <div class="d-flex flex-row gap-4 font-semibold">
                                     <div class="px-1">
 
+                                        @can('update portfolio')
 
                                         <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($portfolio->id) }}', '{{ addslashes($portfolio->url) }}')" data-toggle="modal" data-target="#editModal">
                                             Edit
                                         </button>
 
+                                        @endcan
+
                                     </div>
                                     <div>
+                                        @can('delete portfolio')
+
                                         <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($portfolio->id) }}')" class="btn btn-danger btn-lg">Delete</button>
+
+                                        @endcan
                                     </div>
                                 </div>
 
@@ -240,7 +250,7 @@
             form.prop('action', address);
         }
 
-        function edit(id, url,image) {
+        function edit(id, url, image) {
             $('#portfolio').val(id);
             $('#url1').val(url);
 

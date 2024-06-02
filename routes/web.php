@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::group(['middleware' => ['role:super-admin|admin']], function () {
+Route::group(['middleware' => ['auth']], function () {
     // Protected routes go here
     Route::get('/admin/dashboard', function () {
         return view('index');

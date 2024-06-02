@@ -101,7 +101,7 @@
                                 <ul class="settings-list">
                                     <li><a href="#"><i class="flaticon-user"></i>My Profile</a></li>
                                     <li><a href="#"><i class="flaticon-list"></i>Task</a></li>
-                                    <li><a href="#"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
+                                    <li><a href="{{url('/admin/users')}}"><i class="flaticon-gear-loading"></i>Account Settings</a></li>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
@@ -140,19 +140,36 @@
                             <ul class="nav sub-group-menu">
 
                                 <li class="nav-item">
+                                    @can(['create hero'])
+
                                     <a href="{{url('/admin/hero')}}" class="nav-link"><i class="fas fa-angle-right"></i>Hero Section</a>
+
+                                    @endcan
                                 </li>
                                 <li class="nav-item">
+                                    @can(['create about'])
+
                                     <a href="{{url('/admin/about')}}" class="nav-link"><i class="fas fa-angle-right"></i>About section</a>
+
+                                    @endcan
                                 </li>
                                 <li class="nav-item">
+                                    @canany([ 'view service','create service','update service','delete service'])
                                     <a href="{{url('/admin/services')}}" class="nav-link"><i class="fas fa-angle-right"></i>services section</a>
+                                    @endcanany
                                 </li>
                                 <li class="nav-item">
+                                    @canany([ 'view portfolio','create portfolio','update portfolio','delete portfolio'])
                                     <a href="{{url('/admin/portfolio')}}" class="nav-link"><i class="fas fa-angle-right"></i>portfolio section</a>
+
+                                    @endcanany
                                 </li>
                                 <li class="nav-item">
+                                    @canany([ 'view testimonial','create testimonial','update testimonial','delete testimonial'])
+
                                     <a href="{{url('/admin/testimonial')}}" class="nav-link"><i class="fas fa-angle-right"></i>testimonial section</a>
+
+                                    @endcanany
                                 </li>
 
                             </ul>
@@ -182,18 +199,32 @@
                                 <li class="nav-item">
                                     <a href="{{url('/admin/users')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add User</a>
                                 </li>
+                                @canany (['view role', 'create role', 'update role', 'delete role'])
                                 <li class="nav-item">
 
                                     <a href="{{url('/admin/roles')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Roles</a>
                                 </li>
+                                @endcanany
                                 <li class="nav-item">
+                                    @canany (['view permission category', 'create permission category', 'update permission category', 'delete permission category'])
+
                                     <a href="{{url('/admin/permission-categorys')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Permission Group</a>
+
+                                    @endcanany
                                 </li>
                                 <li class="nav-item">
+                                    @canany (['view permission', 'create permission', 'update permission', 'delete permission'])
+
                                     <a href="{{url('/admin/permissions')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Permission</a>
+
+                                    @endcanany
                                 </li>
                                 <li class="nav-item">
+                                    @canany (['view site sitting', 'create site sitting', 'update site sitting', 'delete site sitting'])
+
                                     <a href="{{url('/admin/testimonial')}}" class="nav-link"><i class="fas fa-angle-right"></i>Site Setting</a>
+
+                                    @endcanany
                                 </li>
 
                             </ul>

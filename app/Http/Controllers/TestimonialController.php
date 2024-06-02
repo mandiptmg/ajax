@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
 {
+
+    public function __construct()
+    
+    {
+        $this->middleware('permission:view testimonial|create testimonial|update testimonial|delete testimonial', ['only' => ['index','store']]);
+        $this->middleware('permission:create testimonial', ['only' => ['create','store']]);
+        $this->middleware('permission:update testimonial', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete testimonial', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

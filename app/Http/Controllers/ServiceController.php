@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+
+    public function __construct()
+    
+    {
+        $this->middleware('permission:view service|create service|update service|delete service', ['only' => ['index','store']]);
+        $this->middleware('permission:create service', ['only' => ['create','store']]);
+        $this->middleware('permission:update service', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete service', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

@@ -36,7 +36,7 @@
 
 
 
-            
+
 
                 </div>
 
@@ -53,6 +53,8 @@
                                     </div>
                                 </th>
                                 <th>Permission Name</th>
+                                <th>permission category</th>
+
                                 <th>Action</th>
 
                             </tr>
@@ -64,6 +66,7 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $permission->name }}</td>
+                                <td> <span class="badge text-white bg-primary">{{ $permission->permissioncategory->name }} </span> </td>
 
 
                                 <td>
@@ -95,128 +98,128 @@
                 <!-- data table end  -->
             </div>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg modal-dialog-top">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="modal-title fs-5" id="exampleModalLabel">Add Permission</h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="new-added-form" id="myForm" enctype="multipart/form-data">
-                                        @csrf
-
-                                        <div class="row">
-                                            <div class=" col-12 col-lg-6 form-group">
-                                                <label>Permission Name</label>
-                                                <input type="text" class="form-control" id="name" required name="name">
-                                                <div id="permissionError"></div>
-                                            </div>
-                                            <div class="col-lg-6 col-12 form-group">
-                                                <label for="permissioncategory_id">Permission Category:</label>
-                                                <select id="permissioncategory_id" class="form-control" name="permissioncategory_id" required>
-                                                    <option value="">Select permission categories</option>
-                                                    @foreach ($permissionCategories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-12 form-group mg-t-8">
-                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save permission</button>
-                                            </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-
-                            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-top">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title fs-5" id="exampleModalLabel">Add Permission</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
-                    </div>
+                        <div class="modal-body">
+                            <form class="new-added-form" id="myForm" enctype="multipart/form-data">
+                                @csrf
 
-
-                    <!--Edit Modal -->
-
-                    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog  modal-lg modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="modal-permission fs-5" id="exampleModalLabel">Edit Permission</h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="new-added-form" id="editform" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('PUT')
-
-                                        <div class="row d-flex justify-content-between">
-                                            <div class="col-lg-6 col-12 form-group">
-                                                <label>Permission Name</label>
-                                                <input type="hidden" id="permission_id" name="permission_id">
-                                                <input type="text" id="permission_name" value="{{('$permission->name')}}" class="form-control" name="name" required>
-                                                <div id="permissionError"></div>
-                                            </div>
-                                            <div class="col-lg-6 col-12 form-group">
-                                                <label>Permission Category:</label>
-                                                <select id="permissioncat_id" name="permissioncategory_id" class="form-control" required>
-                                                    <option value="">Select permission categories</option>
-
-                                                    @foreach ($permissionCategories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                    @endforeach
-                                                </select>
-
-                                            </div>
-
-                                            <div class="col-12 form-group mg-t-8">
-                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Update</button>
-                                            </div>
-                                        </div>
-
-                                    </form>
+                                <div class="row">
+                                    <div class=" col-12 col-lg-6 form-group">
+                                        <label>Permission Name</label>
+                                        <input type="text" class="form-control" id="name" required name="name">
+                                        <div id="permissionError"></div>
+                                    </div>
+                                    <div class="col-lg-6 col-12 form-group">
+                                        <label for="permissioncategory_id">Permission Category:</label>
+                                        <select id="permissioncategory_id" class="form-control" name="permissioncategory_id" required>
+                                            <option value="">Select permission categories</option>
+                                            @foreach ($permissionCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-12 form-group mg-t-8">
+                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save permission</button>
+                                    </div>
                                 </div>
 
-                            </div>
+                            </form>
                         </div>
+
                     </div>
+                </div>
+            </div>
 
 
-                    <!--Destroy Modal -->
+            <!--Edit Modal -->
 
-                    <div class="modal fade" id="destroyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="modal-permission fs-5" id="exampleModalLabel">Delete Service</h3>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="new-added-form" method="POST" id="deleteform" enctype="multipart/form-data">
-                                        {{csrf_field()}}
-                                        {{method_field('DELETE')}}
-                                        <div class=" form-group">
-
-                                            <input type="hidden" id="permission_id" name="permission_id">
-                                            <div class="">
-                                                Are you Sure ? You want to delete this Service.
-                                            </div>
-                                            <div class=" form-group mg-t-8">
-                                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Delete</button>
-                                                <button type="submit" data-dismiss="modal" aria-label="Close" class="btn bg-danger btn-fill-lg ">Cancel</button>
-                                            </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-
-                            </div>
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog  modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-permission fs-5" id="exampleModalLabel">Edit Permission</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
-                    </div>
+                        <div class="modal-body">
+                            <form class="new-added-form" id="editform" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
 
-                    <!--Destroy Modal end-->
+                                <div class="row d-flex justify-content-between">
+                                    <div class="col-lg-6 col-12 form-group">
+                                        <label>Permission Name</label>
+                                        <input type="hidden" id="permission_id" name="permission_id">
+                                        <input type="text" id="permission_name" value="{{('$permission->name')}}" class="form-control" name="name" required>
+                                        <div id="permissionError"></div>
+                                    </div>
+                                    <div class="col-lg-6 col-12 form-group">
+                                        <label>Permission Category:</label>
+                                        <select id="permissioncat_id" name="permissioncategory_id" class="form-control" required>
+                                            <option value="">Select permission categories</option>
+
+                                            @foreach ($permissionCategories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+
+                                    <div class="col-12 form-group mg-t-8">
+                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Update</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Destroy Modal -->
+
+            <div class="modal fade" id="destroyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-permission fs-5" id="exampleModalLabel">Delete Service</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form class="new-added-form" method="POST" id="deleteform" enctype="multipart/form-data">
+                                {{csrf_field()}}
+                                {{method_field('DELETE')}}
+                                <div class=" form-group">
+
+                                    <input type="hidden" id="permission_id" name="permission_id">
+                                    <div class="">
+                                        Are you Sure ? You want to delete this Service.
+                                    </div>
+                                    <div class=" form-group mg-t-8">
+                                        <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Delete</button>
+                                        <button type="submit" data-dismiss="modal" aria-label="Close" class="btn bg-danger btn-fill-lg ">Cancel</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Destroy Modal end-->
         </div>
 
         <footer class="footer-wrap-layout1">

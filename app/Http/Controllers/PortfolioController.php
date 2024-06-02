@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class PortfolioController extends Controller
 {
+
+    public function __construct()
+    
+    {
+        $this->middleware('permission:view portfolio|create portfolio|update portfolio|delete portfolio', ['only' => ['index','store']]);
+        $this->middleware('permission:create portfolio', ['only' => ['create','store']]);
+        $this->middleware('permission:update portfolio', ['only' => ['edit','update']]);
+        $this->middleware('permission:delete portfolio', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

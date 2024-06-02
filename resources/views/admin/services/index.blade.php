@@ -40,9 +40,11 @@
                         </div>
                         <!-- Button trigger modal -->
                         <div>
+                            @can('create service')
                             <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
                                 Add Service
                             </button>
+                            @endcan
                         </div>
                     </div>
 
@@ -206,17 +208,21 @@
                                 <td>
                                     <div class="d-flex flex-row gap-4 font-semibold">
                                         <div class="px-1">
-                                            <!-- <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ $service->id }}', '{{ $service->title }}', '{{ $service->description }}','{{ $service->icon }}' )" data-toggle="modal" data-target="#editModal">
-                                                Edit
-                                            </button> -->
+                                            @can('update service')
+
 
                                             <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($service->id) }}', '{{ addslashes($service->title) }}', '{{ addslashes($service->description) }}','{{ addslashes($service->icon) }}' )" data-toggle="modal" data-target="#editModal">
                                                 Edit
                                             </button>
 
+                                            @endcan
+
                                         </div>
                                         <div>
+                                            @can('delete service')
                                             <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($service->id) }}')" class="btn btn-danger btn-lg">Delete</button>
+
+                                            @endcan
                                         </div>
                                     </div>
 

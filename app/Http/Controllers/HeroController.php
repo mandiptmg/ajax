@@ -8,6 +8,12 @@ use Illuminate\Validation\Validator;
 
 class HeroController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:create hero', ['only' => ['index', 'store']]);
+    }
+    
     /**
      * Display a listing of the resource.
      */

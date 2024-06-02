@@ -51,6 +51,7 @@
                                 <tr>
                                     <td>{{ ++$key }}</td>
                                     <td>{{ $role->name }}</td>
+                                    
 
                                     <td>
                                         <div class="d-flex flex-row gap-4 font-semibold">
@@ -59,7 +60,7 @@
                                                 <a class="btn btn-info btn-lg" href="{{ route('roles.show', $role->id) }}">Show</a>
                                             @endcan
                                                 
-                                        @can('update role')
+                                        @can('update-role')
                                                 <a class="btn btn-primary btn-lg" href="{{ route('roles.edit', $role->id) }}">Edit</a>
                                         @endcan
                                             </div>

@@ -21,9 +21,12 @@
                 </div>
                 <!-- Button trigger modal -->
                 <div>
+                    @can('create testimonial')
+
                     <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
                         Add Testimonial
                     </button>
+                    @endcan
                 </div>
             </div>
 
@@ -212,14 +215,21 @@
                             <td>
                                 <div class="d-flex flex-row gap-4 font-semibold">
                                     <div class="px-1">
+                                        @can('update testimonial')
 
                                         <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($testimonial->id) }}','{{ addslashes($testimonial->product_name) }}', '{{ addslashes($testimonial->name) }}', '{{ addslashes($testimonial->occupation) }}', '{{ addslashes($testimonial->description) }}', '{{ addslashes($testimonial->image) }}')" data-toggle="modal" data-target="#editModal">
                                             Edit
                                         </button>
 
+                                        @endcan
+
                                     </div>
                                     <div>
+                                        @can('delete testimonial')
+
                                         <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($testimonial->id) }}')" class="btn btn-danger btn-lg">Delete</button>
+
+                                        @endcan
                                     </div>
                                 </div>
 

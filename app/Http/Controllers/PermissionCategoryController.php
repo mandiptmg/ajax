@@ -7,6 +7,16 @@ use Illuminate\Http\Request;
 
 class PermissionCategoryController extends Controller
 {
+    public function __construct()
+
+    {
+        $this->middleware('permission:create permission category|update permission category|delete permission category', ['only' => ['index', 'store']]);
+        $this->middleware('permission:create permission category', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update permission category', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete permission category', ['only' => ['destroy']]);
+    }
+
+
     public function index()
     {
         $permissioncategorys = PermissionCategory::get();
@@ -48,7 +58,7 @@ class PermissionCategoryController extends Controller
     public function update(Request $request, String $id)
     {
         $rules = [
-            'name' =>'required|string|unique:permission_categories,name'
+            'name' => 'required|string|unique:permission_categories,name'
         ];
 
 

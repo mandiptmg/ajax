@@ -10,10 +10,11 @@ class PermissionController extends Controller
 {
 
     public function __construct()
+    
     {
-        $this->middleware('permission:view permission', ['only' => ['index']]);
-        $this->middleware('permission:create permission', ['only' => ['create', 'store']]);
-        $this->middleware('permission:update permission', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:view permission|create permission|update permission|delete permission', ['only' => ['index','store']]);
+        $this->middleware('permission:create permission', ['only' => ['create','store']]);
+        $this->middleware('permission:update permission', ['only' => ['edit','update']]);
         $this->middleware('permission:delete permission', ['only' => ['destroy']]);
     }
 
