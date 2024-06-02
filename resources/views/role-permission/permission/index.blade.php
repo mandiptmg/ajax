@@ -36,6 +36,65 @@
 
 
 
+            
+
+                </div>
+
+
+                <!-- data tabel  -->
+                <div class="table-responsive">
+                    <table class="table display data-table text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input checkAll">
+                                        <label class="form-check-label">ID</label>
+                                    </div>
+                                </th>
+                                <th>Permission Name</th>
+                                <th>Action</th>
+
+                            </tr>
+
+
+                        </thead>
+                        <tbody id="serviceId">
+                            @foreach ($permissions as $key=>$permission)
+                            <tr>
+                                <td>{{ ++$key }}</td>
+                                <td>{{ $permission->name }}</td>
+
+
+                                <td>
+                                    <div class="d-flex flex-row gap-4 font-semibold">
+                                        <div class="px-1">
+                                            @can('update permission')
+                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($permission->id) }}', '{{ addslashes($permission->name) }}', '{{ addslashes($permission->permissioncategory_id) }}')" data-toggle="modal" data-target="#editModal">
+                                                Edit
+                                            </button>
+                                            @endcan
+
+                                        </div>
+                                        <div>
+                                            @can('delete permission')
+                                            <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($permission->id) }}')" class="btn btn-danger btn-lg">Delete</button>
+                                            @endcan
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+                    {{ $permissions->links() }}
+                </div>
+                <!-- data table end  -->
+            </div>
+
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg modal-dialog-top">
@@ -158,62 +217,6 @@
                     </div>
 
                     <!--Destroy Modal end-->
-
-                </div>
-
-
-                <!-- data tabel  -->
-                <div class="table-responsive">
-                    <table class="table display data-table text-nowrap">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input checkAll">
-                                        <label class="form-check-label">ID</label>
-                                    </div>
-                                </th>
-                                <th>Permission Name</th>
-                                <th>Action</th>
-
-                            </tr>
-
-
-                        </thead>
-                        <tbody id="serviceId">
-                            @foreach ($permissions as $key=>$permission)
-                            <tr>
-                                <td>{{ ++$key }}</td>
-                                <td>{{ $permission->name }}</td>
-
-
-                                <td>
-                                    <div class="d-flex flex-row gap-4 font-semibold">
-                                        <div class="px-1">
-                                            @can('update permission')
-                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($permission->id) }}', '{{ addslashes($permission->name) }}', '{{ addslashes($permission->permissioncategory_id) }}')" data-toggle="modal" data-target="#editModal">
-                                                Edit
-                                            </button>
-                                            @endcan
-
-                                        </div>
-                                        <div>
-                                            @can('delete permission')
-                                            <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($permission->id) }}')" class="btn btn-danger btn-lg">Delete</button>
-                                            @endcan
-                                        </div>
-                                    </div>
-
-                                </td>
-
-                            </tr>
-                            @endforeach
-                        </tbody>
-
-                    </table>
-                </div>
-                <!-- data table end  -->
-            </div>
         </div>
 
         <footer class="footer-wrap-layout1">

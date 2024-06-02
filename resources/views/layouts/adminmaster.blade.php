@@ -83,15 +83,19 @@
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                             <div class="admin-title">
                                 <h5 class="item-title">{{auth()->user()->name}}</h5>
+                                <h6 class="item-title mt-1 text-info"> {{ auth()->user()->roles->first()->name ?? 'No Role Assigned' }}</h6>
                             </div>
-                            <div class="admin-img">
-                                <img src="img/figure/admin.jpg" alt="Admin">
+                            <div class="admin-img ">
+                                <img src="{{asset('img/figure/user.png')}}" style="height: 35px; width: 35px  " alt="Admin">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
 
                             <div class="item-header">
                                 <h6 class="item-title"> {{auth()->user()->name}}</h6>
+
+
+
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">
@@ -160,7 +164,14 @@
                                     <a href="products" class="nav-link"><i class="fas fa-angle-right"></i>All Product</a>
                                 </li>
                                 <li class="nav-item">
+                                    @canany([
+                                    'create product',
+                                    'view product',
+                                    'update product',
+                                    'delete product',
+                                    ])
                                     <a href="{{url('/admin/products')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Product</a>
+                                    @endcanany
                                 </li>
                             </ul>
                         </li>
@@ -172,7 +183,7 @@
                                     <a href="{{url('/admin/users')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add User</a>
                                 </li>
                                 <li class="nav-item">
-                                    
+
                                     <a href="{{url('/admin/roles')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Roles</a>
                                 </li>
                                 <li class="nav-item">

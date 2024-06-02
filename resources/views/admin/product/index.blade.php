@@ -67,7 +67,7 @@
                         <div class="col-12 form-group">
                             <label>Add features</label>
                             <div>
-                            <button type="button" id="add-feature" class="btn btn-primary">Add Feature</button>
+                                <button type="button" id="add-feature" class="btn btn-primary">Add Feature</button>
                             </div>
                             <div id="features-container">
                                 <!-- Dynamic fields will be added here -->
@@ -78,7 +78,7 @@
                         <div class="col-12 form-group">
                             <label>Add Benefits</label>
                             <div>
-                          
+
 
                                 <button type="button" id="add-benefit" class="btn btn-primary">Add Benefit</button>
                             </div>
@@ -136,23 +136,27 @@
                             <td class="d-flex flex-row">
 
                                 <div class="mx-2">
+
+                                    @can('view product')
                                     <a href="{{ url('/admin/products' , $product->id)}}" class="fw-btn-fill btn-info ">
                                         view
                                     </a>
+                                    @endcan
 
                                 </div>
                                 <div class="mx-2">
-
+                                    @can('update product')
                                     <a href="{{ url('admin/products/edit/' . $product->id)}}" class="fw-btn-fill btn-primary ">
                                         update
                                     </a>
-'
+                                    @endcan
 
                                 </div>
 
                                 <div class="mx-2">
-
+                                    @can('delete product')
                                     <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ $product->id}}')" class="btn fw-btn-fill btn-danger">Delete</button>
+                                    @endcan
                                 </div>
 
 

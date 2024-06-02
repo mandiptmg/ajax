@@ -20,12 +20,12 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $permissions = Permission::with('permissionCategory')->get();
-        $permissionCategories = PermissionCategory::all();
-        return view('role-permission.permission.index', compact('permissions', 'permissionCategories'));
-    }
+        public function index()
+        {
+            $permissions = Permission::with('permissionCategory')->paginate(10);
+            $permissionCategories = PermissionCategory::all();
+            return view('role-permission.permission.index', compact('permissions', 'permissionCategories'));
+        }
 
     public function store(Request $request)
     {

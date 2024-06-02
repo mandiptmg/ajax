@@ -36,6 +36,28 @@ class UserRolePermissionSeeder extends Seeder
             'create product',
             'update product',
             'delete product',
+            'view hero',
+            'create hero',
+            'update hero',
+            'delete hero',
+            'view about',
+            'create about',
+            'update about',
+            'delete about',
+            'view service',
+            'create service',
+            'update service',
+            'delete service',
+            'view portfolio',
+            'create portfolio',
+            'update portfolio',
+            'delete portfolio',
+            'view testimonial',
+            'create testimonial',
+            'update testimonial',
+            'delete testimonial',
+
+
         ];
 
         // Create or get permissions
@@ -53,13 +75,36 @@ class UserRolePermissionSeeder extends Seeder
 
         // Let's give a few permissions to admin role.
         $adminPermissions = [
-            'create role', 'view role', 'update role',
             'create permission', 'view permission',
+            'update permission', 'delete permission',
             'create permission category',
             'update permission category',
             'delete permission category',
             'create user', 'view user', 'update user',
-            'create product', 'view product', 'update product'
+            'delete user',
+            'create product', 'view product', 'update product',
+            'delete product',
+            'view hero',
+            'create hero',
+            'update hero',
+            'delete hero',
+            'view about',
+            'create about',
+            'update about',
+            'delete about',
+            'view service',
+            'create service',
+            'update service',
+            'delete service',
+            'view portfolio',
+            'create portfolio',
+            'update portfolio',
+            'delete portfolio',
+            'view testimonial',
+            'create testimonial',
+            'update testimonial',
+            'delete testimonial',
+
         ];
         $adminRole->givePermissionTo($adminPermissions);
 

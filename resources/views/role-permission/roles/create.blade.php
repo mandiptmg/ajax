@@ -45,14 +45,14 @@
                         <div class="row gutters-20">
                             <div class="col-xl-12 col-lg-6 col-12 form-group">
                                 <label>Name *</label>
-                                <input type="text" name="name" class="form-control" placeholder="Name">
+                                <input type="text" name="name" class="form-control" placeholder="Name" required>
                             </div>
 
                             <div class="col-xl-12">
                                 <label>Permission</label><br>
                             </div>
                             @foreach($permissioncategory as $value)
-                            <div class="col-xl-3 col-lg-12 col-12 form-group">
+                            <div class="col-lg-3 my-4 text-white col-12 form-group bg-info p-3 rounded">
                                 <div class="box-style">
                                     <h5>{{$value->name}}</h5>
                                     @foreach($value->permission as $data)
