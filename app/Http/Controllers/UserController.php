@@ -1,92 +1,57 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-
-      /**
+    /**
      * Instantiate a new UserController instance.
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    //     $this->middleware('permission:create -user|edit-user|delete-user', ['only' => ['index','show']]);
-    //     $this->middleware('permission:create-user', ['only' => ['create','store']]);
-    //     $this->middleware('permission:edit-user', ['only' => ['edit','update']]);
-    //     $this->middleware('permission:delete-user', ['only' => ['destroy']]);
-    // }
+    public function __construct()
+    {
+        $this->middleware('permission:view user', ['only' => ['index']]);
+        $this->middleware('permission:create user', ['only' => ['create', 'index', 'store']]);
+        $this->middleware('permission:update user', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete user', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('users.index');
+        $users = User::get();
+        $roles = Role::pluck('name','id')->all();
+        return view('role-permission.user.index', compact('users', 'roles'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $rules = [
+
+        $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'roles' => 'required|array',
-        ];
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8|max:20|confirmed',
+            'roles' => 'required'
+        ]);
 
-        // Perform validation
-        $validator = validator(
-            $request->all(),
-            $rules
-        );
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
+        $user->assignRole($request->roles);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->errors()
-            ]);
-        } else {
-
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->save();
-
-            
-
-            return response()->json(['status' => 200, 'message' => 'User Created successfully!']);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return response()->json(['status' => 200, 'message' => 'User Created successfully!']);
     }
 
     /**
@@ -94,37 +59,22 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $rules = [
-            'name' => 'required|string|max:250',
-            'email' => 'required|string|email:rfc,dns|max:250|unique:users,email,'.$id,
-            'password' => 'required|string|min:8|confirmed',
+        $request->validate([
+            'name' => 'required|string|max:255',
             'roles' => 'required'
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
         ];
 
-        // Perform validation
-        $validator = validator(
-            $request->all(),
-            $rules
-        );
+        $user = User::find($id);
+        $user->update($data);
+        $user->syncRoles($request->roles);
 
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->errors()
-            ]);
-        } else {
-
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->save();
-
-            
-
-            return response()->json(['status' => 200, 'message' => 'User Created successfully!']);
-        }
+        return response()->json(['status' => 200, 'message' => 'User Updated Successfully with roles']);
     }
 
     /**
@@ -132,13 +82,17 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->back()->with('success', 'User Deleted Successfully');
+
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
-        
+        FacadesAuth::logout();
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

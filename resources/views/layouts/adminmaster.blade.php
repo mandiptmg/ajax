@@ -82,8 +82,7 @@
                     <li class="navbar-item dropdown header-admin">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
                             <div class="admin-title">
-                                <h5 class="item-title">{{auth()->user()->username}}</h5>
-                                <span>{{auth()->user()->name}}</span>
+                                <h5 class="item-title">{{auth()->user()->name}}</h5>
                             </div>
                             <div class="admin-img">
                                 <img src="img/figure/admin.jpg" alt="Admin">
@@ -92,7 +91,7 @@
                         <div class="dropdown-menu dropdown-menu-right">
 
                             <div class="item-header">
-                                <h6 class="item-title"> {{auth()->user()->username}}</h6>
+                                <h6 class="item-title"> {{auth()->user()->name}}</h6>
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">
@@ -170,9 +169,10 @@
                             <ul class="nav sub-group-menu">
 
                                 <li class="nav-item">
-                                    <a href="{{url('/admin/user')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add User</a>
+                                    <a href="{{url('/admin/users')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add User</a>
                                 </li>
                                 <li class="nav-item">
+                                    
                                     <a href="{{url('/admin/roles')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Roles</a>
                                 </li>
                                 <li class="nav-item">

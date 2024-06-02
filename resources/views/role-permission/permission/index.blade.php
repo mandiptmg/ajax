@@ -26,11 +26,11 @@
                         </div>
                         <!-- Button trigger modal -->
                         <div>
-                        @can('create permission')
+                            @can('create permission')
                             <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
                                 Add permission
                             </button>
-                        @endcan
+                            @endcan
                         </div>
                     </div>
 
@@ -59,7 +59,7 @@
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label for="permissioncategory_id">Permission Category:</label>
                                                 <select id="permissioncategory_id" class="form-control" name="permissioncategory_id" required>
-                                                <option value="">Select permission categories</option>
+                                                    <option value="">Select permission categories</option>
                                                     @foreach ($permissionCategories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @endforeach
@@ -100,12 +100,12 @@
                                                 <input type="hidden" id="permission_id" name="permission_id">
                                                 <input type="text" id="permission_name" value="{{('$permission->name')}}" class="form-control" name="name" required>
                                                 <div id="permissionError"></div>
-                                            </div>  
+                                            </div>
                                             <div class="col-lg-6 col-12 form-group">
-                                                <label >Permission Category:</label>
+                                                <label>Permission Category:</label>
                                                 <select id="permissioncat_id" name="permissioncategory_id" class="form-control" required>
                                                     <option value="">Select permission categories</option>
-                                                   
+
                                                     @foreach ($permissionCategories as $category)
                                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                     @endforeach
@@ -174,7 +174,6 @@
                                     </div>
                                 </th>
                                 <th>Permission Name</th>
-                                <th>Permission Category</th>
                                 <th>Action</th>
 
                             </tr>
@@ -186,22 +185,22 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $permission->name }}</td>
-                              
+
 
                                 <td>
                                     <div class="d-flex flex-row gap-4 font-semibold">
                                         <div class="px-1">
-                                        @can('update permission')
+                                            @can('update permission')
                                             <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($permission->id) }}', '{{ addslashes($permission->name) }}', '{{ addslashes($permission->permissioncategory_id) }}')" data-toggle="modal" data-target="#editModal">
                                                 Edit
                                             </button>
-                                        @endcan
+                                            @endcan
 
                                         </div>
                                         <div>
-                                        @can('delete permission')
+                                            @can('delete permission')
                                             <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($permission->id) }}')" class="btn btn-danger btn-lg">Delete</button>
-                                        @endcan
+                                            @endcan
                                         </div>
                                     </div>
 

@@ -26,9 +26,11 @@
                         </div>
                         <!-- Button trigger modal -->
                         <div>
+                            @can('create permission category')
                             <button type="button" class="fw-btn-fill btn-gradient-yellow" data-toggle="modal" data-target="#exampleModal">
                                 Add permission Category
                             </button>
+                            @endcan
                         </div>
                     </div>
 
@@ -166,14 +168,19 @@
                                 <td>
                                     <div class="d-flex flex-row gap-4 font-semibold">
                                         <div class="px-1">
-
+                                            @can('update permission category')
                                             <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($permissioncategory->id) }}', '{{ addslashes($permissioncategory->name) }}')" data-toggle="modal" data-target="#editModal">
                                                 Edit
                                             </button>
+                                            @endcan
 
                                         </div>
                                         <div>
+                                            @can('delete permission category')
+
                                             <button data-toggle="modal" data-target="#destroyModal" onclick="destroy('{{ addslashes($permissioncategory->id) }}')" class="btn btn-danger btn-lg">Delete</button>
+
+                                            @endcan
                                         </div>
                                     </div>
 
@@ -272,7 +279,7 @@
 
                             $('#result').text(response.message);
                             $('#result').addClass('btn btn-success')
-                            $('#myForm').trigger('reset')                    
+                            $('#myForm').trigger('reset')
                             // Reload the page if $services exists
                             $.get(window.location.href, function(data) {
                                 var newTbody = $(data).find('.table-responsive #serviceId').html();

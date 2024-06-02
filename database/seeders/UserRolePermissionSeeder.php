@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -16,7 +15,6 @@ class UserRolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-
         // Define the permissions you want to create
         $permissions = [
             'view role',
@@ -27,14 +25,9 @@ class UserRolePermissionSeeder extends Seeder
             'create permission',
             'update permission',
             'delete permission',
-            'view role',
-            'create role',
-            'update role',
-            'delete role',
-            'view permission',
-            'create permission',
-            'update permission',
-            'delete permission',
+            'create permission category',
+            'update permission category',
+            'delete permission category',
             'view user',
             'create user',
             'update user',
@@ -45,53 +38,48 @@ class UserRolePermissionSeeder extends Seeder
             'delete product',
         ];
 
-
-
-        // Loop through each permission and create it if it doesn't exist
-        foreach ($permissions as $permissionName) {
-            Permission::firstOrCreate(
-                ['name' => $permissionName, 'guard_name' => 'web']
-            );
+        // Create or get permissions
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
         }
+
         // Create Roles
-        $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin
-        $adminRole = Role::create(['name' => 'admin']);
+        $superAdminRole = Role::firstOrCreate(['name' => 'super-admin']); // as super-admin
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
-        // Lets give all permission to super-admin role.
+        // Let's give all permissions to super-admin role.
         $allPermissionNames = Permission::pluck('name')->toArray();
-
         $superAdminRole->givePermissionTo($allPermissionNames);
 
-        // Let's give few permissions to admin role.
-        $adminRole->givePermissionTo(['create role', 'view role', 'update role']);
-        $adminRole->givePermissionTo(['create permission', 'view permission']);
-        $adminRole->givePermissionTo(['create user', 'view user', 'update user']);
-        $adminRole->givePermissionTo(['create product', 'view product', 'update product']);
+        // Let's give a few permissions to admin role.
+        $adminPermissions = [
+            'create role', 'view role', 'update role',
+            'create permission', 'view permission',
+            'create permission category',
+            'update permission category',
+            'delete permission category',
+            'create user', 'view user', 'update user',
+            'create product', 'view product', 'update product'
+        ];
+        $adminRole->givePermissionTo($adminPermissions);
 
-
-        // Let's Create User and assign Role to it.
-
+        // Let's create users and assign roles to them.
         $superAdminUser = User::firstOrCreate([
-            'email' => 'superadmin@gmail.com',
+            'email' => 'creationsoftnepal158@gmail.com',
         ], [
-            'name' => 'Super Admin',
-            'username' => 'Mandip Tamang',
+            'name' => 'Mandip Tamang',
             'email' => 'creationsoftnepal158@gmail.com',
             'password' => Hash::make('creationsoftnepal159'),
         ]);
-
         $superAdminUser->assignRole($superAdminRole);
 
-
         $adminUser = User::firstOrCreate([
-            'email' => 'admin@gmail.com'
+            'email' => 'admin@gmail.com',
         ], [
-            'name' => 'Admin',
-            'username' => 'Mandip Tamang',
+            'name' => 'john Wick',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('12345678'),
         ]);
-
         $adminUser->assignRole($adminRole);
     }
 }

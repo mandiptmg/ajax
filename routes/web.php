@@ -52,9 +52,6 @@ Route::group(['middleware' => ['role:super-admin|admin']], function () {
     Route::delete('/admin/testimonials/delete/{id}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
 
 
-
-
-
     // Product Routes
     Route::prefix('admin')->group(function () {
         Route::get('products', [ProductController::class, 'index'])->name('products.index');
@@ -70,10 +67,15 @@ Route::group(['middleware' => ['role:super-admin|admin']], function () {
         Route::post('permissions', [PermissionController::class, 'store'])->name('permissions.store');
         Route::put('permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
         Route::delete('permissions/delete/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
-
-        Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     });
 
+    Route::prefix('admin')->group(function () {
+        Route::get('users', [UserController::class, 'index'])->name('users.index');
+        Route::post('users', [UserController::class, 'store'])->name('users.store');
+        Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('users/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+        Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+    });
 
     Route::prefix('admin')->group(function () {
         Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
