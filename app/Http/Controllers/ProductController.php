@@ -11,11 +11,11 @@ use App\Models\Question;
 class ProductController extends Controller
 {
     public function __construct()
-    
+
     {
-        $this->middleware('permission:view product|create product|update product|delete product', ['only' => ['index','store']]);
-        $this->middleware('permission:create product', ['only' => ['create','store']]);
-        $this->middleware('permission:update product', ['only' => ['edit','update']]);
+        $this->middleware('permission:view product|create product|update product|delete product', ['only' => ['index', 'store']]);
+        $this->middleware('permission:create product', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update product', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete product', ['only' => ['destroy']]);
     }
     /**
@@ -26,6 +26,13 @@ class ProductController extends Controller
         $products = Product::get();
         return view('admin.product.index', compact('products'));
     }
+
+    public function create()
+    {
+        $products = Product::get();
+        return view('admin.product.create', compact('products'));
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -168,7 +175,7 @@ class ProductController extends Controller
             }
 
 
-            return response()->json(['status' => 200, 'message' => 'Product stored successfully!']);
+            return redirect()->route('products.index')->with('status', 'Product created successfully.');
         }
     }
 
@@ -235,8 +242,8 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $product->image = implode('|', $uploadedImages);
             $product->title = $request->title;
-            $product->short_description = strip_tags( $request->short_description);
-            $product->description = strip_tags( $request->description);
+            $product->short_description = strip_tags($request->short_description);
+            $product->description = strip_tags($request->description);
 
             if ($request->hasFile('bg_image1')) {
                 $bgImage1Name = time() . 'bg1.' . $request->file('bg_image1')->getClientOriginalExtension();
@@ -295,9 +302,8 @@ class ProductController extends Controller
                     $qa->save();
                 }
             }
-
-
-            return response()->json(['status' => 200, 'message' => 'Product update successfully!']);
+            
+            return redirect()->route('products.index')->with(['status' => 200, 'Product update successfully.']);
         }
     }
 

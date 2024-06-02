@@ -16,101 +16,20 @@
     <!-- Add New product Area Start Here -->
     <div class="card height-auto">
         <div class="card-body">
-            <div>
-                <div>
-                    <h3>Add Product</h3>
-                </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3>Add Product</h3>
+                @can('create portfolio')
 
+                <a class="btn btn-primary btn-lg" href="{{ route('products.create') }}">add product</a>
+                @endcan
             </div>
+
             @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
             @endif
 
-            <div>
-                <form class="new-added-form" id="myProductForm" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row">
-
-                        <div class="col-lg-6 col-12 form-group">
-                            <label>Top background Photo</label>
-                            <input type="file" class="form-control-file" id="bg_image1" name="bg_image1">
-                            <div id="bg_image1Error"></div>
-                        </div>
-                        <div class="col-lg-6 col-12 form-group">
-                            <label>Title</label>
-                            <input type="text" placeholder="Title" id="title" value="{{old('title')}}" class="form-control" name="title">
-                            <div id="titleError"></div>
-                        </div>
-                        <div class="col-lg-6 col-12 form-group">
-                            <label>Short Description</label>
-                            <textarea rows="9" cols="10" type="text" placeholder="Short Description..." id='short_description' class="form-control tinymce" name="short_description">{{old('short_description')}}</textarea>
-                            <div id="short_descriptionError"></div>
-                        </div>
-                        <div class="col-lg-6 col-12 form-group">
-                            <label>Description</label>
-                            <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description' class="tinymce form-control" name="description">{{old('description')}}</textarea>
-                            <div id="descriptionError"></div>
-                        </div>
-                        <div class="col-lg-6 col-12 form-group">
-                            <label>Multiple product Image</label>
-                            <input type="file" class="form-control-file" value="{{old('image')}}" id="image" multiple name="image[]">
-                            <div id="imageError"></div>
-                        </div>
-                        <div class="col-lg-6 col-12 form-group">
-                            <label>Middle background Photo</label>
-                            <input type="file" class="form-control-file" value="{{old('bg_image2')}}" id="logo" name="bg_image2">
-                            <div id="bg_image2Error"></div>
-                        </div>
-                        <!-- add feature -->
-                        <div class="col-12 form-group">
-                            <label>Add features</label>
-                            <div>
-                                <button type="button" id="add-feature" class="btn btn-primary">Add Feature</button>
-                            </div>
-                            <div id="features-container">
-                                <!-- Dynamic fields will be added here -->
-                            </div>
-
-                        </div>
-                        <!-- add benefit  -->
-                        <div class="col-12 form-group">
-                            <label>Add Benefits</label>
-                            <div>
-
-
-                                <button type="button" id="add-benefit" class="btn btn-primary">Add Benefit</button>
-                            </div>
-                            <div id="benefits-container">
-                                <!-- Dynamic fields will be added here -->
-                            </div>
-
-                        </div>
-                        <!-- add Question and answer  -->
-                        <div class="col-12 form-group">
-                            <label>Add Question and Answer</label>
-                            <div>
-
-                                <button type="button" id="add-question" class="btn btn-primary">Add Question and Answer</button>
-                            </div>
-                            <div id="questions-container">
-                                <!-- Dynamic fields will be added here -->
-                            </div>
-
-                        </div>
-
-                        <div class="col-12 form-group mg-t-8">
-                            @can('create product')
-
-                            <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
-
-                            @endcan
-                        </div>
-                    </div>
-
-                </form>
-            </div>
             <!--Product table data  -->
 
             <div class="table-responsive mt-5">
@@ -217,20 +136,19 @@
 
 
 <script>
-    // Product delete
-    function destroy(id) {
+       function destroy(id) {
+        console.log(id);
         var form = $('#deleteform');
-        var address = "{{ url('admin/products') }}" + '/' + id;
+        var address = "{{url('admin/products/delete/')}}" + '/' + id;
         form.prop('action', address);
     }
-
     // Delete form submission
     $('#deleteform').submit(function(e) {
         e.preventDefault();
         var form = $(this);
 
         $.ajax({
-            url: form.prop('action'),
+            url: form.attr('action'), 
             type: form.prop('method'),
             data: form.serialize(),
             success: function(response) {
@@ -247,139 +165,6 @@
                 // Handle error response
                 console.error(error);
             }
-        });
-    });
-
-
-    // Add feature
-    $('#add-feature').click(function() {
-        const featureTemplate = `
-                <div class="feature row pt-3">
-                    <div class="col-lg-3 col-12">
-                        <input type="file" name="logo[]" accept="image/*" class='form-control' required>
-                    </div>
-                    <div class="col-lg-3 col-12">
-                        <input type="text" name="title_feature[]" class='form-control' placeholder="Title" required>
-                    </div>
-                    <div class="col-lg-4 col-12">
-                        <textarea name="description_feature[]" class='form-control tinymce' placeholder="Description" rows="1" required></textarea>
-                    </div>
-                    <div class="col-lg-2 w-100 col-12">
-                        <button type="button" class="btn btn-danger btn-lg remove-feature">Remove</button>
-                    </div>
-                </div>`;
-        $('#features-container').append(featureTemplate);
-    });
-
-    //Add Benefit
-    $('#add-benefit').click(function() {
-        const benefitTemplate = `
-                <div class="benefit row pt-3">
-                   
-                    <div class="col-lg-11 col-12">
-                        <textarea name="description_benefit[]" class='form-control tinymce' placeholder="Description" rows="1" required></textarea>
-                    </div>
-                
-                    <div class="col-lg-1 w-100 col-12">
-                        <button type="button" class="btn btn-danger btn-lg remove-benefit">Remove</button>
-                    </div>
-                </div>`;
-        $('#benefits-container').append(benefitTemplate);
-
-    });
-
-    //Add Question and Answer
-    $('#add-question').click(function() {
-        const questionTemplate = `
-                <div class="question row pt-3">
-                    <div class="col-lg-11 col-12">
-                        <input type="text" name="question[]" class='form-control' placeholder="Question" required>
-                    </div>
-                    <div class="col-lg-11 mt-2 col-12">
-                        <input type="text" name="answer[]" class='form-control' placeholder="Answer..." required>
-                    </div>
-                    
-                    <div class="col-lg-1 w-100 col-12">
-                        <button type="button" class="btn btn-danger btn-lg remove-question">Remove</button>
-                    </div>
-                </div>`;
-        $('#questions-container').append(questionTemplate);
-    });
-
-    //Remove Quuestion and Answer
-    $('#questions-container').on('click', '.remove-question', function() {
-        $(this).closest('.question').remove();
-    });
-
-    // Remove benefit
-    $('#benefits-container').on('click', '.remove-benefit', function() {
-        $(this).closest('.benefit').remove();
-    });
-
-    // Remove feature
-    $('#features-container').on('click', '.remove-feature', function() {
-        $(this).closest('.feature').remove();
-    });
-
-
-    // Edit feature
-    $('#features-container').on('click', '.edit-feature', function() {
-        const featureRow = $(this).closest('.feature');
-        const title = featureRow.find("input[name='title[]']").val();
-        const description = featureRow.find("textarea[name='description[]']").val();
-        const logo = featureRow.find("input[name='logo[]']").val();
-
-        // Implement your edit logic here
-        // You may want to use a modal to edit the details
-    });
-
-
-    // Edit benefit
-    $('#benefits-container').on('click', '.edit-benefit', function() {
-        const benefitRow = $(this).closest('.benefit');
-        const description = benefitRow.find("textarea[name='description[]']").val();
-        // Implement your edit logic here
-        // You may want to use a modal to edit the details
-    });
-
-    // add product
-    $('#myProductForm').submit(function(e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-        // Create FormData object
-        $.ajax({
-            url: "{{ route('products.store') }}",
-            type: 'POST',
-            data: formData,
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                console.log(response)
-
-                if (response.status == 400) {
-                    $('#titleError').html('');
-                    $('#imageError').html();
-                    $('#descriptionError').html('');
-                    $('#shortdescriptionError').html('');
-                    $('#bg_image1Error').html('');
-                    $('#bg_image2Error').html('');
-
-                    $.each(response.errors, function(key, err_value) {
-                        $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
-                    });
-                } else {
-                    $('#alert-container').html('<div class="alert alert-success">' + response.success + '</div>');
-                    $('#myProductForm')[0].reset();
-                    $('#features-container').empty();
-                    $.get(window.location.href, function(data) {
-                        var newTbody = $(data).find('.table-responsive #productId').html();
-                        $('.table-responsive #productId').html(newTbody);
-                    });
-                }
-            }
-
         });
     });
 </script>
