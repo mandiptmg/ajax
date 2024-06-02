@@ -117,17 +117,17 @@
                             <div class="row">
                                 <div class=" col-lg-6 col-12 form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+                                    <input type="text" class="form-control"  name="name" placeholder="Enter name">
                                     <div id="userNameError"></div>
                                 </div>
                                 <div class=" col-lg-6 col-12 form-group">
                                     <label for="email">Email</label>
-                                    <input type="email" name="email" id="email" placeholder="Enter email" class="form-control">
+                                    <input type="email" name="email" placeholder="Enter email" class="form-control">
                                     <div id="userEmailError"></div>
                                 </div>
                                 <div class=" col-lg-6 col-12 form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" name="password" id="password" placeholder="Enter password" class="form-control">
+                                    <input type="password" name="password" xplaceholder="Enter password" class="form-control">
                                     <div id="userPasswordError"></div>
                                 </div>
                                 <div class=" col-lg-6 col-12 form-group">

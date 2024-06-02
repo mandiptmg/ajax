@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <!-- Modernize js -->
     <script src="{{asset('js/modernizr-3.6.0.min.js')}}"></script>
-</head>z
+</head>
 
 <body>
     <!-- Preloader Start Here -->

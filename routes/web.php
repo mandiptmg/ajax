@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HeroController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PermissionCategoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PortfolioController;
@@ -15,20 +14,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/login', function () {
-    return view('login.index');
-});
-
 Auth::routes();
-
-
 
 Route::group(['middleware' => ['role:super-admin|admin']], function () {
     // Protected routes go here
     Route::get('/admin/dashboard', function () {
         return view('index');
     });
-
 
     Route::get('/admin/hero', [HeroController::class, 'index'])->name('hero.index');
     Route::post('/admin/hero', [HeroController::class, 'store'])->name('hero.store');
