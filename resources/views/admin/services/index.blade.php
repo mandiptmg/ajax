@@ -73,12 +73,12 @@
 
                                             <div class="col-lg-6 col-12 form-group">
                                                 <label>Icon *</label>
-                                                <input type="text" placeholder="" id='' class="form-control" name="icon" value="{{old('icon')}}">
+                                                <input type="text" placeholder=""  class="form-control" name="icon" value="{{old('icon')}}">
                                                 <div id="iconError"></div>
                                             </div>
                                             <div class="col-lg-12 col-12 form-group">
                                                 <label>Description *</label>
-                                                <textarea rows="9" cols="10" type="text" placeholder="" id='' class="form-control tinymce" name="description">{{old('description')}}</textarea>
+                                                <textarea rows="9" cols="10" type="text" placeholder="" class="form-control tinymce" name="description">{{old('description')}}</textarea>
                                                 <div id="descriptionError"></div>
                                             </div>
                                             <div class="col-12 form-group mg-t-8">
@@ -211,7 +211,7 @@
                                             @can('update service')
 
 
-                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($service->id) }}', '{{ addslashes($service->title) }}', '{{ addslashes($service->description) }}','{{ addslashes($service->icon) }}' )" data-toggle="modal" data-target="#editModal">
+                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($service->id) }}', '{{ addslashes($service->title) }}', '{{ ($service->description) }}','{{ addslashes($service->icon) }}' )" data-toggle="modal" data-target="#editModal">
                                                 Edit
                                             </button>
 
@@ -264,6 +264,7 @@
         $('#icon').val(icon);
         $('#service_id').val(id);
         tinymce.get('description').setContent(description);
+        console.log(id, title, description, icon);
 
 
 
