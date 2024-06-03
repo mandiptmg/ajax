@@ -69,7 +69,7 @@ class TestimonialController extends Controller
             $testimonial->product_name = $request->product_name;
             $testimonial->name = $request->name;
             $testimonial->occupation = $request->occupation;
-            $testimonial->description =strip_tags(  $request->description);
+            $testimonial->description = strip_tags($request->description);
 
             if ($request->hasFile('logo')) {
 

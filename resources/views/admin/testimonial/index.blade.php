@@ -217,7 +217,7 @@
                                     <div class="px-1">
                                         @can('update testimonial')
 
-                                        <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($testimonial->id) }}','{{ addslashes($testimonial->product_name) }}', '{{ addslashes($testimonial->name) }}', '{{ addslashes($testimonial->occupation) }}', '{{ addslashes($testimonial->description) }}', '{{ addslashes($testimonial->image) }}')" data-toggle="modal" data-target="#editModal">
+                                        <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($testimonial->id) }}','{{ addslashes($testimonial->product_name) }}', '{{ addslashes($testimonial->name) }}', '{{ addslashes($testimonial->occupation) }}', '{{addslashes($testimonial->description) }}', '{{ addslashes($testimonial->image) }}')" data-toggle="modal" data-target="#editModal">
                                             Edit
                                         </button>
 
@@ -275,7 +275,6 @@
             e.preventDefault();
             var formData = new FormData(this); // Create FormData object
             var testimonialId = formData.get('testimonial_id');
-            console.log(testimonialId);
 
             $.ajax({
                 url: "{{ url('admin/testimonials/') }}" + '/' + testimonialId,
