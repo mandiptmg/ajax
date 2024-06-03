@@ -51,8 +51,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('products', [ProductController::class, 'store'])->name('products.store');
         Route::get('products/{id}', [ProductController::class, 'show'])->name('products.show');
         Route::get('products/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
-        Route::put('products/{id}', [ProductController::class, 'update'])->name('products.update');
+        Route::put('products/{id}/update', [ProductController::class, 'update'])->name('products.update');
         Route::delete('products/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+        Route::post('products/remove-feature', [ProductController::class, 'removeFeature'])->name('features.remove');
+
+
     });
 
     Route::prefix('admin')->group(function () {

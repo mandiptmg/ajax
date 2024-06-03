@@ -17,7 +17,7 @@
     <div class="card height-auto">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3>Add Product</h3>
+                <h3>All Product</h3>
                 @can('create portfolio')
 
                 <a class="btn btn-primary btn-lg" href="{{ route('products.create') }}">add product</a>

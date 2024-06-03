@@ -174,23 +174,15 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Product</span></a>
-                            <ul class="nav sub-group-menu sub-group-active">
-                                <li class="nav-item">
-                                    <a href="products" class="nav-link"><i class="fas fa-angle-right"></i>All Product</a>
-                                </li>
-                                <li class="nav-item">
-                                    @canany([
-                                    'create product',
-                                    'view product',
-                                    'update product',
-                                    'delete product',
-                                    ])
-                                    <a href="{{url('/admin/products')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add Product</a>
-                                    @endcanany
-                                </li>
-                            </ul>
+                        <li class="nav-item"> @canany([
+                            'create product',
+                            'view product',
+                            'update product',
+                            'delete product',
+                            ])
+                            <a href="{{url('/admin/products')}}" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Product</span></a>
+                            @endcanany
+
                         </li>
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-settings"></i><span>Settings</span></a>

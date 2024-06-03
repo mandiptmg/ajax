@@ -1,4 +1,3 @@
-<!-- resources/views/admin/product/edit.blade.php -->
 @extends('layouts.adminmaster')
 @section('content')
 <div class="dashboard-content-one">
@@ -6,16 +5,15 @@
         <h3>Edit Product</h3>
         <ul>
             <li>
-                <a href="{{url('admin/dashboard')}}">Home</a>
-
+                <a href="{{ url('admin/dashboard') }}">Home</a>
             </li>
-            <li>Edit Product</li>
+            <li>Product</li>
         </ul>
     </div>
 
     <div class="card height-auto">
         <div class="card-body">
-            <h3>Edit Product</h3>
+            <h3>Update Product</h3>
 
             @if(session('success'))
             <div class="alert alert-success">
@@ -27,34 +25,39 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-
+                    <!-- Top background photo -->
                     <div class="col-lg-6 col-12 form-group">
                         <label>Top background Photo</label>
                         <input type="file" class="form-control-file" value="{{$product->bg_image1 ?? ''}}" id="bg_image1" name="bg_image1">
                         <img src="{{ asset('uploads/bg_images/' . $product->bg_image1 ?? '' ) }}" alt="Top Background Photo" class="img-fluid">
                         <div id="bg_image1Error"></div>
                     </div>
+                    <!-- Title -->
                     <div class="col-lg-6 col-12 form-group">
                         <label>Title</label>
                         <input type="text" placeholder="Title" id="title" value="{{ $product->title }}" class="form-control" name="title">
                         <div id="titleError"></div>
                     </div>
+                    <!-- Short Description -->
                     <div class="col-lg-6 col-12 form-group">
                         <label>Short Description</label>
                         <textarea rows="9" cols="10" placeholder="Short Description..." id='short_description' class="form-control" name="short_description">{{ $product->short_description }}</textarea>
                         <div id="short_descriptionError"></div>
                     </div>
+                    <!-- Description -->
                     <div class="col-lg-6 col-12 form-group">
                         <label>Description</label>
                         <textarea rows="9" cols="10" placeholder="Description..." id='description' class="form-control" name="description">{{ $product->description }}</textarea>
                         <div id="descriptionError"></div>
                     </div>
+                    <!-- Multiple Product Image -->
                     <div class="col-lg-6 col-12 form-group">
                         <label>Multiple Product Image</label>
-                        <input type="file" class="form-control-file" id="image" multiple name="image[]">
-
+                        <input type="file" class="form-control-file" value="{{ $product->image ?? ''}}" id="image" multiple name="image[]">
+                        <input type="hidden" value="{{ $product->image }}" name="existing_image">
                         <div id="imageError"></div>
                     </div>
+                    <!-- Middle background photo -->
                     <div class="col-lg-6 col-12 form-group">
                         <label>Middle background Photo</label>
                         <input type="file" class="form-control-file" id="bg_image2" name="bg_image2">
@@ -68,14 +71,16 @@
                         <button type="button" id="add-feature" class="btn btn-primary">Add Feature</button>
                         <div id="features-container">
                             @foreach($product->features as $feature)
-
                             <div class="feature row pt-3">
                                 <div class="col-lg-1 col-12">
                                     <input type="checkbox" class="feature-checkbox" checked>
+                                    <input type="hidden" name="feature_id[]" value="{{ $feature->id }}">
+
                                 </div>
                                 <div class="col-lg-3 col-12">
-                                    <input type="file" name="logo[]" accept="image/*" class='form-control'>
-                                    <img src="{{ asset('uploads/features/' . $feature->logo) }}" alt="{{ $feature->title }}" class="img-fluid">
+                                    <input type="file" name="logo[]" value="{{$feature->logo ?? ''}}" accept="image/*" class='form-control'>
+                                    <img src="{{ asset('uploads/features/' . $feature->logo ) }}" alt="{{ $feature->title }}" class="img-fluid">
+
                                 </div>
                                 <div class="col-lg-3 col-12">
                                     <input type="text" name="title_feature[]" class='form-control' value="{{ $feature->title }}" placeholder="Title" required>
@@ -137,6 +142,7 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 
 @endsection
@@ -222,7 +228,26 @@
 
     // Remove dynamic fields
     $('#features-container').on('click', '.remove-feature', function() {
-        $(this).closest('.feature').remove();
+        let featureId = $(this).data('id');
+        let featureElement = $(this).closest('.feature');
+        if (featureId) {
+            $.ajax({
+                url: "{{ route('features.remove') }}",
+                type: 'POST',
+                data: {
+                    id: featureId
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        featureElement.remove();
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            });
+        } else {
+            featureElement.remove();
+        }
     });
     $('#benefits-container').on('click', '.remove-benefit', function() {
         $(this).closest('.benefit').remove();
@@ -238,7 +263,7 @@
         let formData = new FormData(this);
 
         $.ajax({
-            url: "{{ url('admin/products/' . $product->id) }}",
+            url: "{{ route('products.update', $product->id) }}",
             type: 'POST',
             data: formData,
             dataType: 'json',
