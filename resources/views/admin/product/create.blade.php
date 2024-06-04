@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-lg-6 col-12 form-group">
                             <label>Short Description</label>
-                            <textarea rows="9" cols="10" type="text" placeholder=""  class="form-control tinymce" name="short_description">{{ old('short_description') }}</textarea>
+                            <textarea rows="9" cols="10" type="text" placeholder="" class="form-control " name="short_description">{{ old('short_description') }}</textarea>
                             <!-- <textarea rows="9" cols="10" type="text" placeholder="Short Description..." class="form-control tinymce" name="short_description">{{ old('short_description') }}</textarea> -->
                             <div id="short_descriptionError" class="error-message"></div>
                         </div>
@@ -59,10 +59,12 @@
                         </div>
                         <div class="col-12 form-group">
                             <label>Add Benefits</label>
-                            <div>
-                                <button type="button" id="add-benefit" class="btn btn-primary">Add Benefit</button>
+                            <div class="benefit row pt-3">
+                                <div class="col-lg-12 col-12">
+                                    <textarea name="benefit" class='form-control ' placeholder="Description" rows="1" required></textarea>
+                                    <div id="benefitError" class="error-message"></div>
+                                </div>
                             </div>
-                            <div id="benefits-container"></div>
                         </div>
                         <div class="col-12 form-group">
                             <label>Add Question and Answer</label>
@@ -108,18 +110,6 @@
         $('#features-container').append(featureTemplate);
     });
 
-    $('#add-benefit').click(function() {
-        const benefitTemplate = `
-            <div class="benefit row pt-3">
-                <div class="col-lg-11 col-12">
-                    <textarea name="description_benefit[]" class='form-control tinymce' placeholder="Description" rows="1" required></textarea>
-                </div>
-                <div class="col-lg-1 w-100 col-12">
-                    <button type="button" class="btn btn-danger btn-lg remove-benefit">Remove</button>
-                </div>
-            </div>`;
-        $('#benefits-container').append(benefitTemplate);
-    });
 
     $('#add-question').click(function() {
         const questionTemplate = `
@@ -139,10 +129,6 @@
 
     $('#questions-container').on('click', '.remove-question', function() {
         $(this).closest('.question').remove();
-    });
-
-    $('#benefits-container').on('click', '.remove-benefit', function() {
-        $(this).closest('.benefit').remove();
     });
 
     $('#features-container').on('click', '.remove-feature', function() {
@@ -169,6 +155,8 @@
                     $('#short_descriptionError').html('');
                     $('#bg_image1Error').html('');
                     $('#bg_image2Error').html('');
+                    $('#benefitError').html('');
+
 
                     $.each(response.errors, function(key, err_value) {
                         $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');
@@ -177,7 +165,6 @@
                     $('#alert-container').html('<div class="alert alert-success">' + response.success + '</div>');
                     $('#myProductForm')[0].reset();
                     $('#features-container').empty();
-                    $('#benefits-container').empty();
                     $('#questions-container').empty();
                     $.get(window.location.href, function(data) {
                         var newTbody = $(data).find('.table-responsive #productId').html();

@@ -18,6 +18,7 @@ Route::get('/services', [ServiceController::class, 'index']);
 Route::get('/portfolio', [PortfolioController::class, 'index']);
 Route::get('/testimonial', [TestimonialController::class, 'index']);
 Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{slug}', [ProductController::class, 'show']);
 
 
 

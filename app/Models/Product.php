@@ -17,6 +17,7 @@ class Product extends Model
         'image',
         'short_description',
         'description',
+        'benefit',
         'bg_image1',
         'bg_image2'
     ];
@@ -35,11 +36,6 @@ class Product extends Model
     {
         return $this->hasMany(Feature::class);
     }
-    public function benefits()
-    {
-        return $this->hasMany(Benefit::class);
-    }
-
     public function questionAnswers()
     {
         return $this->hasMany(Question::class);

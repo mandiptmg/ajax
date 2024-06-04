@@ -23,28 +23,28 @@
             <h4>Features</h4>
             <ul>
                 @foreach($product->features as $feature)
-                    <li>
-                        <h5>{{ $feature->title }}</h5>
-                        <p>{{ $feature->description }}</p>
-                        <img src="{{ asset('uploads/features/' . $feature->logo) }}" alt="{{ $feature->title }}" class="img-fluid">
-                    </li>
+                <li>
+                    <h5>{{ $feature->title }}</h5>
+                    <p>{{ $feature->description }}</p>
+                    <img src="{{ asset('uploads/features/' . $feature->logo) }}" alt="{{ $feature->title }}" class="img-fluid">
+                </li>
                 @endforeach
             </ul>
 
             <h4>Benefits</h4>
             <ul>
-                @foreach($product->benefits as $benefit)
-                    <li>{{ $benefit->description }}</li>
-                @endforeach
+
+                <li>{{ $product->benefit }}</li>
+
             </ul>
 
             <h4>Questions and Answers</h4>
             <ul>
                 @foreach($product->questionAnswers as $question)
-                    <li>
-                        <strong>Q:</strong> {{ $question->question }}<br>
-                        <strong>A:</strong> {{ $question->answer }}
-                    </li>
+                <li>
+                    <strong>Q:</strong> {{ $question->question }}<br>
+                    <strong>A:</strong> {{ $question->answer }}
+                </li>
                 @endforeach
             </ul>
         </div>

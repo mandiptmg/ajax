@@ -98,21 +98,15 @@
 
                     <!-- Benefits Section -->
                     <div class="col-12 form-group">
-                        <label>Add Benefits</label>
-                        <button type="button" id="add-benefit" class="btn btn-primary">Add Benefit</button>
-                        <div id="benefits-container">
-                            @foreach($product->benefits as $benefit)
+                            <label>Add Benefits</label>
                             <div class="benefit row pt-3">
-                                <div class="col-lg-10 col-12">
-                                    <textarea name="description_benefit[]" class='form-control' placeholder="Description" rows="1" required>{{ $benefit->description }}</textarea>
-                                </div>
-                                <div class="col-lg-1 col-12">
-                                    <button type="button" class="btn btn-danger btn-lg remove-benefit" data-id="{{ $benefit->id }}">Remove</button>
+                                <div class="col-lg-12 col-12">
+                                    
+                                    <textarea name="benefit" class='form-control ' placeholder="Benefit..." >{{ $product->benefit }}</textarea>
+                                    <div id="benefitError" class="error-message"></div>
                                 </div>
                             </div>
-                            @endforeach
                         </div>
-                    </div>
 
                     <!-- Questions Section -->
                     <div class="col-12 form-group">
@@ -189,16 +183,6 @@
         </div>
     </div>`;
 
-    // Benefit template
-    const benefitTemplate = `
-    <div class="benefit row pt-3">
-        <div class="col-lg-10 col-12">
-            <textarea name="description_benefit[]" class='form-control' placeholder="Description" rows="1" required></textarea>
-        </div>
-        <div class="col-lg-1 col-12">
-            <button type="button" class="btn btn-danger btn-lg remove-benefit">Remove</button>
-        </div>
-    </div>`;
 
     // Question template
     const questionTemplate = `
@@ -218,9 +202,6 @@
     // Add dynamic fields
     $('#add-feature').click(function() {
         $('#features-container').append(featureTemplate);
-    });
-    $('#add-benefit').click(function() {
-        $('#benefits-container').append(benefitTemplate);
     });
     $('#add-question').click(function() {
         $('#questions-container').append(questionTemplate);
@@ -249,9 +230,7 @@
             featureElement.remove();
         }
     });
-    $('#benefits-container').on('click', '.remove-benefit', function() {
-        $(this).closest('.benefit').remove();
-    });
+   
     $('#questions-container').on('click', '.remove-question', function() {
         $(this).closest('.question').remove();
     });

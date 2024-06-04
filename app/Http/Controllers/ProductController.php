@@ -49,7 +49,7 @@ class ProductController extends Controller
             'title_feature.*' => 'nullable|string|max:255',
             'description_feature' => 'nullable|array',
             'description_feature.*' => 'nullable|string',
-            'description_benefit' => 'nullable|array',
+            'benefit' => 'required',
             'description_benefit.*' => 'nullable|string',
             'question' => 'nullable|array',
             'question.*' => 'nullable|string',
@@ -77,6 +77,7 @@ class ProductController extends Controller
         $validator = validator($request->all(), $rules, [
             'title.required' => 'Title must be required',
             'description.required' => 'Description must be required',
+            'benefit.required' => 'Benefit must be required',
             'short_description.required' => 'Short description must be required',
             'bg_image1' => ' Background Image must be required',
             'bg_image2' => 'Background Image must be required',
@@ -108,7 +109,7 @@ class ProductController extends Controller
             $product->title = $request->title;
             $product->short_description = strip_tags($request->short_description);
             $product->description = strip_tags($request->description);
-
+            $product->benefit = strip_tags($request->benefit);
 
             if ($request->hasFile('bg_image1')) {
                 $bgImage1Name = time() . 'bg1.' . $request->file('bg_image1')->getClientOriginalExtension();
@@ -151,17 +152,6 @@ class ProductController extends Controller
                 }
             }
 
-            //benefit
-            Benefit::where('product_id', $product->id)->delete();
-
-            if ($request->has('description_benefit')) {
-                foreach ($request->description_benefit as $key => $description) {
-                    $productBenefit = new Benefit();
-                    $productBenefit->product_id = $product->id;
-                    $productBenefit->description = $description;
-                    $productBenefit->save();
-                }
-            }
 
             //Question and answer
             Question::where('product_id', $product->id)->delete();
@@ -187,7 +177,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::with(['features', 'benefits', 'questionAnswers'])->findOrFail($id);
+        $product = Product::with(['features', 'questionAnswers'])->findOrFail($id);
         return view('admin.product.show', compact('product'));
     }
 
@@ -203,6 +193,7 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'short_description' => 'required',
+            'benefit' => 'required',
             'logo' => 'nullable|array',
             'logo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'title_feature' => 'nullable|array',
@@ -221,6 +212,7 @@ class ProductController extends Controller
         $validator = validator($request->all(), $rules, [
             'title.required' => 'Title must be required',
             'description.required' => 'Description must be required',
+            'benefit.required' => 'Benefit must be required',
             'short_description.required' => 'Short description must be required',
         ]);
 
@@ -230,7 +222,7 @@ class ProductController extends Controller
                 'errors' => $validator->errors()
             ]);
         } else {
-            $product = Product::with(['features', 'benefits', 'questionAnswers'])->findOrFail($id);
+            $product = Product::with(['features', 'questionAnswers'])->findOrFail($id);
 
 
             $uploadedImages = [];
@@ -249,6 +241,7 @@ class ProductController extends Controller
             $product->title = $request->title;
             $product->short_description = strip_tags($request->short_description);
             $product->description = strip_tags($request->description);
+            $product->benefit = strip_tags($request->benefit);
 
             if ($request->hasFile('bg_image1')) {
                 $bgImage1Name = time() . 'bg1.' . $request->file('bg_image1')->getClientOriginalExtension();
@@ -292,20 +285,6 @@ class ProductController extends Controller
                 }
             }
         
-
-
-
-            // Handle benefits
-            Benefit::where('product_id', $product->id)->delete();
-            if ($request->has('description_benefit')) {
-                foreach ($request->description_benefit as $key => $description) {
-                    $productBenefit = new Benefit();
-                    $productBenefit->product_id = $product->id;
-                    $productBenefit->description = $description;
-                    $productBenefit->save();
-                }
-            }
-
             //Question and answer
             Question::where('product_id', $product->id)->delete();
             if ($request->has('question')) {
@@ -337,7 +316,7 @@ class ProductController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $product = Product::with(['features', 'benefits', 'questionAnswers'])->findOrFail($id);
+        $product = Product::with(['features', 'questionAnswers'])->findOrFail($id);
         return view('admin.product.edit', compact('product'));
     }
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('image');
             $table->text('short_description');
             $table->text('description');
+            $table->text('benefit');
             $table->string('bg_image1');
             $table->string('bg_image2');
             $table->timestamps();
