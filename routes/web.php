@@ -13,6 +13,14 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\File;
+
+Route::get('/', function () {
+    return File::get(public_path() . '/index.html');
+});
+
+
+
 
 Auth::routes();
 
