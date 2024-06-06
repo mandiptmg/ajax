@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Creation Soft Nepal</title>
+    <title>Creation Soft Nepal Pvt. Ltd.</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('/logo.png')}}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <!-- Normalize CSS -->
     <link rel="stylesheet" href="{{asset('css/normalize.css')}}">
     <!-- Main CSS -->
@@ -211,13 +211,7 @@
 
                                     @endcanany
                                 </li>
-                                <li class="nav-item">
-                                    @canany (['view site sitting', 'create site sitting', 'update site sitting', 'delete site sitting'])
-
-                                    <a href="{{url('/admin/testimonial')}}" class="nav-link"><i class="fas fa-angle-right"></i>Site Setting</a>
-
-                                    @endcanany
-                                </li>
+                              
 
                             </ul>
                         </li>

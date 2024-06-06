@@ -97,6 +97,6 @@ class UserController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login'); // Redirect to the login page or any other page
+        return view('auth.login'); // Redirect to the login page or any other page
     }
 }

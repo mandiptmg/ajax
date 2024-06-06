@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="d-flex justify-content-center align-items-center" style="height: 90vh; width:100%">
+        <div class="col-12 col-lg-9">
             <div class="card bg-dark text-white">
-                <div class="item-logo mx-auto">
+                <div class="item-logo mx-auto mt-4">
                     <img src="{{asset('/logo.png')}}" alt="logo">
                 </div>
 
@@ -13,8 +13,8 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                        <div class="mb-3 row">
+                            <label for="email" class="col-md-4 col-form-label" style="text-align: end;">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -27,8 +27,8 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <div class="mb-3 row">
+                            <label for="password" class="col-md-4 col-form-label" style="text-align: end;"> {{ __('Password') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
@@ -41,23 +41,22 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="offset-md-4">
-                                <div class="d-flex  align-items-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                        <div class="mb-3 row">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                                <div>
-
-                                    @if (Route::has('password.request'))
-                                    <a class="btn text-end mx-5 btn-link " style=" text-decoration: none;" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                    @endif
+                                        <label class="form-check-label" for="remember">
+                                            {{ __('Remember Me') }}
+                                        </label>
+                                    </div>
+                                    <div class="ms-auto">
+                                        @if (Route::has('password.request'))
+                                        <a class="btn btn-link" style="text-decoration: none;" href="{{ route('password.request') }}">
+                                            {{ __('Forgot Your Password?') }}
+                                        </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -68,8 +67,6 @@
                                 <button type="submit" class="btn btn-primary w-75">
                                     {{ __('Login') }}
                                 </button>
-
-
                             </div>
                         </div>
                     </form>
