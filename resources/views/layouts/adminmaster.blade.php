@@ -126,7 +126,7 @@
             <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color " style="height: 89vh;">
                 <div class="mobile-sidebar-header d-md-none">
                     <div class="header-logo">
-                        <a href="index.html"><img src="img/logo1.png" alt="logo"></a>
+                        <a href="{{url('admin/dashboard')}}"><img src="img/logo1.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="sidebar-menu-content">
@@ -134,6 +134,24 @@
                         <li class="nav-item">
                             <a href="{{ url('admin/dashboard') }}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
 
+                        </li>
+                        <li class="nav-item">
+                            @canany([
+                            'create site setting',
+                            'view site setting',
+                            'update site setting',
+                            'delete site setting',
+                            ])
+
+                            <a href="{{url('/admin/sitesetting')}}" class="nav-link"><i class="fa fa-cog"></i><span>Site Setting</span></a>
+                            @endcanany
+                        </li>
+
+                        <li class="nav-item">
+                            @can(['create header'])
+
+                            <a href="{{url('admin/headers')}}" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Header</span></a>
+                            @endcan
                         </li>
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Home pages</span></a>
@@ -211,7 +229,7 @@
 
                                     @endcanany
                                 </li>
-                              
+
 
                             </ul>
                         </li>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\PermissionCategoryController;
 use App\Http\Controllers\PermissionController;
@@ -8,11 +9,14 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\sitesettingController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+Route::redirect('/', '/login');
 
 Auth::routes();
 
@@ -21,6 +25,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/dashboard', function () {
         return view('index');
     });
+
+
+    Route::get('/admin/sitesetting', [sitesettingController::class, 'index'])->name('sitesetting.index');
+    Route::post('/admin/sitesetting/store', [sitesettingController::class, 'store'])->name('sitesetting.store');
+
 
     Route::get('/admin/hero', [HeroController::class, 'index'])->name('hero.index');
     Route::post('/admin/hero', [HeroController::class, 'store'])->name('hero.store');
@@ -32,6 +41,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/admin/services', [ServiceController::class, 'store'])->name('service.store');
     Route::put('/admin/services/{id}', [ServiceController::class, 'update'])->name('service.update');
     Route::delete('/admin/services/delete/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
+
+
+    Route::get('/admin/headers', [HeaderController::class, 'index'])->name('header.index');
+    Route::post('/admin/headers', [HeaderController::class, 'store'])->name('header.store');
+    Route::put('/admin/headers/{id}', [HeaderController::class, 'update'])->name('header.update');
+    Route::delete('/admin/headers/delete/{id}', [HeaderController::class, 'destroy'])->name('header.destroy');
 
     Route::get('/admin/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
     Route::post('/admin/portfolios', [PortfolioController::class, 'store'])->name('portfolio.store');
@@ -54,8 +69,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('products/{id}/update', [ProductController::class, 'update'])->name('products.update');
         Route::delete('products/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
         Route::post('products/remove-feature', [ProductController::class, 'removeFeature'])->name('features.remove');
-
-
     });
 
     Route::prefix('admin')->group(function () {

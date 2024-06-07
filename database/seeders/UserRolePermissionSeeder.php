@@ -56,8 +56,6 @@ class UserRolePermissionSeeder extends Seeder
             'create testimonial',
             'update testimonial',
             'delete testimonial',
-
-
         ];
 
         // Create or get permissions
