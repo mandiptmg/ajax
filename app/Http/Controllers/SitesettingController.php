@@ -14,10 +14,7 @@ class SitesettingController extends Controller
 
     {
 
-        // $sitesetting = sitesetting::first();
-        $sitesetting = sitesetting::get();
-
-
+        $sitesetting = sitesetting::latest()->first();
         return view('admin.sitesetting.index', compact('sitesetting'));
     }
 
@@ -32,37 +29,19 @@ class SitesettingController extends Controller
                 'email' => 'required|email',
                 'contacttwo' => 'nullable|regex:/^98\d{8}$/',
                 'contanct' => 'required',
-                'panno' => 'required',
-
             ],
             [
                 'contacttwo.regex' => 'The SMS Contact No. field is invalid.',
                 'contanct.required' => 'The Contact field is required.',
                 'contanct.regex' => 'The Contact format is invalid.',
-                'panno.required' => 'The Pan No. field is required.',
 
             ]
         );
 
-        if ($request->id) {
-            $sitesetting = sitesetting::findorfail($request->id);
-        } else {
-            $sitesetting = new sitesetting();
-        }
-
+        $sitesetting = $request->sitesetting_id ? sitesetting::findOrFail($request->sitesetting_id) : new sitesetting();
 
 
         $sitesetting->name = $request->name;
-
-        $sitesetting->subname = $request->subname;
-
-        $sitesetting->panno = $request->panno;
-
-        $sitesetting->accountuser = $request->accountuser;
-
-        $sitesetting->accountpassword = $request->accountpassword;
-
-        $sitesetting->useaccount = $request->useaccount;
 
         $sitesetting->contanct = $request->contanct;
 
@@ -72,10 +51,6 @@ class SitesettingController extends Controller
 
         $sitesetting->address = $request->address;
 
-        $sitesetting->description = $request->description;
-
-        $sitesetting->map = $request->map;
-
         $sitesetting->facebook = $request->facebook;
 
         $sitesetting->twitter = $request->twitter;
@@ -84,11 +59,10 @@ class SitesettingController extends Controller
 
         $sitesetting->instagram = $request->instagram;
 
-        $sitesetting->smsapi = $request->smsapi;
+        $sitesetting->linkedin = $request->linkedin;
 
-        $sitesetting->sendreg = $request->sendreg;
 
-        $sitesetting->sendroute = $request->sendroute;
+
 
         if ($request->hasFile('logo')) {
 

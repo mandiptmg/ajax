@@ -56,6 +56,14 @@ class UserRolePermissionSeeder extends Seeder
             'create testimonial',
             'update testimonial',
             'delete testimonial',
+            'view header',
+            'create header',
+            'update header',
+            'delete header',
+            'view site setting',
+            'create site setting',
+            'update site setting',
+            'delete site setting',
         ];
 
         // Create or get permissions
@@ -102,6 +110,15 @@ class UserRolePermissionSeeder extends Seeder
             'create testimonial',
             'update testimonial',
             'delete testimonial',
+            'view site setting',
+            'create site setting',
+            'update site setting',
+            'delete site setting',
+            'view site setting',
+            'create site setting',
+            'update site setting',
+            'delete site setting',
+
 
         ];
         $adminRole->givePermissionTo($adminPermissions);

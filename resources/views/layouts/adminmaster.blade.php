@@ -142,7 +142,6 @@
                             'update site setting',
                             'delete site setting',
                             ])
-
                             <a href="{{url('/admin/sitesetting')}}" class="nav-link"><i class="fa fa-cog"></i><span>Site Setting</span></a>
                             @endcanany
                         </li>

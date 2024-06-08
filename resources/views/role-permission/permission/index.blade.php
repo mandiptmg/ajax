@@ -66,7 +66,7 @@
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $permission->name }}</td>
-                                <td> <span class="badge text-white bg-primary">{{ $permission->permissioncategory->name }} </span> </td>
+                                <td> <span class="badge text-white bg-primary">{{ $permission->permissioncategory->name ?? '' }} </span> </td>
 
 
                                 <td>

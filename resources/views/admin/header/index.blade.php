@@ -289,7 +289,7 @@
             e.preventDefault();
             var formData = new FormData(this); // Create FormData object
             $.ajax({
-                url: "{{ route('service.store') }}",
+                url: "{{ route('header.store') }}",
                 type: 'POST',
                 data: formData,
                 dataType: 'json',

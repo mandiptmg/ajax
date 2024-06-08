@@ -11,7 +11,7 @@ class HeaderController extends Controller
     public function __construct()
     
     {
-        $this->middleware('permission:view header|create header|update header|delete header', ['only' => ['index','store']]);
+        $this->middleware('permission:view header|create header| update header|delete header', ['only' => ['index','store']]);
         $this->middleware('permission:create header', ['only' => ['create','store']]);
         $this->middleware('permission:update header', ['only' => ['edit','update']]);
         $this->middleware('permission:delete header', ['only' => ['destroy']]);

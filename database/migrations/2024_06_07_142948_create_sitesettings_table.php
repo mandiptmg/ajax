@@ -19,15 +19,9 @@ return new class extends Migration
 
             $table->string('contanct');
 
-            $table->string('panno')->nullable();
-
             $table->string('contacttwo')->nullable();
 
             $table->string('address');
-
-            $table->text('description');
-
-            $table->text('map')->nullable();
 
             $table->text('logo');
 
@@ -41,7 +35,7 @@ return new class extends Migration
 
             $table->string('instagram')->nullable();
 
-            $table->string('linkdln')->nullable();
+            $table->string('linkedin')->nullable();
 
             $table->timestamps();
         });
