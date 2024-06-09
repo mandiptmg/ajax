@@ -18,7 +18,15 @@ class AboutController extends Controller
         // Map through the about and append the full image URL
         $about = $about->map(function($about) {
             $about->image_url = url('uploads/logo/' . $about->image);
-            return $about->makeHidden(['image']);
+            if ($about->image1) {
+                $about->image_urls = collect(explode('|', $about->image1))
+                    ->map(function ($image) {
+                        return url('about_images/' . $image);
+                    });
+            }
+
+            return $about->makeHidden(['image','image1']);
+
             
         });
 
