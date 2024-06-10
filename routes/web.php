@@ -6,12 +6,19 @@ use App\Http\Controllers\HeroController;
 use App\Http\Controllers\PermissionCategoryController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\PortfoliotitleController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProducttitleController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServicetitleController;
 use App\Http\Controllers\sitesettingController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\TestimonialtitleController;
 use App\Http\Controllers\UserController;
+use App\Models\portfoliotitle;
+use App\Models\servicetitle;
+use App\Models\testimonialtitle;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +39,18 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/admin/hero', [HeroController::class, 'index'])->name('hero.index');
     Route::post('/admin/hero', [HeroController::class, 'store'])->name('hero.store');
+
+    Route::get('/admin/servicetitle', [ServicetitleController::class, 'index'])->name('servicetitle.index');
+    Route::post('/admin/servicetitle', [ServicetitleController::class, 'store'])->name('servicetitle.store');
+
+    Route::get('/admin/testimonialtitle', [TestimonialtitleController::class, 'index'])->name('testimonailtitle.index');
+    Route::post('/admin/testimonialtitle', [TestimonialtitleController::class, 'store'])->name('testimonailtitle.store');
+
+    Route::get('/admin/portfoliotitle', [PortfoliotitleController::class, 'index'])->name('portfoliotitle.index');
+    Route::post('/admin/portfoliotitle', [PortfoliotitleController::class, 'store'])->name('portfoliotitle.store');
+
+    Route::get('/admin/producttittle', [ProducttitleController::class, 'index'])->name('producttitle.index');
+    Route::post('/admin/producttittle', [ProducttitleController::class, 'store'])->name('producttitle.store');
 
     Route::get('/admin/about', [AboutController::class, 'index'])->name('about.index');
     Route::post('/admin/about', [AboutController::class, 'store'])->name('about.store');

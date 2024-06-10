@@ -36,9 +36,9 @@ class HeroController extends Controller
         // Check if a hero exists
         if (!$request->hero_id) {
 
-            $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif';
         } else {
-            $rules['logo'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['logo'] = 'nullable|mimes:jpeg,png,jpg,gif';
         }
 
         // Perform validation

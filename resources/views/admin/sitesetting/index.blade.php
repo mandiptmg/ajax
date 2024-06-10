@@ -36,6 +36,8 @@
             <div class="heading-layout1">
                 <div class="item-title">
                     <h3>Site Setting</h3>
+                <div id="result"></div>
+
                 </div>
                 <div id="result"></div>
             </div>
@@ -65,25 +67,13 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="form-group">
-                            <label class="form-control-label">Contact No.</label>
-                            <input class="form-control" type="text" value="{{ $sitesetting->contanct ?? '' }}" name="contanct">
-                            @error('contanct')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
 
-                    <div class="col-sm-12 col-lg-6">
-                        <div class="form-group">
-                            <label class="form-control-label">SMS Contact No. (optional)</label>
-                            <input class="form-control" type="text" value="{{ $sitesetting->contacttwo ?? '' }}" name="contacttwo">
+                  
+                            <input class="form-control" type="hidden" value="{{ $sitesetting->contacttwo ?? '' }}" name="contacttwo">
                             @error('contacttwo')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
-                        </div>
-                    </div>
+                      
 
                     <div class="col-sm-12 col-lg-6">
                         <div class="form-group">
@@ -104,6 +94,16 @@
                             @endif
 
 
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-12 col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label">Contact No.</label>
+                            <input class="form-control" type="text" value="{{ $sitesetting->contanct ?? '' }}" name="contanct">
+                            @error('contanct')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -177,6 +177,8 @@
                         });
                     } else {
                         $('#result').text(response.message).addClass('btn btn-success');
+                        $('form')[0].reset();
+                        location.reload();
                         // Reload the section of the page with updated data
                         $.get(window.location.href, function(data) {
                             var newContent = $(data).find('#heroId').html();

@@ -136,14 +136,11 @@
 
                         </li>
                         <li class="nav-item">
-                            @canany([
-                            'create site setting',
-                            'view site setting',
-                            'update site setting',
-                            'delete site setting',
+                            @can([
+                            'create site setting'
                             ])
                             <a href="{{url('/admin/sitesetting')}}" class="nav-link"><i class="fa fa-cog"></i><span>Site Setting</span></a>
-                            @endcanany
+                            @endcan
                         </li>
 
                         <li class="nav-item">
@@ -151,6 +148,39 @@
 
                             <a href="{{url('admin/headers')}}" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Header</span></a>
                             @endcan
+                        </li>
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Home title</span></a>
+                            <ul class="nav sub-group-menu">
+
+                                <li class="nav-item">
+                                    @canany(['create service'])
+                                    <a href="{{url('/admin/servicetitle')}}" class="nav-link"><i class="fas fa-angle-right"></i>services section</a>
+                                    @endcanany
+                                </li>
+                                <li class="nav-item">
+                                    @canany([ 'create portfolio'])
+                                    <a href="{{url('/admin/portfoliotitle')}}" class="nav-link"><i class="fas fa-angle-right"></i>portfolio section</a>
+
+                                    @endcanany
+                                </li>
+                                <li class="nav-item">
+                                    @canany(['create testimonial'])
+
+                                    <a href="{{url('/admin/testimonialtitle')}}" class="nav-link"><i class="fas fa-angle-right"></i>testimonial section</a>
+
+                                    @endcanany
+                                </li>
+                                <li class="nav-item"> @canany([
+                                    'create product',
+
+                                    ])
+                                    <a href="{{url('/admin/producttittle')}}" class="nav-link"><i  class="fas fa-angle-right"></i><span>Product section</span></a>
+                                    @endcanany
+
+                                </li>
+
+                            </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Home pages</span></a>
@@ -188,6 +218,8 @@
 
                                     @endcanany
                                 </li>
+
+
 
                             </ul>
                         </li>

@@ -9,6 +9,11 @@ class SitesettingController extends Controller
 
 {
 
+    public function __construct()
+    {
+        $this->middleware('permission:create site setting', ['only' => ['index', 'store']]);
+    }
+
 
     public function index()
 
