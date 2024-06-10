@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\testimonialtitle;
 use Illuminate\Http\Request;
 
-class testimonialtitleController extends Controller
+class TestimonialtitleController extends Controller
 {
     public function index()
 

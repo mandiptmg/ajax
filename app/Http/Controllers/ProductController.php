@@ -233,7 +233,7 @@ class ProductController extends Controller
                     $image_full_name = $image_name . '.' . $ext;
                     $upload_path = public_path('product_images/');
                     $file->move($upload_path, $image_full_name);
-                    $uploadedImages[] = 'product_images/' . $image_full_name;
+                    $uploadedImages[] = $image_full_name;
                 }
                 $product->image = implode('|', $uploadedImages);
             }

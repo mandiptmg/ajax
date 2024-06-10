@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\sitesetting;
 use Illuminate\Http\Request;
 
-class sitesettingController extends Controller
+class SitesettingController extends Controller
 {
     public function index()
     {

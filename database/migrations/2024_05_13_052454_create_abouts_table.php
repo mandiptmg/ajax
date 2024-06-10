@@ -17,16 +17,10 @@ return new class extends Migration
             $table->string('subtitle');
             $table->text('description');
             $table->string('image');
-            $table->string('icon1');
-            $table->string('icon2');
-            $table->string('icon3');
-            $table->string('icon4');
-            $table->string('icon5');
             $table->string('title_mission'); // Adjusted to use underscores for consistency
             $table->text('description_mission');
             $table->string('title_vision');
             $table->text('description_vision');
-            $table->string('why_us');
             $table->text('description_why');
             $table->string('title_support');
             $table->text('description_support');

@@ -12,7 +12,7 @@ use App\Http\Controllers\ProducttitleController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServicetitleController;
-use App\Http\Controllers\sitesettingController;
+use App\Http\Controllers\SitesettingController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\TestimonialtitleController;
 use App\Http\Controllers\UserController;
@@ -33,8 +33,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
 
-    Route::get('/admin/sitesetting', [sitesettingController::class, 'index'])->name('sitesetting.index');
-    Route::post('/admin/sitesetting/store', [sitesettingController::class, 'store'])->name('sitesetting.store');
+    Route::get('/admin/sitesetting', [SitesettingController::class, 'index'])->name('sitesetting.index');
+    Route::post('/admin/sitesetting/store', [SitesettingController::class, 'store'])->name('sitesetting.store');
 
 
     Route::get('/admin/hero', [HeroController::class, 'index'])->name('hero.index');

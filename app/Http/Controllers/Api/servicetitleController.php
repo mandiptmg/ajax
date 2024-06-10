@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\servicetitle;
 use Illuminate\Http\Request;
 
-class servicetitleController extends Controller
+class ServicetitleController extends Controller
 {
     public function index()
 

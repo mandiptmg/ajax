@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\producttitle;
 use Illuminate\Http\Request;
 
-class producttitleController extends Controller
+class ProducttitleController extends Controller
 {
     //
     public function index()

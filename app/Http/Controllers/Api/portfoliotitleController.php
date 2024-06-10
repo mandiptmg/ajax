@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\portfoliotitle;
 use Illuminate\Http\Request;
 
-class portfoliotitleController extends Controller
+class PortfoliotitleController extends Controller
 {
     //
     public function index()

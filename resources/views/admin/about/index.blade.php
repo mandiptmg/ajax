@@ -50,7 +50,7 @@
                         <div id="descriptionError"></div>
                     </div>
 
-                    <div class="col-lg-6 col-12 form-group">
+                    <!-- <div class="col-lg-6 col-12 form-group">
                         <label>Icon mission</label>
                         <input type="text" placeholder="" id="icon1" value="{{old('icon1',$abouts->icon1 ?? '')}}" class="form-control" name="icon1">
                         <div id="icon1Error"></div>
@@ -78,7 +78,7 @@
                         <label>Icon code</label>
                         <input type="text" placeholder="" id="icon5" value="{{old('icon5',$abouts->icon5 ?? '')}}" class="form-control" name="icon5">
                         <div id="icon5Error"></div>
-                    </div>
+                    </div> -->
 
                     <div class="col-lg-6 col-12 form-group">
                         <label>Mission Title</label>
@@ -102,12 +102,6 @@
                         <label>Vision Description</label>
                         <textarea rows="9" cols="10" id="description_vision" class="form-control tinymce" name="description_vision">{{old('description_vision', $abouts->description_vision ?? '')}}</textarea>
                         <div id="description_visionError"></div>
-                    </div>
-
-                    <div class="col-lg-6 col-12 form-group">
-                        <label>Why Us Title</label>
-                        <input type="text" placeholder="" id="why_us" value="{{old('why_us',$abouts->why_us ?? '')}}" class="form-control" name="why_us">
-                        <div id="why_usError"></div>
                     </div>
 
                     <div class="col-lg-12 col-12 form-group">
@@ -230,7 +224,6 @@
                         });
                     } else {
                         $('#result').text(response.message).addClass('btn btn-success').fadeOut(5000);
-                        $('#myForm')[0].reset();
                         $.get(window.location.href, function(data) {
                             var newContent = $(data).find('article #aboutId').html();
                             $('article #aboutId').html(newContent);

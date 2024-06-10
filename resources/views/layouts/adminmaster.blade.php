@@ -143,12 +143,6 @@
                             @endcan
                         </li>
 
-                        <li class="nav-item">
-                            @can(['create header'])
-
-                            <a href="{{url('admin/headers')}}" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Header</span></a>
-                            @endcan
-                        </li>
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Home title</span></a>
                             <ul class="nav sub-group-menu">
