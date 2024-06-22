@@ -67,6 +67,11 @@
                                 <td>{{ $policy->description }}</td>
                                 <td>
                                     <div class="d-flex flex-row gap-4 font-semibold">
+                                        <div class="btn btn-info btn-lg" >
+                                            @can('update policy')
+                                            <a class="text-white" href="{{ route('policy.show', ['id' => $policy->id]) }}">View </a>
+                                            @endcan
+                                        </div>
                                         <div class="px-1">
                                             @can('update policy')
                                             <button type="button" class="btn btn-primary btn-lg" onclick="editPolicy('{{ $policy->id }}', '{{ $policy->title }}', '{{ $policy->description }}')" data-toggle="modal" data-target="#editModal">

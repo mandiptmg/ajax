@@ -83,6 +83,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('admin')->group(function () {
         Route::get('policy', [PolicyController::class, 'index'])->name('policy.index');
         Route::post('policy', [PolicyController::class, 'store'])->name('policy.store');
+        Route::get('policy/{id}', [PolicyController::class, 'show'])->name('policy.show');
         Route::put('policy/{id}', [PolicyController::class, 'update'])->name('policy.update');
         Route::delete('policy/delete/{id}', [PolicyController::class, 'destroy'])->name('policy.destroy');
     });

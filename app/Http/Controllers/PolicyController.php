@@ -55,6 +55,13 @@ class PolicyController extends Controller
         return response()->json(['status' => 200, 'message' => 'Data stored successfully!']);
     }
 
+    public function show($id)
+{
+    $policy = Policy::findOrFail($id);
+
+    return view('admin.policy.show', compact('policy'));
+}
+
     /**
      * Update the specified resource in storage.
      */
@@ -82,6 +89,7 @@ class PolicyController extends Controller
 
         return response()->json(['status' => 200, 'message' => 'Data updated successfully!']);
     }
+
 
     /**
      * Remove the specified resource from storage.
