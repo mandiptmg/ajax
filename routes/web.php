@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\PermissionCategoryController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\PortfoliotitleController;
 use App\Http\Controllers\ProductController;
@@ -16,9 +16,6 @@ use App\Http\Controllers\SitesettingController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\TestimonialtitleController;
 use App\Http\Controllers\UserController;
-use App\Models\portfoliotitle;
-use App\Models\servicetitle;
-use App\Models\testimonialtitle;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -60,12 +57,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/admin/services/{id}', [ServiceController::class, 'update'])->name('service.update');
     Route::delete('/admin/services/delete/{id}', [ServiceController::class, 'destroy'])->name('service.destroy');
 
-
-    Route::get('/admin/headers', [HeaderController::class, 'index'])->name('header.index');
-    Route::post('/admin/headers', [HeaderController::class, 'store'])->name('header.store');
-    Route::put('/admin/headers/{id}', [HeaderController::class, 'update'])->name('header.update');
-    Route::delete('/admin/headers/delete/{id}', [HeaderController::class, 'destroy'])->name('header.destroy');
-
     Route::get('/admin/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
     Route::post('/admin/portfolios', [PortfolioController::class, 'store'])->name('portfolio.store');
     Route::put('/admin/portfolios/{id}', [PortfolioController::class, 'update'])->name('portfolio.update');
@@ -88,6 +79,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('products/delete/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
         Route::post('products/remove-feature', [ProductController::class, 'removeFeature'])->name('features.remove');
     });
+
+    Route::prefix('admin')->group(function () {
+        Route::get('policy', [PolicyController::class, 'index'])->name('policy.index');
+        Route::post('policy', [PolicyController::class, 'store'])->name('policy.store');
+        Route::put('policy/{id}', [PolicyController::class, 'update'])->name('policy.update');
+        Route::delete('policy/delete/{id}', [PolicyController::class, 'destroy'])->name('policy.destroy');
+    });
+
 
     Route::prefix('admin')->group(function () {
         Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');

@@ -8,7 +8,7 @@
             <li>
                 <a href="index.html">Home</a>
             </li>
-            <li>Services section</li>
+            <li>Permission section</li>
         </ul>
     </div>
 

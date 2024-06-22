@@ -169,7 +169,7 @@
                                     'create product',
 
                                     ])
-                                    <a href="{{url('/admin/producttittle')}}" class="nav-link"><i  class="fas fa-angle-right"></i><span>Product section</span></a>
+                                    <a href="{{url('/admin/producttittle')}}" class="nav-link"><i class="fas fa-angle-right"></i><span>Product section</span></a>
                                     @endcanany
 
                                 </li>
@@ -257,6 +257,16 @@
 
 
                             </ul>
+                        </li>
+                        <li class="nav-item"> @canany([
+                            'create policy',
+                            'view policy',
+                            'update policy',
+                            'delete policy',
+                            ])
+                            <a href="{{url('/admin/policy')}}" class="nav-link"><i class="flaticon-multiple-users-silhouette"></i><span>Policy</span></a>
+                            @endcanany
+
                         </li>
 
                     </ul>

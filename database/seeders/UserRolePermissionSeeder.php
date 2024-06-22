@@ -61,7 +61,11 @@ class UserRolePermissionSeeder extends Seeder
             'update header',
             'delete header',
             'create site setting',
-            
+            'create policy',
+            'view policy',
+            'update policy',
+            'delete policy',
+
         ];
 
         // Create or get permissions
@@ -109,8 +113,12 @@ class UserRolePermissionSeeder extends Seeder
             'update testimonial',
             'delete testimonial',
             'create site setting',
-            
-            
+            'create policy',
+            'view policy',
+            'update policy',
+            'delete policy',
+
+
 
 
         ];
@@ -120,7 +128,7 @@ class UserRolePermissionSeeder extends Seeder
         $superAdminUser = User::firstOrCreate([
             'email' => 'creationsoftnepal158@gmail.com',
         ], [
-            'name' => 'Mandip Tamang',
+            'name' => 'Robin Maharjan',
             'email' => 'creationsoftnepal158@gmail.com',
             'password' => Hash::make('creationsoftnepal159'),
         ]);
