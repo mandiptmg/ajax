@@ -114,18 +114,18 @@ class AboutController extends Controller
             $about->image1 = implode('|', $uploadedImages);
             $about->title = $request->title;
             $about->subtitle = $request->subtitle;
-            $about->description = strip_tags($request->description);
+            $about->description = $request->description;
             $about->title_mission = $request->title_mission;
-            $about->description_mission = strip_tags($request->description_mission);
+            $about->description_mission = $request->description_mission;
             $about->title_vision = $request->title_vision;
-            $about->description_vision = strip_tags($request->description_vision);
-            $about->description_why = strip_tags($request->description_why);
+            $about->description_vision = $request->description_vision;
+            $about->description_why = $request->description_why;
             $about->title_support = $request->title_support;
-            $about->description_support = strip_tags($request->description_support);
+            $about->description_support = $request->description_support;
             $about->title_team = $request->title_team;
-            $about->description_team = strip_tags($request->description_team);
+            $about->description_team = $request->description_team;
             $about->title_code = $request->title_code;
-            $about->description_code = strip_tags($request->description_code);
+            $about->description_code = $request->description_code;
             // $about->image = $request->image;
             if ($request->hasFile('logo')) {
 

@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Policy extends Model
 {
     use HasFactory;
+    public function getShortDescriptionAttribute(){
+        return substr(($this->attributes["description"]),0,50).'..';
+    }
 }

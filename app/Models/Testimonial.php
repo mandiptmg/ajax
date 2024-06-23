@@ -9,7 +9,8 @@ class Testimonial extends Model
 {
     use HasFactory;
 
-    public function getShortDescriptionAttribute(){
-        return substr(strip_tags($this->attributes["description"]),0,20).'..';
+    public function getShortDescriptionAttribute()
+    {
+        return substr(($this->attributes["description"]), 0, 20) . '..';
     }
 }

@@ -104,7 +104,7 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
-                                    <input type="hidden" name="testimonial_id" id="testimonial">
+                                    <input type="hidden" name="testimonial_id" id="testimonial_id">
 
                                     <div class="col-lg-6 col-12 form-group">
                                         <label>Product Name</label>
@@ -134,7 +134,7 @@
                                     </div>
                                     <div class="col-lg-12 col-12 form-group">
                                         <label>Description</label>
-                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description1' class="form-control tinymce" name="description">{{old('description')}}</textarea>
+                                        <textarea rows="9" cols="10" type="text" placeholder="Description..." id='description1' class="form-control tinymce" name="description"></textarea>
                                         <div id="descriptionError"></div>
                                     </div>
 
@@ -211,13 +211,14 @@
                             <td>{{ $testimonial->product_name }}</td>
                             <td>{{ $testimonial->name }}</td>
                             <td>{{ $testimonial->occupation }}</td>
-                            <td>{{ $testimonial->ShortDescription }}</td>
+                            <td> {!! $testimonial->ShortDescription !!}
+                            </td>
                             <td>
                                 <div class="d-flex flex-row gap-4 font-semibold">
                                     <div class="px-1">
                                         @can('update testimonial')
 
-                                        <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($testimonial->id) }}','{{ addslashes($testimonial->product_name) }}', '{{ addslashes($testimonial->name) }}', '{{ addslashes($testimonial->occupation) }}', '{{addslashes($testimonial->description) }}', '{{ addslashes($testimonial->image) }}')" data-toggle="modal" data-target="#editModal">
+                                        <button type="button" class="btn btn-primary btn-lg" data-testimonial-id="{{ $testimonial->id }}" data-name="{{$testimonial->name }}" data-product_name="{{$testimonial->product_name}}" data-occupation="{{$testimonial->occupation}}" data-description="{{$testimonial->description}}" data-toggle="modal" data-target="#editModal" onclick="editTestimonial(this)" data-toggle="modal" data-target="#editModal">
                                             Edit
                                         </button>
 
@@ -262,13 +263,20 @@
         form.prop('action', address);
     }
 
-    function edit(id, product_name, name, occupation, description, image) {
+    function editTestimonial(button) {
+        var id = button.getAttribute('data-testimonial-id');
+        var product_name = button.getAttribute('data-product_name');
+        var name = button.getAttribute('data-name');
+        var occupation = button.getAttribute('data-occupation');
+        var description = button.getAttribute('data-description');
+
         $('#product_name1').val(product_name);
         $('#name1').val(name);
         $('#occupation1').val(occupation);
-        $('#description1').val(description);
-        $('#testimonial').val(id);
+        $('#testimonial_id').val(id);
         tinymce.get('description1').setContent(description);
+        $('#editModal').modal('show');
+
     }
     $(document).ready(function() {
         $('#editform').submit(function(e) {

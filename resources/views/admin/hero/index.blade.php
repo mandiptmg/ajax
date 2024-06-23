@@ -42,17 +42,27 @@
 
 
                     </div>
+                    <div class="col-lg-6 col-12 form-group">
+                        <label>Video (Optional)</label>
+                        <input type="file" class="form-control-file" id="video" name="video">
+                        <div id="videoError"></div>
+                    </div>
+                    <div class="col-lg-6 col-12 form-group">
+                        <label>URL (Optional)</label>
+                        <input type="text" class="form-control" id="url" name="url" value="{{ old('url', $heroes->url ?? '') }}">
+                        <div id="urlError"></div>
+                    </div>
                     <div class="col-lg-12  col-12 form-group">
                         <label>Description *</label>
                         <textarea rows="9" cols="10" type="text" placeholder="" id='description' class="form-control tinymce" name="description">{{old('description', $heroes->description ?? '' )}}</textarea>
                         <div id="descriptionError"></div>
                     </div>
                     <div class="col-12 form-group mg-t-8">
-                    @can('create hero')
+                        @can('create hero')
 
                         <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
 
-                    @endcan
+                        @endcan
                     </div>
                 </div>
 
@@ -70,6 +80,14 @@
                     <div>
                         {{$heroes->description}}
                     </div>
+                    <div>
+                        {{$heroes->url}}
+                    </div>
+                    <div>
+                        {{$heroes->video}}
+                    </div>
+                 
+
                 </div>
                 <img src="{{asset('uploads/logo/'.$heroes->image)}}" alt="" width="350px" height="350px">
 
@@ -106,6 +124,8 @@
                         $('#titleError').html('');
                         $('#descriptionError').html('');
                         $('#logoError').html('');
+                        $('#videoError').html('');
+                        $('#urlError').html('');
 
                         $.each(response.errors, function(key, err_value) {
                             $('#' + key + 'Error').html('<p class="text-danger">' + err_value + '</p>');

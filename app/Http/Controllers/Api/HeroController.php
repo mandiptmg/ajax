@@ -16,11 +16,23 @@ class HeroController extends Controller
         $hero = Hero::all();
 
         // Map through the hero and append the full image URL
-        $hero = $hero->map(function($hero) {
-            $hero->image_url = url('uploads/logo/' . $hero->image);
-            return $hero->makeHidden(['image']);
-            
+        $heroes = $hero->map(function($hero) {
+            if ($hero->image) {
+                $hero->image_url = url('uploads/logo/' . $hero->image);
+            } else {
+                $hero->image_url = null;
+            }
+        
+            if ($hero->video) {
+                $hero->video_url = url('uploads/video/' . $hero->video);
+            } else {
+                $hero->video_url = null;
+            }
+        
+            // Remove the 'image' and 'video' attributes from the visible properties
+            return $hero->makeHidden(['image', 'video']);
         });
+        
 
         $data = [
             'status' => 200,

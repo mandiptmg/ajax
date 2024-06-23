@@ -27,11 +27,19 @@ class PolicyController extends Controller
         return view('admin.policy.index', compact('policies'));
     }
 
+    private function sanitizeHtml($content)
+    {
+        // Strip out any unwanted tags but keep basic formatting tags
+        $allowedTags = '<p><a><strong><em><ul><ol><li><br><code>';
+        return strip_tags($content, $allowedTags);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'description' => 'required',
@@ -46,21 +54,23 @@ class PolicyController extends Controller
                 'errors' => $validator->errors()
             ]);
         }
+        $cleanedContent = $this->sanitizeHtml($request->description);
+
 
         $policy = new Policy();
         $policy->title = $request->title;
-        $policy->description = strip_tags($request->description);
+        $policy->description = $cleanedContent;
         $policy->save();
 
         return response()->json(['status' => 200, 'message' => 'Data stored successfully!']);
     }
 
     public function show($id)
-{
-    $policy = Policy::findOrFail($id);
+    {
+        $policy = Policy::findOrFail($id);
 
-    return view('admin.policy.show', compact('policy'));
-}
+        return view('admin.policy.show', compact('policy'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -84,7 +94,7 @@ class PolicyController extends Controller
 
         $policy = Policy::findOrFail($id);
         $policy->title = $request->title;
-        $policy->description = strip_tags($request->description);
+        $policy->description = $request->description;
         $policy->save();
 
         return response()->json(['status' => 200, 'message' => 'Data updated successfully!']);

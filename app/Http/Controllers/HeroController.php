@@ -31,14 +31,17 @@ class HeroController extends Controller
         $rules = [
             'title' => 'required',
             'description' => 'required',
+            'url' => 'nullable|url',
         ];
 
         // Check if a hero exists
         if (!$request->hero_id) {
 
             $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif';
+            $rules['video'] = 'nullable|mimes:mp4,avi,mov,wmv'; // Limit video size to 10M
         } else {
             $rules['logo'] = 'nullable|mimes:jpeg,png,jpg,gif';
+            $rules['video'] = 'nullable|mimes:mp4,avi,mov,wmv'; // Limit video size to 10MB
         }
 
         // Perform validation
@@ -46,6 +49,12 @@ class HeroController extends Controller
             'title.required' => 'Title is required',
             'description.required' => 'Description is required',
             'logo.required' => 'Uploaded file must be an image',
+            'title.required' => 'Title is required',
+            'description.required' => 'Description is required',
+            'logo.required' => 'Uploaded file must be an image',
+            'url.url' => 'URL must be a valid URL',
+            'video.mimes' => 'Video must be a file of type: mp4, avi, mov, wmv',
+            'video.max' => 'Video may not be greater',
         ]);
 
 
@@ -60,13 +69,26 @@ class HeroController extends Controller
 
             $hero->title = $request->title;
             $hero->description =strip_tags( $request->description);
-            // $hero->image = $request->image;
-            if ($request->hasFile('logo')) {
-
+           
+             // Handle logo upload
+             if ($request->hasFile('logo')) {
                 $imageName = time() . '.' . $request->file('logo')->getClientOriginalExtension();
                 $request->file('logo')->move(public_path('uploads/logo'), $imageName);
-
                 $hero->image = $imageName; // Assign the image name to the 'image' attribute
+            }
+
+
+             // Handle video upload
+             if ($request->hasFile('video')) {
+                $videoName = time() . '.' . $request->file('video')->getClientOriginalExtension();
+                $request->file('video')->move(public_path('uploads/video'), $videoName);
+                $hero->video = $videoName; // Assign the video name to the 'video' attribute
+            }
+
+
+            // Handle URL
+            if ($request->has('url')) {
+                $hero->url = $request->url; // Assign the URL to the 'url' attribute
             }
 
 
