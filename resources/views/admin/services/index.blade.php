@@ -209,11 +209,15 @@
                                     <div class="d-flex flex-row gap-4 font-semibold">
                                         <div class="px-1">
                                             @can('update service')
-
-
-                                            <button type="button" class="btn btn-primary btn-lg" onclick="edit('{{ addslashes($service->id) }}', '{{ addslashes($service->title) }}', '{{ ($service->description) }}','{{ addslashes($service->icon) }}' )" data-toggle="modal" data-target="#editModal">
-                                                Edit
-                                            </button>
+                                            <button type="button" class="btn btn-primary btn-lg" 
+                                                        data-service-id="{{ $service->id }}" 
+                                                        data-title="{{$service->title }}" 
+                                                        data-icon="{{$service->icon}}"
+                                                        data-description="{{$service->description}}" 
+                                                        data-toggle="modal" data-target="#editModal"
+                                                        onclick="editService(this)">
+                                                    Edit
+                                                </button>
 
                                             @endcan
 
@@ -258,17 +262,25 @@
         form.prop('action', address);
     }
 
-    function edit(id, title, description, icon) {
-        $('#title').val(title);
-        $('#description').val(description);
-        $('#icon').val(icon);
-        $('#service_id').val(id);
-        tinymce.get('description').setContent(description);
-        console.log(id, title, description, icon);
+    function editService(button) {
+    var serviceId = button.getAttribute('data-service-id');
+    var title = button.getAttribute('data-title');
+    var icon = button.getAttribute('data-icon');
+    var description = button.getAttribute('data-description');
+
+    // Set the values in the modal form
+    document.getElementById('service_id').value = serviceId;
+    document.getElementById('title').value = title;
+    document.getElementById('icon').value = icon;
+    tinymce.get('description').setContent(description);
+
+    // Optionally, you can also open the modal here if needed
+    $('#editModal').modal('show');
+}
 
 
 
-    }
+
     $(document).ready(function() {
         $('#editform').submit(function(e) {
             e.preventDefault();

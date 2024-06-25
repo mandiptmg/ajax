@@ -219,14 +219,7 @@
             var address = "{{url('admin/policy/delete/')}}" + '/' + id;
             form.prop('action', address);
         }
-        // Function to populate data in edit modal
-        // function editPolicy(id, title, description) {
-        //     $('#editTitle').val(title); // Set the title input field value
-        //     $('#editDescription').val(description); // Set the description textarea value
-        //     $('#editPolicyId').val(id); // Set the hidden policy_id input field value
-        //     tinyMCE.activeEditor.tinymce.get('editDescription').setContent(description);
-
-        // }
+      
         function editPolicy(button) {
     var policyId = button.getAttribute('data-policy-id');
     var title = button.getAttribute('data-title');

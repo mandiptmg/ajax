@@ -13,7 +13,7 @@ class HeroController extends Controller
     {
         $this->middleware('permission:create hero', ['only' => ['index', 'store']]);
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -36,27 +36,23 @@ class HeroController extends Controller
 
         // Check if a hero exists
         if (!$request->hero_id) {
-
-            $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif';
-            $rules['video'] = 'nullable|mimes:mp4,avi,mov,wmv'; // Limit video size to 10M
+            $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif|max:2048'; // Max size 2MB
+            $rules['video'] = 'nullable|mimes:mp4,avi,mov,wmv';
         } else {
-            $rules['logo'] = 'nullable|mimes:jpeg,png,jpg,gif';
-            $rules['video'] = 'nullable|mimes:mp4,avi,mov,wmv'; // Limit video size to 10MB
+            $rules['logo'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048'; // Max size 2MB
+            $rules['video'] = 'nullable|mimes:mp4,avi,mov,wmv';
         }
 
-        // Perform validation
         $validator = validator($request->all(), $rules, [
             'title.required' => 'Title is required',
             'description.required' => 'Description is required',
             'logo.required' => 'Uploaded file must be an image',
-            'title.required' => 'Title is required',
-            'description.required' => 'Description is required',
-            'logo.required' => 'Uploaded file must be an image',
+            'logo.mimes' => 'Logo must be a file of type: jpeg, png, jpg, gif',
+            'logo.max' => 'Logo may not be greater than 2MB',
             'url.url' => 'URL must be a valid URL',
             'video.mimes' => 'Video must be a file of type: mp4, avi, mov, wmv',
-            'video.max' => 'Video may not be greater',
+            'video.max' => 'Video may not be greater than 10MB',
         ]);
-
 
         if ($validator->fails()) {
             return response()->json([
@@ -68,18 +64,18 @@ class HeroController extends Controller
             $hero = $request->hero_id ? Hero::findOrFail($request->hero_id) : new Hero();
 
             $hero->title = $request->title;
-            $hero->description =strip_tags( $request->description);
-           
-             // Handle logo upload
-             if ($request->hasFile('logo')) {
+            $hero->description = strip_tags($request->description);
+
+            // Handle logo upload
+            if ($request->hasFile('logo')) {
                 $imageName = time() . '.' . $request->file('logo')->getClientOriginalExtension();
                 $request->file('logo')->move(public_path('uploads/logo'), $imageName);
                 $hero->image = $imageName; // Assign the image name to the 'image' attribute
             }
 
 
-             // Handle video upload
-             if ($request->hasFile('video')) {
+            // Handle video upload
+            if ($request->hasFile('video')) {
                 $videoName = time() . '.' . $request->file('video')->getClientOriginalExtension();
                 $request->file('video')->move(public_path('uploads/video'), $videoName);
                 $hero->video = $videoName; // Assign the video name to the 'video' attribute
