@@ -37,10 +37,10 @@ class HeroController extends Controller
         // Check if a hero exists
         if (!$request->hero_id) {
             $rules['logo'] = 'required|mimes:jpeg,png,jpg,gif|max:2048'; // Max size 2MB
-            $rules['video'] = 'nullable|mimes:mp4,avi,mov,wmv';
+            $rules['video'] = 'nullable';
         } else {
             $rules['logo'] = 'nullable|mimes:jpeg,png,jpg,gif|max:2048'; // Max size 2MB
-            $rules['video'] = 'nullable|mimes:mp4,avi,mov,wmv';
+            $rules['video'] = 'nullable';
         }
 
         $validator = validator($request->all(), $rules, [
@@ -51,7 +51,7 @@ class HeroController extends Controller
             'logo.max' => 'Logo may not be greater than 2MB',
             'url.url' => 'URL must be a valid URL',
             'video.mimes' => 'Video must be a file of type: mp4, avi, mov, wmv',
-            'video.max' => 'Video may not be greater than 10MB',
+            'video.max' => 'Video may not be greater than 100MB',
         ]);
 
         if ($validator->fails()) {
