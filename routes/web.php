@@ -23,12 +23,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+
+
 Route::group(['middleware' => ['auth']], function () {
     // Protected routes go here
     Route::get('/admin/dashboard', function () {
         return view('index');
     });
-
 
     Route::get('/admin/sitesetting', [SitesettingController::class, 'index'])->name('sitesetting.index');
     Route::post('/admin/sitesetting/store', [SitesettingController::class, 'store'])->name('sitesetting.store');
@@ -122,3 +123,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('permission-categorys/delete/{id}', [PermissionCategoryController::class, 'destroy']);
     });
 });
+
+// Route to serve static index.html
+Route::get('/{any}', function () {
+    return response()->file(public_path('index.html'));
+})->where('any','.*');
